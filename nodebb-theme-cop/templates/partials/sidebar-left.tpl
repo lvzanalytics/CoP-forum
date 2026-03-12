@@ -4,8 +4,9 @@
 		<a href="{relative_path}/" class="d-flex align-items-center gap-2 text-decoration-none" style="min-width: 0;">
 			{{{ if brand:logo }}}
 			<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="cop-sidebar-logo" />
-			{{{ else }}}
-			<img src="{relative_path}/logo.JPG" alt="{config.siteTitle}" class="cop-sidebar-logo" />
+			{{{ end }}}
+			{{{ if !brand:logo }}}
+			<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="cop-sidebar-logo" />
 			{{{ end }}}
 		</a>
 	</div>

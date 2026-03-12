@@ -11,7 +11,8 @@
     "public/cop.js"
   ],
   "staticDirs": {
-    "inter": "node_modules/@fontsource/inter/files"
+    "inter": "node_modules/@fontsource/inter/files",
+    "cop": "public"
   },
   "languages": "languages"
 }

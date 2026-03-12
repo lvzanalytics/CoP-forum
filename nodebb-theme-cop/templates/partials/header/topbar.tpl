@@ -24,18 +24,99 @@
 
 	<div class="cop-toolbar">
 		{{{ if config.loggedIn }}}
-		<a href="{relative_path}/notifications" class="toolbar-btn position-relative" title="[[global:notifications]]">
-			<i class="fa fa-bell"></i>
-			<span component="notifications/count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {{{ if !unreadCount.notification }}}hidden{{{ end }}}" style="font-size: 0.6rem;">{unreadCount.notification}</span>
-		</a>
-		<a href="{relative_path}/chats" class="toolbar-btn position-relative" title="[[global:header.chats]]">
-			<i class="fa fa-envelope"></i>
-			<span component="chat/icon/unread" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {{{ if !unreadCount.chat }}}hidden{{{ end }}}" style="font-size: 0.6rem;">{unreadCount.chat}</span>
-		</a>
+		<!-- Notifications dropdown -->
+		<div component="notifications" class="dropdown" style="z-index: 1050;">
+			<a data-bs-toggle="dropdown" href="#" role="button" class="toolbar-btn position-relative" aria-haspopup="true" aria-expanded="false" aria-label="[[global:header.notifications]]">
+				<i component="notifications/icon" class="fa {{{ if unreadCount.notification}}}fa-bell{{{ else }}}fa-bell-o{{{ end }}}" data-content="{unreadCount.notification}"></i>
+				<span component="notifications/count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {{{ if !unreadCount.notification }}}hidden{{{ end }}}" style="font-size: 0.55rem; padding: 2px 4px;">{unreadCount.notification}</span>
+			</a>
+			<ul class="notifications-dropdown dropdown-menu dropdown-menu-end p-1 shadow" style="z-index: 1060; width: 360px; max-height: 500px; overflow-y: auto;" role="menu">
+				<li>
+					<div component="notifications/list" class="list-container notification-list overscroll-behavior-contain pe-1 ff-base">
+						<div class="mb-2 p-1">
+							<div class="d-flex gap-1 justify-content-between">
+								<div class="d-flex gap-2 flex-grow-1 placeholder-wave">
+									<div class="placeholder" style="width: 32px; height: 32px;"></div>
+									<div class="flex-grow-1">
+										<div class="d-flex flex-column">
+											<div class="text-sm">
+												<span class="placeholder placeholder-sm col-4"></span>
+												<span class="placeholder placeholder-sm col-6"></span>
+											</div>
+											<div class="text-xs">
+												<div class="placeholder placeholder-xs col-6"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div>
+									<button class="mark-read btn btn-ghost btn-sm d-flex align-items-center justify-content-center p-1" style="width: 1.5rem; height: 1.5rem;">
+										<i class="unread fa fa-2xs fa-circle text-primary"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="dropdown-divider"></li>
+				<li>
+					<div class="d-flex justify-content-center gap-1 flex-wrap">
+						<a role="button" href="#" class="btn btn-sm btn-light mark-all-read flex-fill text-nowrap text-truncate ff-secondary"><i class="fa fa-check-double"></i> [[notifications:mark-all-read]]</a>
+						<a class="btn btn-sm btn-primary flex-fill text-nowrap text-truncate ff-secondary" href="{relative_path}/notifications"><i class="fa fa-list"></i> [[notifications:see-all]]</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Chats dropdown -->
+		{{{ if canChat }}}
+		<div class="dropdown" style="z-index: 1050;">
+			<a data-bs-toggle="dropdown" href="#" role="button" class="toolbar-btn position-relative" component="chat/dropdown" aria-haspopup="true" aria-expanded="false" aria-label="[[global:header.chats]]">
+				<i component="chat/icon" class="fa {{{ if unreadCount.chat}}}fa-comment{{{ else }}}fa-comment-o{{{ end }}}" data-content="{unreadCount.chat}"></i>
+				<span component="chat/count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {{{ if !unreadCount.chat }}}hidden{{{ end }}}" style="font-size: 0.55rem; padding: 2px 4px;">{unreadCount.chat}</span>
+			</a>
+			<ul class="chats-dropdown dropdown-menu dropdown-menu-end p-1 shadow" style="z-index: 1060; width: 360px; max-height: 500px; overflow-y: auto;" role="menu">
+				<li>
+					<div component="chat/list" class="list-container chats-list overscroll-behavior-contain p-0 pe-1 ff-base">
+						<div class="rounded-1">
+							<div class="d-flex gap-1 justify-content-between">
+								<div class="dropdown-item p-2 d-flex gap-2 placeholder-wave">
+									<div class="main-avatar">
+										<div class="placeholder" style="width: 32px; height: 32px;"></div>
+									</div>
+									<div class="d-flex flex-grow-1 flex-column w-100">
+										<div class="text-xs"><div class="placeholder col-3"></div></div>
+										<div class="text-sm"><div class="placeholder col-11"></div></div>
+										<div class="text-xs"><div class="placeholder col-4"></div></div>
+									</div>
+								</div>
+								<div>
+									<button class="mark-read btn btn-ghost btn-sm d-flex align-items-center justify-content-center p-1" style="width: 1.5rem; height: 1.5rem;">
+										<i class="unread fa fa-2xs fa-circle text-primary"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="dropdown-divider"></li>
+				<li>
+					<div class="d-flex justify-content-center gap-1 flex-wrap">
+						<a component="chats/mark-all-read" role="button" href="#" class="btn btn-sm btn-light mark-all-read flex-fill text-nowrap text-truncate ff-secondary"><i class="fa fa-check-double"></i> [[modules:chat.mark-all-read]]</a>
+						<a class="btn btn-sm btn-primary flex-fill text-nowrap text-truncate ff-secondary" href="{relative_path}/user/{user.userslug}/chats"><i class="fa fa-list"></i> [[modules:chat.see-all]]</a>
+					</div>
+				</li>
+			</ul>
+		</div>
 		{{{ end }}}
+		{{{ end }}}
+
+		<!-- Search -->
 		<a href="{relative_path}/search" class="toolbar-btn" title="[[global:search]]">
 			<i class="fa fa-search"></i>
 		</a>
+
+		<!-- User menu dropdown -->
 		{{{ if config.loggedIn }}}
 		<div class="dropdown" style="z-index: 1050;">
 			<a component="header/avatar" id="user_dropdown" href="#" role="button" class="toolbar-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="[[user:user-menu]]">

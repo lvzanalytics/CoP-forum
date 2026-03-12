@@ -78,6 +78,36 @@
     align-items: center;
     gap: 4px;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1050;
+
+    // All dropdowns in the toolbar must sit above everything
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      background-color: $content-bg;
+      border: 1px solid $border-medium;
+      color: $text-primary;
+      z-index: 1060;
+
+      .dropdown-item {
+        color: $text-primary;
+
+        &:hover, &:focus {
+          background-color: $content-bg-hover;
+        }
+      }
+
+      .dropdown-divider {
+        border-color: $border-subtle;
+      }
+
+      .dropdown-header {
+        color: $text-secondary;
+      }
+    }
 
     .toolbar-btn {
       width: 32px;
