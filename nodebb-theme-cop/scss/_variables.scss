@@ -8,15 +8,15 @@
 // Orange (flag): #E65100 / #F57C00
 // Gold (sun/ribbon): #F9A825 / #FBC02D
 
-// Shell (sidebar + topbar) — dark green from logo
-$shell-bg:        #14311C;    // Deep ministry green
-$shell-bg-light:  #1B4226;    // Slightly lighter for hover
-$shell-bg-hover:  #22522F;    // Hover states
-$shell-bg-active: #2A6339;    // Active/selected
-$shell-text:      #C8DBC8;    // Muted green-tinted text
+// Shell (sidebar + topbar) — logo shield green
+$shell-bg:        #1B5E20;    // Logo shield green — visible green, still dark enough for white text
+$shell-bg-light:  #216B27;    // Slightly lighter variant
+$shell-bg-hover:  #2E7D32;    // Hover states — brighter green
+$shell-bg-active: #1A5E1F;    // Active/selected — subtle darkening from base
+$shell-text:      #D4E8D4;    // Muted green-tinted text
 $shell-text-bright: #FFFFFF;  // High emphasis on dark
-$shell-text-dim:  #7A9A7A;    // Tertiary text on dark
-$shell-border:    rgba(255, 255, 255, 0.08);
+$shell-text-dim:  #8DB58D;    // Tertiary text on dark
+$shell-border:    rgba(255, 255, 255, 0.12);
 
 // Content area — clean white
 $content-bg:      #FFFFFF;

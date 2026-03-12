@@ -54,7 +54,7 @@
       cursor: pointer;
 
       &:hover .section-label {
-        color: $shell-text-bright;
+        color: $accent-gold;
       }
 
       .section-label {
@@ -62,7 +62,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        color: $shell-text-dim;
+        color: rgba($accent-gold, 0.7);
         transition: color $transition-fast;
       }
     }
@@ -98,8 +98,8 @@
       }
 
       &.active {
-        background-color: $shell-bg-active;
-        color: $shell-text-bright;
+        background-color: rgba($accent-gold, 0.15);
+        color: $accent-gold;
       }
 
       .channel-hash {
