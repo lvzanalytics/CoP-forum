@@ -1,0 +1,76 @@
+// ============================================
+// Core Layout — Discord/Slack 3-pane layout
+// ============================================
+
+// Override Harmony's default layout completely
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.layout-container {
+  display: flex;
+  height: 100vh;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+// Main content area
+#panel {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 0 !important;
+  gap: 0 !important;
+  min-width: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+// Content scroll area
+#content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  height: calc(100vh - #{$topbar-height});
+}
+
+// Hide the brand section (we have our own topbar)
+.brand-container {
+  display: none !important;
+}
+
+// Widget overrides — flatten into content
+[data-widget-area="header"],
+[data-widget-area="footer"] {
+  padding: 0 20px;
+}
+
+[data-widget-area="sidebar"] {
+  display: none !important;
+}
+
+// Make all content areas full-width within their pane
+.container-lg {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.row {
+  margin: 0;
+
+  > [class*="col-"] {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+}
+
+// Hide right sidebar completely (we merge into topbar/main)
+.sidebar-right {
+  display: none !important;
+}

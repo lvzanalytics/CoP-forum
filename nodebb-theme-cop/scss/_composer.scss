@@ -1,0 +1,99 @@
+// ============================================
+// Quick Reply / Composer — Light content area
+// ============================================
+
+.quick-reply {
+  padding: 0 20px 16px;
+  margin: 0 !important;
+  gap: 12px !important;
+  border-top: 1px solid $border-subtle;
+  background-color: $content-bg;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+
+  .icon {
+    padding-top: 12px;
+
+    .avatar, img {
+      width: 36px !important;
+      height: 36px !important;
+      border-radius: $radius-full;
+    }
+  }
+
+  form { padding-top: 12px; }
+
+  .quickreply-message textarea {
+    background-color: $content-bg-alt;
+    border: 1px solid $border-medium;
+    border-radius: $radius-lg;
+    color: $text-primary;
+    font-size: $font-size-base;
+    padding: 12px 16px;
+    min-height: 44px;
+    max-height: 300px;
+    resize: none;
+
+    &:focus {
+      border-color: $accent-primary;
+      background-color: $content-bg;
+      box-shadow: 0 0 0 2px rgba($accent-primary, 0.15);
+      color: $text-primary;
+    }
+
+    &::placeholder { color: $text-tertiary; }
+  }
+
+  .btn {
+    border-radius: $radius-md;
+
+    &.btn-ghost {
+      color: $text-tertiary;
+      border-color: $border-subtle !important;
+      &:hover { color: $text-primary; background-color: $content-bg-hover; }
+    }
+
+    &.btn-primary {
+      background-color: $accent-primary;
+      font-weight: 600;
+      padding: 6px 16px;
+      &:hover { background-color: $accent-hover; }
+    }
+  }
+}
+
+// Full composer
+[component="composer"] {
+  background-color: $content-bg;
+  border-top: 1px solid $border-medium;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+
+  .composer { background-color: $content-bg; }
+
+  .write-container {
+    textarea, .write {
+      background-color: $content-bg;
+      border: 1px solid $border-medium;
+      border-radius: $radius-md;
+      color: $text-primary;
+
+      &:focus {
+        border-color: $accent-primary;
+        box-shadow: 0 0 0 2px rgba($accent-primary, 0.15);
+      }
+    }
+  }
+
+  .title {
+    background-color: $content-bg;
+    border: 1px solid $border-medium;
+    border-radius: $radius-md;
+    color: $text-primary;
+  }
+
+  .formatting-bar {
+    border-color: $border-subtle;
+    background-color: $content-bg;
+  }
+}

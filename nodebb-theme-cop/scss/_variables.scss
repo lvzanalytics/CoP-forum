@@ -1,0 +1,89 @@
+// ============================================
+// CoP Theme — Ministry of Côte d'Ivoire
+// Dark green shell + white content area
+// ============================================
+
+// Logo colors reference:
+// Green (shield): #1B5E20 / #2E7D32
+// Orange (flag): #E65100 / #F57C00
+// Gold (sun/ribbon): #F9A825 / #FBC02D
+
+// Shell (sidebar + topbar) — dark green from logo
+$shell-bg:        #14311C;    // Deep ministry green
+$shell-bg-light:  #1B4226;    // Slightly lighter for hover
+$shell-bg-hover:  #22522F;    // Hover states
+$shell-bg-active: #2A6339;    // Active/selected
+$shell-text:      #C8DBC8;    // Muted green-tinted text
+$shell-text-bright: #FFFFFF;  // High emphasis on dark
+$shell-text-dim:  #7A9A7A;    // Tertiary text on dark
+$shell-border:    rgba(255, 255, 255, 0.08);
+
+// Content area — clean white
+$content-bg:      #FFFFFF;
+$content-bg-alt:  #F8F9FA;    // Alternating rows, subtle bg
+$content-bg-hover: #F0F2F5;   // Hover states
+$content-bg-input: #F5F6F8;   // Input fields
+
+// Content text
+$text-primary:    #1A1A2E;    // Near-black for readability
+$text-secondary:  #5F6368;    // Secondary/muted
+$text-tertiary:   #9AA0A6;    // Timestamps, disabled
+$text-link:       #1B6B2E;    // Green links matching brand
+$text-bright:     #000000;    // Max emphasis
+
+// Accent colors from logo
+$accent-primary:  #2E7D32;    // Ministry green — primary action
+$accent-hover:    #388E3C;    // Green hover
+$accent-light:    rgba(46, 125, 50, 0.08); // Subtle green bg
+$accent-orange:   #F57C00;    // Orange from flag
+$accent-gold:     #F9A825;    // Gold from coat of arms
+$accent-red:      #D32F2F;    // Error/urgent
+$accent-blue:     #1976D2;    // Info
+
+// Borders (content area)
+$border-subtle:   #E8EAED;
+$border-medium:   #DADCE0;
+$border-strong:   #BDC1C6;
+
+// Shadows
+$shadow-sm:       0 1px 3px rgba(0, 0, 0, 0.08);
+$shadow-md:       0 4px 12px rgba(0, 0, 0, 0.12);
+$shadow-lg:       0 8px 24px rgba(0, 0, 0, 0.16);
+$shadow-glow:     0 0 20px rgba(46, 125, 50, 0.12);
+
+// Dimensions
+$sidebar-width:        260px;
+$sidebar-collapsed:    68px;
+$topbar-height:        52px;
+$message-max-width:    900px;
+
+// Radii
+$radius-sm:       4px;
+$radius-md:       8px;
+$radius-lg:       12px;
+$radius-xl:       16px;
+$radius-full:     9999px;
+
+// Transitions
+$transition-fast:    150ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-normal:  250ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow:    350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+// Typography
+$font-primary:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-mono:       'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+$font-size-xs:    0.6875rem;   // 11px
+$font-size-sm:    0.75rem;     // 12px
+$font-size-base:  0.875rem;    // 14px
+$font-size-md:    0.9375rem;   // 15px
+$font-size-lg:    1.0625rem;   // 17px
+$font-size-xl:    1.25rem;     // 20px
+$font-size-2xl:   1.5rem;      // 24px
+
+// Z-index layers
+$z-sidebar:       100;
+$z-topbar:        200;
+$z-dropdown:      300;
+$z-modal:         400;
+$z-toast:         500;

@@ -1,0 +1,9 @@
+{
+  "id": "nodebb-theme-cop",
+  "name": "CoP Modern",
+  "description": "A Discord/Slack-inspired modern theme for the Communauté de Pratique platform",
+  "screenshot": "screenshot.png",
+  "url": "",
+  "baseTheme": "nodebb-theme-harmony",
+  "templates": "templates"
+}

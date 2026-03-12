@@ -1,0 +1,131 @@
+// ============================================
+// Utility overrides — light content area
+// ============================================
+
+// Alerts
+.alert {
+  border-radius: $radius-md;
+
+  &.alert-info {
+    background-color: rgba($accent-blue, 0.08);
+    border-color: rgba($accent-blue, 0.15);
+    color: darken($accent-blue, 15%);
+  }
+  &.alert-warning {
+    background-color: rgba($accent-gold, 0.12);
+    border-color: rgba($accent-gold, 0.2);
+    color: darken($accent-gold, 30%);
+  }
+  &.alert-danger {
+    background-color: rgba($accent-red, 0.08);
+    border-color: rgba($accent-red, 0.15);
+    color: $accent-red;
+  }
+  &.alert-success {
+    background-color: rgba($accent-primary, 0.08);
+    border-color: rgba($accent-primary, 0.15);
+    color: darken($accent-primary, 10%);
+  }
+}
+
+// Toast notifications
+.alert-window {
+  z-index: $z-toast !important;
+
+  .alert {
+    background-color: $content-bg;
+    border: 1px solid $border-medium;
+    border-radius: $radius-md;
+    box-shadow: $shadow-lg;
+    color: $text-primary;
+  }
+}
+
+// NProgress
+#nprogress {
+  .bar {
+    background-color: $accent-orange !important;
+    height: 2px !important;
+  }
+  .peg {
+    box-shadow: 0 0 10px $accent-orange, 0 0 5px $accent-orange !important;
+  }
+}
+
+// Search
+.search-dropdown {
+  background-color: $content-bg;
+  border: 1px solid $border-medium;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+}
+
+// Login/Register
+.login-container, .register-container {
+  .card, .form-container {
+    background-color: $content-bg;
+    border: 1px solid $border-subtle;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+  }
+}
+
+// Bootbox
+.bootbox .modal-content {
+  background-color: $content-bg;
+  border: 1px solid $border-medium;
+}
+
+// Nav tabs
+.nav-tabs {
+  border-bottom-color: $border-subtle;
+
+  .nav-link {
+    color: $text-secondary;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 8px 16px;
+
+    &:hover {
+      color: $text-primary;
+      border-bottom-color: $border-medium;
+    }
+    &.active {
+      color: $accent-primary;
+      background-color: transparent;
+      border-bottom-color: $accent-primary;
+    }
+  }
+}
+
+// Text overrides
+.text-muted { color: $text-secondary !important; }
+.bg-light { background-color: $content-bg-alt !important; }
+.bg-body { background-color: $content-bg !important; }
+.border-bottom { border-bottom-color: $border-subtle !important; }
+
+// Bottom bar (mobile)
+.bottombar-nav {
+  background-color: $shell-bg;
+  border-top: 1px solid $shell-border;
+
+  .nav-link {
+    color: $shell-text;
+    &:hover, &.active { color: $shell-text-bright; }
+  }
+}
+
+// Sticky tools (mobile)
+.sticky-tools {
+  background-color: $content-bg;
+  border-bottom: 1px solid $border-subtle;
+}
+
+// Pagination block (mobile)
+.pagination-block {
+  background-color: $content-bg;
+  border: 1px solid $border-medium;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+}

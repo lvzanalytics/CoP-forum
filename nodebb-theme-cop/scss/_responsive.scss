@@ -1,0 +1,68 @@
+// ============================================
+// Responsive — Mobile & Tablet
+// ============================================
+
+@media (max-width: 991px) {
+  .sidebar.sidebar-left {
+    position: fixed;
+    left: -$sidebar-width;
+    top: 0;
+    z-index: $z-sidebar + 50;
+    transition: left $transition-normal;
+    box-shadow: none;
+
+    &.mobile-open {
+      left: 0;
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  .cop-sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: $z-sidebar + 40;
+
+    &.active { display: block; }
+  }
+
+  .cop-topbar .cop-mobile-toggle { display: flex; }
+
+  .topics-list [component="category/topic"] {
+    padding: 10px 12px !important;
+    .meta.stats { display: none !important; }
+  }
+
+  .posts.timeline > li[component="post"] { padding: 4px 12px !important; }
+  .quick-reply { padding: 0 12px 12px; }
+}
+
+@media (max-width: 575px) {
+  .cop-topbar {
+    padding: 0 10px;
+    .toolbar-search, .channel-divider, .channel-description { display: none; }
+  }
+
+  .category-header { padding: 12px; }
+  .categories-list { padding: 8px !important; }
+  .posts.timeline > li[component="post"] { padding: 4px 8px !important; }
+
+  .post-container-parent {
+    gap: 8px !important;
+    > .bg-body {
+      .avatar, img[component="user/picture"] {
+        width: 32px !important;
+        height: 32px !important;
+      }
+    }
+  }
+
+  .quick-reply {
+    padding: 0 8px 8px;
+    .icon { display: none; }
+  }
+}
