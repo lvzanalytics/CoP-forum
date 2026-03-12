@@ -94,6 +94,7 @@ body {
 }
 
 // Fix row margins for sub-pages (recent, unread, popular, etc.)
+// Make all columns full-width (we hide the widget sidebar)
 #content > .row,
 #content .row.flex-fill {
   margin: 0;
@@ -102,12 +103,11 @@ body {
   > [class*="col-"] {
     max-width: 100%;
     flex: 0 0 100%;
-    padding-left: 0;
-    padding-right: 0;
   }
 }
 
-// Sub-page content padding
+// Sub-page content padding — all pages that use Harmony templates
+// !important needed to override Bootstrap column padding from row reset
 #content .recent,
 #content .unread,
 #content .popular,
@@ -116,19 +116,22 @@ body {
 #content .users,
 #content .search,
 #content .tags,
-#content .tag {
-  padding: 16px 20px;
-}
-
-// Users grid — restore proper gutter inside our layout
-#content .users-container.row {
-  --bs-gutter-x: 1.5rem;
-  margin: 0;
+#content .tag,
+#content .groups,
+#content .world {
+  padding: 16px 20px !important;
 }
 
 // Account pages
 #content .account {
-  padding: 16px 20px;
+  padding: 0 20px 20px !important;
+  position: relative;
+}
+
+// Login/Register
+#content .login,
+#content .register {
+  padding: 40px 20px;
 }
 
 // Hide right sidebar completely

@@ -12,11 +12,11 @@
 			</h2>
 			{{{ if !./link }}}
 			<div class="d-flex gap-2 ms-auto flex-shrink-0">
-				<span class="badge text-body border border-0 stats text-xs" style="background: rgba(255,255,255,0.06);">
+				<span class="badge text-body border border-0 stats text-xs" >
 					<i class="fa fa-fw fa-list fa-sm"></i>
 					<span class="fw-normal">{humanReadableNumber(./totalTopicCount, 0)}</span>
 				</span>
-				<span class="badge text-body border border-0 stats text-xs" style="background: rgba(255,255,255,0.06);">
+				<span class="badge text-body border border-0 stats text-xs" >
 					<i class="fa-regular fa-fw fa-message fa-sm"></i>
 					<span class="fw-normal">{humanReadableNumber(./totalPostCount, 0)}</span>
 				</span>
@@ -33,7 +33,7 @@
 		<div class="d-flex gap-1 flex-wrap mt-1">
 			{{{ each ./children }}}
 			{{{ if !./isSection }}}
-			<a href="{config.relative_path}/category/{./slug}" class="badge border border-0 text-decoration-none fw-normal" style="background: rgba(255,255,255,0.06); color: var(--bs-body-color);">
+			<a href="{config.relative_path}/category/{./slug}" class="cop-subcategory-badge badge border border-0 text-decoration-none fw-normal">
 				{{{ if ./icon }}}<i class="fa {./icon} fa-sm"></i>{{{ end }}}
 				{./name}
 			</a>

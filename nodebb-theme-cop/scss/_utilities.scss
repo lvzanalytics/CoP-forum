@@ -99,11 +99,11 @@
   }
 }
 
-// Text overrides
+// Text & background overrides
 .text-muted { color: $text-secondary !important; }
 .bg-light { background-color: $content-bg-alt !important; }
 .bg-body { background-color: $content-bg !important; }
-.border-bottom { border-bottom-color: $border-subtle !important; }
+.text-body { color: $text-primary !important; }
 
 // Bottom bar (mobile)
 .bottombar-nav {

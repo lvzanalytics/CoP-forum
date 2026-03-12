@@ -143,16 +143,22 @@ $(document).ready(function () {
 				titleEl.text(data.title || '');
 			} else {
 				iconEl.html('<i class="fa fa-circle fa-2xs"></i>');
-				// Use the page title from breadcrumbs or document title
-				var pageTitle = '';
+				// breadcrumbs/title may contain [[translation:keys]] — use translator
+				var rawTitle = '';
 				if (data.breadcrumbs && data.breadcrumbs.length) {
-					pageTitle = data.breadcrumbs[data.breadcrumbs.length - 1].text || '';
+					rawTitle = data.breadcrumbs[data.breadcrumbs.length - 1].text || '';
 				} else if (data.title) {
-					pageTitle = data.title;
-				} else {
-					pageTitle = document.title.split(' | ')[0] || '';
+					rawTitle = data.title;
 				}
-				titleEl.text(pageTitle);
+				if (rawTitle) {
+					require(['translator'], function (translator) {
+						translator.translate(rawTitle, function (translated) {
+							titleEl.text(translated);
+						});
+					});
+				} else {
+					titleEl.text(document.title.split(' | ')[0] || '');
+				}
 			}
 		}
 

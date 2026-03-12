@@ -39,6 +39,17 @@
 
   .posts.timeline > li[component="post"] { padding: 4px 12px !important; }
   .quick-reply { padding: 0 12px 12px; }
+
+  // Account pages — stack sidebar nav on mobile
+  .account {
+    .account-content {
+      padding: 16px 0 0 !important;
+    }
+
+    .cover {
+      height: 140px;
+    }
+  }
 }
 
 @media (max-width: 575px) {

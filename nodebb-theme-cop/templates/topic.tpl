@@ -27,7 +27,7 @@
 	</div>
 
 	<!-- Topic header -->
-	<div class="cop-topic-header px-4 py-3 border-bottom" style="border-color: rgba(255,255,255,0.06) !important;">
+	<div class="cop-topic-header px-4 py-3 border-bottom" >
 		<div class="d-flex flex-column gap-2">
 			<div class="d-flex align-items-center gap-2 flex-wrap">
 				<h1 component="post/header" class="fs-5 fw-bold mb-0 text-break">

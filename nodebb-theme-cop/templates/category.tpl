@@ -2,17 +2,17 @@
 
 <div class="cop-category-view d-flex flex-column flex-fill">
 	<!-- Category header bar -->
-	<div class="category-header d-flex flex-wrap align-items-center gap-2 px-3 py-2 border-bottom" style="border-color: rgba(255,255,255,0.06) !important;">
+	<div class="category-header d-flex flex-wrap align-items-center gap-2 px-3 py-2 border-bottom" >
 		{buildCategoryIcon(@value, "32px", "rounded-1 flex-shrink-0")}
 		<div class="d-flex flex-column">
 			<h1 class="fs-6 fw-semibold mb-0">{./name}</h1>
 		</div>
 		<div class="d-flex gap-2 ms-auto align-items-center">
-			<span class="badge text-body border border-0 stats text-xs" style="background: rgba(255,255,255,0.06);">
+			<span class="badge text-body border border-0 stats text-xs" >
 				<span class="fw-bold">{humanReadableNumber(totalTopicCount)}</span>
 				<span class="text-lowercase fw-normal">[[global:topics]]</span>
 			</span>
-			<span class="badge text-body border border-0 stats text-xs" style="background: rgba(255,255,255,0.06);">
+			<span class="badge text-body border border-0 stats text-xs" >
 				<span class="fw-bold">{humanReadableNumber(totalPostCount)}</span>
 				<span class="text-lowercase fw-normal">[[global:posts]]</span>
 			</span>
@@ -20,7 +20,7 @@
 	</div>
 
 	{{{ if ./descriptionParsed }}}
-	<div class="px-3 py-2 text-muted text-sm border-bottom" style="border-color: rgba(255,255,255,0.06) !important;">
+	<div class="px-3 py-2 text-muted text-sm border-bottom" >
 		{./descriptionParsed}
 	</div>
 	{{{ end }}}
