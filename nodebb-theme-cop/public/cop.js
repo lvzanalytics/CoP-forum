@@ -6,6 +6,7 @@ $(document).ready(function () {
 	setupSidebarHighlight();
 	setupComposerResize();
 	setupSearch();
+	setupTopbarTitle();
 
 	// Mobile sidebar toggle
 	function setupMobileSidebar() {
@@ -116,6 +117,47 @@ $(document).ready(function () {
 		$('[component="sidebar/search"]').on('shown.bs.dropdown', function () {
 			$(this).find('[component="search/fields"] input[name="query"]').trigger('focus');
 		});
+	}
+
+	// Dynamic topbar title — updates on every page navigation
+	function setupTopbarTitle() {
+		function updateTitle() {
+			var data = ajaxify.data || {};
+			var iconEl = $('[component="cop/topbar/icon"]');
+			var titleEl = $('[component="cop/topbar/title"]');
+			var dividerEl = $('[component="cop/topbar/divider"]');
+			var descEl = $('[component="cop/topbar/description"]');
+
+			dividerEl.hide();
+			descEl.text('');
+
+			if (data.template && data.template.category) {
+				iconEl.html('#');
+				titleEl.text(data.name || '');
+				if (data.descriptionParsed) {
+					dividerEl.show();
+					descEl.html(data.descriptionParsed);
+				}
+			} else if (data.template && data.template.topic) {
+				iconEl.html('<i class="fa fa-comments fa-sm"></i>');
+				titleEl.text(data.title || '');
+			} else {
+				iconEl.html('<i class="fa fa-circle fa-2xs"></i>');
+				// Use the page title from breadcrumbs or document title
+				var pageTitle = '';
+				if (data.breadcrumbs && data.breadcrumbs.length) {
+					pageTitle = data.breadcrumbs[data.breadcrumbs.length - 1].text || '';
+				} else if (data.title) {
+					pageTitle = data.title;
+				} else {
+					pageTitle = document.title.split(' | ')[0] || '';
+				}
+				titleEl.text(pageTitle);
+			}
+		}
+
+		updateTitle();
+		$(window).on('action:ajaxify.end', updateTitle);
 	}
 
 	// Tooltip setup

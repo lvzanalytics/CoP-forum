@@ -1,17 +1,5 @@
 <nav component="sidebar/left" class="open text-dark sidebar sidebar-left start-0 vh-100 d-flex flex-column justify-content-between sticky-top">
-	<!-- Logo Header -->
-	<div class="cop-server-header">
-		<a href="{relative_path}/" class="d-flex align-items-center gap-2 text-decoration-none" style="min-width: 0;">
-			{{{ if brand:logo }}}
-			<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="cop-sidebar-logo" />
-			{{{ end }}}
-			{{{ if !brand:logo }}}
-			<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="cop-sidebar-logo" />
-			{{{ end }}}
-		</a>
-	</div>
-
-	<div id="main-nav" class="list-unstyled d-flex flex-column w-100 overflow-y-auto flex-grow-1">
+	<div id="main-nav" class="list-unstyled d-flex flex-column w-100 overflow-y-auto flex-grow-1 mt-2">
 		<!-- Channel List -->
 		<div class="cop-channel-section">
 			<div class="section-header">

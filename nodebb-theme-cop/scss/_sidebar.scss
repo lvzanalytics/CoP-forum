@@ -38,28 +38,6 @@
     hr.visible-open { display: block; }
   }
 
-  // Logo header
-  .cop-server-header {
-    padding: 10px 12px;
-    border-bottom: 1px solid $shell-border;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cop-sidebar-logo {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-      border-radius: $radius-sm;
-    }
-  }
 
   // Channel list section
   .cop-channel-section {

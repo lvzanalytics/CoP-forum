@@ -39,9 +39,41 @@ body {
   height: calc(100vh - #{$topbar-height});
 }
 
-// Hide the brand section (we have our own topbar)
+// Hide Harmony's default brand section
 .brand-container {
   display: none !important;
+}
+
+// Brand bar — logo + site title inside content area
+.cop-brand-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid $border-subtle;
+  background-color: $content-bg;
+  flex-shrink: 0;
+
+  .cop-brand-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .cop-brand-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .cop-brand-title {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 // Widget sidebar — hide (content is full-width)

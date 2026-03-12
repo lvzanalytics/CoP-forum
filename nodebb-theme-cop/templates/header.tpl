@@ -33,6 +33,19 @@
 		<main id="panel" class="d-flex flex-column flex-grow-1" style="min-width: 0;">
 			<!-- IMPORT partials/header/topbar.tpl -->
 
+			<!-- Brand bar: logo + site title (outside #content so it persists across navigation) -->
+			<div class="cop-brand-bar">
+				<a href="{relative_path}/" class="cop-brand-link">
+					{{{ if brand:logo }}}
+					<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="cop-brand-logo" />
+					{{{ end }}}
+					{{{ if !brand:logo }}}
+					<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="cop-brand-logo" />
+					{{{ end }}}
+				</a>
+				<span class="cop-brand-title">{config.siteTitle}</span>
+			</div>
+
 			<div class="d-flex flex-column flex-grow-1 h-100" id="content" style="overflow-y: auto;">
 			<!-- IMPORT partials/noscript/warning.tpl -->
 			<!-- IMPORT partials/noscript/message.tpl -->

@@ -4,22 +4,10 @@
 	</button>
 
 	<div class="cop-channel-info">
-		{{{ if template.category }}}
-		<span class="channel-hash-icon">#</span>
-		<span class="channel-title">{name}</span>
-		{{{ if ./descriptionParsed }}}
-		<span class="channel-divider"></span>
-		<span class="channel-description">{./descriptionParsed}</span>
-		{{{ end }}}
-		{{{ end }}}
-		{{{ if template.topic }}}
-		<span class="channel-hash-icon"><i class="fa fa-comments fa-sm"></i></span>
-		<span class="channel-title">{title}</span>
-		{{{ end }}}
-		{{{ if (!template.category && !template.topic) }}}
-		<span class="channel-hash-icon"><i class="fa fa-home fa-sm"></i></span>
-		<span class="channel-title">{config.siteTitle}</span>
-		{{{ end }}}
+		<span class="channel-hash-icon" component="cop/topbar/icon"><i class="fa fa-circle fa-2xs"></i></span>
+		<span class="channel-title" component="cop/topbar/title"></span>
+		<span class="channel-divider" component="cop/topbar/divider" style="display:none;"></span>
+		<span class="channel-description" component="cop/topbar/description"></span>
 	</div>
 
 	<div class="cop-toolbar">
