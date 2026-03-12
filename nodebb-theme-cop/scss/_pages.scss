@@ -33,6 +33,10 @@
 
     .dropdown-toggle {
       border: 1px solid $border-subtle;
+      display: flex !important;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 4px;
     }
   }
 }
@@ -41,6 +45,13 @@
   background-color: $content-bg !important;
   border-bottom: 1px solid $border-subtle !important;
   margin-bottom: 0 !important;
+
+  .dropdown-toggle {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
 }
 
 // ---- Category Stats Badges ----

@@ -3,7 +3,7 @@
 		<!-- Channel List -->
 		<div class="cop-channel-section">
 			<div class="section-header">
-				<span class="section-label visible-open">Canaux</span>
+				<span class="section-label visible-open">[[themes/cop:channels]]</span>
 			</div>
 			<ul class="cop-channel-list">
 				{{{ each allCategories }}}
@@ -24,7 +24,7 @@
 		<!-- Navigation Links -->
 		<div class="cop-channel-section">
 			<div class="section-header">
-				<span class="section-label visible-open">Navigation</span>
+				<span class="section-label visible-open">[[themes/cop:navigation]]</span>
 			</div>
 			<ul class="cop-channel-list">
 				{{{ each navigation }}}
@@ -54,7 +54,7 @@
 				{buildAvatar(user, "32px", true)}
 				<div class="visible-open flex-column" style="min-width: 0;">
 					<span class="fw-semibold small text-truncate" style="color: var(--bs-body-color);">{user.displayname}</span>
-					<span class="text-muted" style="font-size: 0.7rem;">En ligne</span>
+					<span class="text-muted" style="font-size: 0.7rem;">[[themes/cop:online]]</span>
 				</div>
 			</a>
 		</div>
