@@ -122,9 +122,9 @@ body {
   padding: 16px 20px !important;
 }
 
-// Account pages
+// Account pages — cop-account handles its own padding
 #content .account {
-  padding: 0 20px 20px !important;
+  padding: 0 !important;
   position: relative;
 }
 

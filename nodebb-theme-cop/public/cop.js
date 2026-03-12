@@ -7,6 +7,7 @@ $(document).ready(function () {
 	setupComposerResize();
 	setupSearch();
 	setupTopbarTitle();
+	setupBrandBarVisibility();
 
 	// Mobile sidebar toggle
 	function setupMobileSidebar() {
@@ -164,6 +165,25 @@ $(document).ready(function () {
 
 		updateTitle();
 		$(window).on('action:ajaxify.end', updateTitle);
+	}
+
+	// Hide brand bar on pages that don't need it (account/profile pages)
+	function setupBrandBarVisibility() {
+		function toggleBrandBar() {
+			var data = ajaxify.data || {};
+			var brandBar = $('.cop-brand-bar');
+			var isAccountPage = data.template && (
+				data.template.name && data.template.name.startsWith('account/')
+			);
+			if (isAccountPage) {
+				brandBar.hide();
+			} else {
+				brandBar.show();
+			}
+		}
+
+		toggleBrandBar();
+		$(window).on('action:ajaxify.end', toggleBrandBar);
 	}
 
 	// Tooltip setup

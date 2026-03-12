@@ -1,6 +1,5 @@
 // ============================================
-// Pages — Consistent styling for all content pages
-// Discord/Slack aesthetic across the platform
+// Pages — Discord/Slack aesthetic for all pages
 // ============================================
 
 // ---- Topic List Bar (shared toolbar) ----
@@ -13,6 +12,7 @@
     border-bottom: 1px solid $border-subtle !important;
     border-radius: 0 !important;
     padding: 8px 16px !important;
+    box-shadow: none !important;
 
     .btn {
       font-size: $font-size-sm;
@@ -37,7 +37,6 @@
   }
 }
 
-// Sticky tools wrapper
 .sticky-tools {
   background-color: $content-bg !important;
   border-bottom: 1px solid $border-subtle !important;
@@ -47,15 +46,13 @@
 // ---- Category Stats Badges ----
 .category-header .badge.stats,
 .cop-category-card .badge.stats {
-  background-color: $content-bg-alt;
-  color: $text-secondary;
+  background-color: $content-bg-alt !important;
+  color: $text-secondary !important;
 }
 
-// Subcategory badges
 .cop-subcategory-badge {
   background-color: $content-bg-alt !important;
   color: $text-link !important;
-  transition: all $transition-fast;
 
   &:hover {
     background-color: $accent-light !important;
@@ -63,32 +60,53 @@
   }
 }
 
-// ---- Topics List refinement ----
+// ---- Topics List ----
 .topics-list {
   [component="category/topic"] {
-    .meta.stats .card.card-header {
-      background-color: $content-bg-alt !important;
-      border: none !important;
-      border-radius: $radius-sm !important;
-      padding: 4px 8px !important;
+    border-bottom: 1px solid $border-subtle !important;
+    padding: 12px 20px !important;
+    transition: background-color $transition-fast;
+    background: none !important;
+
+    &:hover {
+      background-color: $content-bg-hover !important;
     }
 
-    // Teaser border
+    .title {
+      font-size: $font-size-base !important;
+      a { color: $text-primary !important; &:hover { color: $accent-primary !important; } }
+    }
+
+    .meta.stats .card,
+    .meta.stats .card.card-header {
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 2px 6px !important;
+
+      .fs-5 { font-size: $font-size-sm !important; color: $text-secondary; }
+      .text-lowercase, i { color: $text-tertiary; }
+    }
+
     .teaser .lastpost {
       border-color: $border-medium !important;
     }
 
-    // Tags
     .tag-list .badge {
-      background-color: $accent-light;
+      background-color: $accent-light !important;
       border-color: transparent !important;
-      color: $accent-primary;
-      font-weight: 500;
+      color: $accent-primary !important;
     }
 
-    // Labels
     [component="topic/labels"] .badge {
       border-color: $border-subtle !important;
+      background-color: $content-bg-alt !important;
+      color: $text-secondary !important;
+    }
+
+    .timeago {
+      color: $text-tertiary !important;
+      font-size: $font-size-xs !important;
     }
   }
 }
@@ -96,80 +114,43 @@
 // ---- Users Page ----
 .users {
   h3 {
-    color: $text-primary;
-    font-size: $font-size-xl;
-    margin-bottom: 12px;
+    color: $text-primary !important;
+    font-size: $font-size-lg !important;
+    font-weight: 600 !important;
   }
 
   hr {
-    border-color: $border-subtle;
-    margin: 12px 0;
+    border-color: $border-subtle !important;
   }
 
-  // Tab menu
-  .nav-pills, .users_list_menu {
-    .nav-link, .btn-ghost {
-      color: $text-secondary;
-      border-radius: $radius-md;
-      font-size: $font-size-sm;
+  .users-container {
+    --bs-gutter-x: 0.75rem !important;
+    --bs-gutter-y: 0.75rem !important;
+
+    > div > .btn-ghost,
+    > div > div > .btn-ghost {
+      background-color: $content-bg !important;
+      border: 1px solid $border-subtle !important;
+      border-radius: $radius-lg !important;
+      padding: 14px !important;
+      transition: all $transition-fast !important;
 
       &:hover {
-        background-color: $content-bg-hover;
-        color: $text-primary;
+        background-color: $content-bg-hover !important;
+        border-color: $accent-primary !important;
+        box-shadow: $shadow-sm !important;
       }
 
-      &.active {
-        background-color: $accent-light;
-        color: $accent-primary;
+      .avatar {
+        border-radius: $radius-full !important;
       }
-    }
-  }
 
-  // Search input
-  .search .input-group {
-    .form-control {
-      background-color: $content-bg-input;
-      border-color: $border-medium;
-
-      &:focus {
-        border-color: $accent-primary;
-        background-color: $content-bg;
+      .fw-semibold {
+        color: $text-primary !important;
       }
-    }
-  }
 
-  // User cards grid
-  .users-container {
-    --bs-gutter-x: 1rem !important;
-    --bs-gutter-y: 0.5rem !important;
-
-    > div {
-      .btn-ghost {
-        background-color: $content-bg;
-        border: 1px solid $border-subtle;
-        border-radius: $radius-lg;
-        padding: 12px !important;
-        width: 100%;
-        transition: all $transition-fast;
-
-        &:hover {
-          background-color: $content-bg-hover;
-          border-color: $border-medium;
-          box-shadow: $shadow-sm;
-        }
-
-        .avatar {
-          border-radius: $radius-full;
-        }
-
-        .fw-semibold {
-          color: $text-primary;
-        }
-
-        .text-muted {
-          color: $text-secondary !important;
-          font-size: $font-size-xs;
-        }
+      .text-muted {
+        color: $text-tertiary !important;
       }
     }
   }
@@ -177,59 +158,31 @@
 
 // ---- Notifications Page ----
 .notifications {
-  > .d-flex {
-    min-height: 100%;
-  }
-
-  // Filter sidebar
   .border-end-md {
     border-color: $border-subtle !important;
+  }
 
-    .btn.btn-primary {
-      background-color: $accent-primary;
-      border: none;
-      &:hover { background-color: $accent-hover; }
+  .nav .btn-ghost {
+    color: $text-secondary !important;
+    border-radius: $radius-md !important;
+
+    &:hover {
+      background-color: $content-bg-hover !important;
+      color: $text-primary !important;
+    }
+
+    &.active {
+      background-color: $accent-light !important;
+      color: $accent-primary !important;
     }
   }
 
-  .nav {
-    .btn-ghost {
-      color: $text-secondary;
-      border-radius: $radius-md;
-      padding: 6px 10px;
-      font-size: $font-size-sm;
-
-      &:hover {
-        background-color: $content-bg-hover;
-        color: $text-primary;
-      }
-
-      &.active {
-        background-color: $accent-light;
-        color: $accent-primary;
-        font-weight: 600;
-      }
-    }
-  }
-
-  // Notification items
   .notifications-list {
-    hr {
-      border-color: $border-subtle;
-      margin: 4px 0;
-    }
+    hr { border-color: $border-subtle !important; margin: 4px 0 !important; }
 
     .btn-ghost {
-      border-radius: $radius-md;
-      padding: 8px;
-
-      &:hover {
-        background-color: $content-bg-hover;
-      }
-    }
-
-    .no-notifs {
-      color: $text-tertiary;
+      border-radius: $radius-md !important;
+      &:hover { background-color: $content-bg-hover !important; }
     }
 
     .fa-circle.text-primary {
@@ -239,129 +192,133 @@
 }
 
 // ---- Search Page ----
-.search {
-  #advanced-search {
-    min-height: 100%;
-
-    .border-end-md {
-      border-color: $border-subtle !important;
-    }
-
-    h2 {
-      color: $text-primary;
-      font-size: $font-size-xl;
-    }
-
-    .form-control,
-    .form-select {
-      background-color: $content-bg-input;
-      border-color: $border-medium;
-
-      &:focus {
-        border-color: $accent-primary;
-        background-color: $content-bg;
-      }
-    }
-
-    .btn-primary {
-      background-color: $accent-primary;
-      &:hover { background-color: $accent-hover; }
-    }
+.search #advanced-search {
+  .border-end-md {
+    border-color: $border-subtle !important;
   }
 
-  // Search results
-  .search-result-text {
-    color: $text-secondary;
-  }
-
-  [component="search/results"] {
-    .search-result {
-      border-bottom: 1px solid $border-subtle;
-      padding: 12px 0;
-
-      &:last-child { border-bottom: none; }
-
-      .title a {
-        color: $text-primary;
-        font-weight: 600;
-        &:hover { color: $accent-primary; }
-      }
-
-      .snippet {
-        color: $text-secondary;
-        font-size: $font-size-sm;
-      }
-
-      .timeago {
-        color: $text-tertiary;
-        font-size: $font-size-xs;
-      }
-    }
+  h2 {
+    color: $text-primary !important;
+    font-size: $font-size-xl !important;
   }
 }
 
-// ---- Account Pages ----
-.account {
-  // Cover photo — keep absolute but constrain within account wrapper
-  .cover {
-    height: 200px;
+// ---- Account Pages — Discord-style profile ----
+.cop-account {
+  padding: 0 !important;
+
+  // Banner — simple block element, no absolute
+  .cop-profile-banner {
+    height: 180px;
     background-size: cover;
-    background-color: $accent-light;
+    background-position: center;
+    background-color: $shell-bg;
+    position: relative;
+    overflow: hidden;
 
-    // Hide cover edit controls by default (Harmony shows them on interaction)
-    .save,
-    .indicator {
-      display: none !important;
-    }
-
+    // Cover edit controls
     .controls {
       display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+
+      a {
+        display: inline-block;
+        margin: 0 4px;
+      }
+    }
+
+    .save, .indicator {
+      display: none;
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      z-index: 3;
+    }
+
+    &:hover .controls {
+      display: block;
     }
   }
 
-  // Profile header — push below cover
-  > .d-flex.flex-column.flex-md-row:first-of-type {
-    padding: 0 0 16px;
-    margin-top: 200px; // match cover height
-  }
-
-  .avatar-wrapper {
-    background-color: $content-bg !important;
+  // Profile card below banner
+  .cop-profile-card {
+    padding: 16px 20px;
+    border-bottom: 1px solid $border-subtle;
+    background: $content-bg;
+    position: relative;
     z-index: 2;
   }
 
-  .fullname {
-    color: $text-primary;
-  }
+  .cop-avatar-wrapper {
+    position: relative;
+    background: $content-bg;
+    border-radius: $radius-full;
+    padding: 4px;
+    flex-shrink: 0;
+    margin-top: -64px; // pull avatar up into the banner
 
-  .username {
-    color: $accent-primary;
-  }
+    .avatar {
+      border-radius: $radius-full !important;
+    }
 
-  // Follow/Chat buttons
-  .btn-primary {
-    background-color: $accent-primary;
-    &:hover { background-color: $accent-hover; }
-  }
+    .cop-avatar-edit {
+      position: absolute;
+      inset: 0;
+      border-radius: $radius-full;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      opacity: 0;
+      transition: opacity $transition-fast;
+      text-decoration: none;
+    }
 
-  .btn-light {
-    background-color: $content-bg-alt;
-    border: 1px solid $border-subtle;
-    color: $text-primary;
-
-    &:hover {
-      background-color: $content-bg-hover;
-      border-color: $border-medium;
+    &:hover .cop-avatar-edit {
+      opacity: 1;
     }
   }
 
-  .btn-outline-warning {
-    border-color: $accent-orange;
-    color: $accent-orange;
+  .cop-display-name {
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    color: $text-primary;
+  }
+
+  .cop-username {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    font-weight: 500;
+  }
+
+  // Account sidebar nav
+  .border-end-md {
+    border-color: $border-subtle !important;
+  }
+
+  .btn-ghost {
+    color: $text-secondary;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
 
     &:hover {
-      background-color: rgba($accent-orange, 0.1);
+      background-color: $content-bg-hover !important;
+      color: $text-primary !important;
     }
+
+    &.active {
+      background-color: $accent-light !important;
+      color: $accent-primary !important;
+    }
+  }
+
+  // Account content area
+  .account-content {
+    min-width: 0;
   }
 
   // Stats cards
@@ -372,132 +329,79 @@
       background-color: $content-bg-alt !important;
       border: 1px solid $border-subtle !important;
       border-radius: $radius-md !important;
+      box-shadow: none !important;
     }
 
-    .stat-label {
-      color: $text-secondary;
-    }
-
-    .ff-secondary {
-      color: $text-primary;
-    }
+    .stat-label { color: $text-secondary; }
+    .ff-secondary { color: $text-primary; }
   }
 
-  // Account sidebar navigation (on profile sub-pages)
-  > .d-flex.flex-column.flex-md-row:last-of-type {
-    .border-end-md {
-      border-color: $border-subtle !important;
-    }
-  }
-
-  .nav {
-    .btn-ghost {
-      color: $text-secondary;
-      border-radius: $radius-md;
-      font-size: $font-size-sm;
-
-      &:hover {
-        background-color: $content-bg-hover;
-        color: $text-primary;
-      }
-
-      &.active {
-        background-color: $accent-light;
-        color: $accent-primary;
-        font-weight: 600;
-      }
-    }
-  }
-
-  // Account content area
-  .account-content {
-    padding: 0 0 0 16px;
-    min-width: 0;
-
-    .card {
-      border-color: $border-subtle;
-      border-radius: $radius-md;
-    }
-  }
-
-  // Settings page — fix sticky header
-  .position-sticky {
+  // Settings page sticky header
+  .position-sticky.top-0 {
     background-color: $content-bg !important;
     z-index: 5;
     padding: 12px 0 !important;
     border-bottom: 1px solid $border-subtle;
-    margin-bottom: 16px !important;
   }
 
-  // Form elements within account pages
-  .form-label {
-    color: $text-secondary;
-    font-size: $font-size-sm;
-  }
+  // Forms
+  h6.fw-bold { color: $text-primary; }
+  .form-label { color: $text-secondary; font-size: $font-size-sm; }
+  .form-check-label { color: $text-primary; }
+  .form-text { color: $text-tertiary; }
+  hr { border-color: $border-subtle; }
 
-  h6.fw-bold {
-    color: $text-primary;
-    margin-top: 4px;
-  }
-
-  .form-check-label {
-    color: $text-primary;
-  }
-
-  .form-text {
-    color: $text-tertiary;
-  }
-
-  hr {
-    border-color: $border-subtle;
-  }
-
-  // Tables in settings
   .table {
     --bs-table-bg: #{$content-bg};
     --bs-table-border-color: #{$border-subtle};
+    th { background-color: $content-bg-alt; color: $text-secondary; font-size: $font-size-sm; }
+  }
 
-    th {
-      background-color: $content-bg-alt;
-      color: $text-secondary;
-      font-size: $font-size-sm;
-    }
+  // About me
+  [component="aboutme"] {
+    padding: 16px 0;
+    line-height: 1.6;
+  }
+}
+
+// Fallback for account pages that don't use cop-account yet
+.account:not(.cop-account) {
+  .cover {
+    height: 180px;
+    background-size: cover;
+    background-color: $shell-bg;
+
+    .save, .indicator { display: none !important; }
+    .controls { display: none; }
   }
 }
 
 // ---- Groups Pages ----
 .groups {
-  h3 {
-    color: $text-primary;
-  }
+  h3 { color: $text-primary !important; }
 
   .list-group-item {
-    background-color: $content-bg;
-    border-color: $border-subtle;
+    background-color: $content-bg !important;
+    border-color: $border-subtle !important;
     transition: background-color $transition-fast;
 
-    &:hover {
-      background-color: $content-bg-hover;
-    }
+    &:hover { background-color: $content-bg-hover !important; }
   }
 }
 
 // ---- Tags Page ----
 .tags {
-  .tag-list {
-    .badge {
-      background-color: $accent-light;
-      color: $accent-primary;
-      border: none !important;
-      font-weight: 500;
-      padding: 6px 12px;
-      font-size: $font-size-sm;
-      transition: all $transition-fast;
+  h3 { color: $text-primary !important; }
 
-      &:hover {
-        background-color: rgba($accent-primary, 0.15);
-      }
-    }
+  .tag-list .badge {
+    background-color: $accent-light !important;
+    color: $accent-primary !important;
+    border: none !important;
+    font-weight: 500 !important;
+    padding: 6px 12px !important;
+    font-size: $font-size-sm !important;
+
+    &:hover { background-color: rgba($accent-primary, 0.15) !important; }
   }
 }
 
@@ -516,10 +420,7 @@
     width: 100%;
   }
 
-  h1, h2, h3 {
-    color: $text-primary;
-    font-weight: 700;
-  }
+  h1, h2, h3 { color: $text-primary; font-weight: 700; }
 
   .btn-primary {
     background-color: $accent-primary;
@@ -527,11 +428,7 @@
     &:hover { background-color: $accent-hover; }
   }
 
-  .form-label {
-    color: $text-secondary;
-    font-size: $font-size-sm;
-    font-weight: 500;
-  }
+  .form-label { color: $text-secondary; font-size: $font-size-sm; font-weight: 500; }
 }
 
 // ---- Post Bar (topic view toolbar) ----
@@ -542,26 +439,32 @@
     border-bottom: 1px solid $border-subtle !important;
     border-radius: 0 !important;
     padding: 8px 20px !important;
+    box-shadow: none !important;
   }
 }
 
-// ---- Topic Header refinement ----
+// ---- Topic Header ----
 .cop-topic-header {
   border-color: $border-subtle !important;
   background-color: $content-bg;
-
-  h1 {
-    color: $text-primary;
-  }
+  h1 { color: $text-primary; }
 }
 
-// ---- General fixes ----
+// ---- World page header ----
+.category-header {
+  padding: 16px 20px !important;
+  border-bottom: 1px solid $border-subtle;
+
+  h1 { color: $text-primary; }
+  .description { color: $text-secondary; }
+}
+
+// ---- General overrides ----
 hr {
   border-color: $border-subtle;
   opacity: 1;
 }
 
-// Empty states
 #category-no-topics,
 .no-topics,
 .no-notifs {
@@ -571,41 +474,21 @@ hr {
   border-radius: $radius-md;
 }
 
-// List group items
 .list-group-item {
   background-color: $content-bg;
   border-color: $border-subtle;
   color: $text-primary;
-
-  &:hover {
-    background-color: $content-bg-hover;
-  }
-
-  &.active {
-    background-color: $accent-primary;
-    border-color: $accent-primary;
-  }
+  &:hover { background-color: $content-bg-hover; }
+  &.active { background-color: $accent-primary; border-color: $accent-primary; }
 }
 
-// Nav pills
-.nav-pills {
-  .nav-link {
-    color: $text-secondary;
-    border-radius: $radius-md;
-
-    &:hover {
-      background-color: $content-bg-hover;
-      color: $text-primary;
-    }
-
-    &.active {
-      background-color: $accent-light;
-      color: $accent-primary;
-    }
-  }
+.nav-pills .nav-link {
+  color: $text-secondary;
+  border-radius: $radius-md;
+  &:hover { background-color: $content-bg-hover; color: $text-primary; }
+  &.active { background-color: $accent-light; color: $accent-primary; }
 }
 
-// Tables
 .table {
   --bs-table-bg: #{$content-bg};
   --bs-table-color: #{$text-primary};
@@ -621,37 +504,24 @@ hr {
   }
 }
 
-// Accordion
 .accordion {
-  .accordion-item {
-    background-color: $content-bg;
-    border-color: $border-subtle;
-  }
-
+  .accordion-item { background-color: $content-bg; border-color: $border-subtle; }
   .accordion-button {
-    background-color: $content-bg;
-    color: $text-primary;
-
-    &:not(.collapsed) {
-      background-color: $content-bg-alt;
-      color: $accent-primary;
-    }
+    background-color: $content-bg; color: $text-primary;
+    &:not(.collapsed) { background-color: $content-bg-alt; color: $accent-primary; }
   }
 }
 
-// Border utility overrides
-.border-bottom {
-  border-bottom-color: $border-subtle !important;
-}
+// Border overrides
+.border-bottom { border-bottom-color: $border-subtle !important; }
+.border-start { border-left-color: $border-medium !important; }
+.border-end { border-right-color: $border-subtle !important; }
+.border-top { border-top-color: $border-subtle !important; }
 
-.border-start {
-  border-left-color: $border-medium !important;
-}
-
-.border-end {
-  border-right-color: $border-subtle !important;
-}
-
-.border-top {
-  border-top-color: $border-subtle !important;
+// Card overrides — flatten all cards in content area
+#content .card,
+#content .card-header {
+  background-color: $content-bg !important;
+  border-color: $border-subtle !important;
+  box-shadow: none !important;
 }
