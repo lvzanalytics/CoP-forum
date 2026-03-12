@@ -24,7 +24,7 @@
     .fa-angles-right { display: inline-block; }
     .fa-angles-left { display: none; }
   }
-  .visible-open { display: none; }
+  .visible-open { display: none !important; }
   .visible-closed { display: initial; }
 
   // Open state overrides
@@ -33,9 +33,10 @@
       .fa-angles-right { display: none; }
       .fa-angles-left { display: inline-block; }
     }
-    .visible-open { display: initial; }
+    .visible-open { display: initial !important; }
+    .visible-open.flex-column { display: flex !important; }
     .visible-closed { display: none; }
-    hr.visible-open { display: block; }
+    hr.visible-open { display: block !important; }
   }
 
 
@@ -248,6 +249,23 @@
     .cop-channel-section .section-header .section-label,
     .cop-channel-item .channel-name {
       display: none;
+    }
+
+    // User area — center avatar, hide text
+    .sidebar-toggle-container {
+      padding: 4px;
+
+      > div {
+        justify-content: center;
+        padding: 4px !important;
+        margin: 0 !important;
+
+        a {
+          justify-content: center;
+          flex-grow: 0 !important;
+          padding: 4px !important;
+        }
+      }
     }
   }
 }

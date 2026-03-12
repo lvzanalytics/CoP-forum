@@ -52,7 +52,7 @@
 		<div class="d-flex align-items-center gap-2 p-2 mx-1">
 			<a href="{relative_path}/user/{user.userslug}" class="d-flex align-items-center gap-2 text-decoration-none flex-grow-1 rounded p-1" style="min-width: 0;">
 				{buildAvatar(user, "32px", true)}
-				<div class="visible-open d-flex flex-column" style="min-width: 0;">
+				<div class="visible-open flex-column" style="min-width: 0;">
 					<span class="fw-semibold small text-truncate" style="color: var(--bs-body-color);">{user.displayname}</span>
 					<span class="text-muted" style="font-size: 0.7rem;">En ligne</span>
 				</div>
