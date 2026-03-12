@@ -139,7 +139,9 @@ body {
   display: none !important;
 }
 
-// Composer z-index — must be below topbar dropdown
-[component="composer"] {
-  z-index: 900 !important;
+// Composer z-index — below topbar dropdown on desktop only
+@media (min-width: 992px) {
+  [component="composer"] {
+    z-index: 900 !important;
+  }
 }

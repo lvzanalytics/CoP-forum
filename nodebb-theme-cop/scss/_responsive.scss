@@ -6,14 +6,26 @@
   .sidebar.sidebar-left {
     position: fixed;
     left: -$sidebar-width;
-    top: 0;
+    top: $topbar-height;
     z-index: $z-sidebar + 50;
+    height: calc(100vh - #{$topbar-height});
     transition: left $transition-normal;
     box-shadow: none;
 
     &.mobile-open {
       left: 0;
       box-shadow: $shadow-lg;
+    }
+  }
+
+  // Composer — full width, no sidebar offset, proper z-index on mobile
+  [component="composer"] {
+    left: 0 !important;
+    width: 100% !important;
+
+    // Mobile navbar with submit/discard buttons must clear our topbar
+    .mobile-navbar {
+      z-index: 1060;
     }
   }
 
