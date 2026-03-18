@@ -3,7 +3,7 @@
 // ============================================
 
 @media (max-width: 991px) {
-  // Show mobile hamburger, hide desktop nav
+  // Navbar: hide desktop nav, show hamburger, spread items full-width
   .cop-navbar {
     .cop-navbar__mobile-toggle {
       display: flex;
@@ -11,6 +11,16 @@
 
     .cop-navbar__nav {
       display: none;
+    }
+
+    // Spread brand left, actions + hamburger right
+    .cop-navbar__brand {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cop-navbar__actions {
+      margin-left: auto;
     }
   }
 
@@ -67,14 +77,33 @@
 
   .cop-page-wrapper {
     padding: 0 12px;
+    overflow-x: hidden;
+  }
+
+  // Prevent cards from overflowing screen width
+  .categories-list {
+    grid-template-columns: 1fr;
+    padding: 16px 0 !important;
+    gap: 10px;
+  }
+
+  .cop-category-card {
+    padding: 16px !important;
+    min-width: 0;
+    overflow: hidden;
+    word-break: break-word;
   }
 
   .cop-hero {
-    padding: 32px 16px;
+    padding: 28px 16px;
     margin: 0 -12px;
 
     .cop-hero__title {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
+    }
+
+    .cop-hero__tagline {
+      font-size: $type-body-sm;
     }
   }
 
@@ -95,9 +124,5 @@
   .quick-reply {
     padding: 0 0 8px;
     .icon { display: none; }
-  }
-
-  .cop-category-card {
-    padding: 16px !important;
   }
 }

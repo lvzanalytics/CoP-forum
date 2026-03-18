@@ -3,19 +3,13 @@
 
 			<!-- Site Footer -->
 			<footer class="cop-site-footer">
-				<div class="cop-footer__brand">
-					{{{ if brand:logo }}}
-					<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" />
-					{{{ end }}}
-					<span>{config.siteTitle}</span>
-				</div>
-				<p class="cop-footer__tagline">[[themes/cop:footer.tagline]]</p>
 				<div class="cop-footer__links">
 					<a href="{relative_path}/">[[themes/cop:nav.home]]</a>
 					<a href="{relative_path}/recent">[[themes/cop:nav.recent]]</a>
 					<a href="{relative_path}/users">[[themes/cop:nav.members]]</a>
 				</div>
 				<p class="cop-footer__copyright">[[themes/cop:footer.copyright]]</p>
+				<p class="cop-footer__built-by">[[themes/cop:footer.built-by]] <a href="https://lvzanalytics.com" target="_blank" rel="noopener">LVZ Analytics Corp</a></p>
 			</footer>
 		</div><!-- /.cop-page-wrapper -->
 	</main>

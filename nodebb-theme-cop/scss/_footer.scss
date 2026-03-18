@@ -57,5 +57,21 @@
   .cop-footer__copyright {
     font-size: $type-caption;
     color: $text-tertiary;
+    margin-bottom: 4px;
+  }
+
+  .cop-footer__built-by {
+    font-size: $type-caption;
+    color: $text-tertiary;
+    margin: 0;
+
+    a {
+      color: $text-secondary;
+      font-weight: 500;
+
+      &:hover {
+        color: $accent-primary;
+      }
+    }
   }
 }
