@@ -3,89 +3,101 @@
 // ============================================
 
 @media (max-width: 991px) {
-  .sidebar.sidebar-left {
-    position: fixed;
-    left: -$sidebar-width;
-    top: $topbar-height;
-    z-index: $z-sidebar + 50;
-    height: calc(100vh - #{$topbar-height});
-    transition: left $transition-normal;
-    box-shadow: none;
+  // Show mobile hamburger, hide desktop nav
+  .cop-navbar {
+    .cop-navbar__mobile-toggle {
+      display: flex;
+    }
 
-    &.mobile-open {
-      left: 0;
-      box-shadow: $shadow-lg;
+    .cop-navbar__nav {
+      display: none;
     }
   }
 
-  // Composer — full width, no sidebar offset, proper z-index on mobile
+  // Composer — full width
   [component="composer"] {
     left: 0 !important;
     width: 100% !important;
 
-    // Mobile navbar with submit/discard buttons must clear our topbar
     .mobile-navbar {
       z-index: 1060;
     }
   }
 
-  .cop-sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: $z-sidebar + 40;
-
-    &.active { display: block; }
-  }
-
-  .cop-topbar .cop-mobile-toggle { display: flex; }
-
+  // Topics list
   .topics-list [component="category/topic"] {
-    padding: 10px 12px !important;
+    padding: 12px 0 !important;
     .meta.stats { display: none !important; }
   }
 
-  .posts.timeline > li[component="post"] { padding: 4px 12px !important; }
-  .quick-reply { padding: 0 12px 12px; }
+  // Posts
+  .posts.timeline > li[component="post"] { padding: 16px 0 !important; }
+  .quick-reply { padding: 0 0 12px; }
 
-  // Account pages — stack sidebar nav on mobile
+  // Account pages
   .account {
     .account-content {
-      padding: 16px 12px 0 !important;
+      padding: 16px 0 0 !important;
     }
 
-    .cover {
+    .cover, .cop-profile-banner {
       height: 140px;
     }
+  }
+
+  // Categories grid — 1 column on tablet
+  .categories-list {
+    grid-template-columns: 1fr;
+  }
+
+  // Page wrapper
+  .cop-page-wrapper {
+    padding: 0 16px;
   }
 }
 
 @media (max-width: 575px) {
-  .cop-topbar {
-    padding: 0 10px;
-    .toolbar-search, .channel-divider, .channel-description { display: none; }
+  .cop-navbar {
+    padding: 0 12px;
+
+    .cop-navbar__title {
+      display: none;
+    }
   }
 
-  .category-header { padding: 12px; }
-  .categories-list { padding: 8px !important; }
-  .posts.timeline > li[component="post"] { padding: 4px 8px !important; }
+  .cop-page-wrapper {
+    padding: 0 12px;
+  }
+
+  .cop-hero {
+    padding: 32px 16px;
+    margin: 0 -12px;
+
+    .cop-hero__title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .category-header { padding: 16px 0 !important; }
+
+  .posts.timeline > li[component="post"] { padding: 12px 0 !important; }
 
   .post-container-parent {
-    gap: 8px !important;
+    gap: 10px !important;
     > .bg-body {
       .avatar, img[component="user/picture"] {
-        width: 32px !important;
-        height: 32px !important;
+        width: 36px !important;
+        height: 36px !important;
       }
     }
   }
 
   .quick-reply {
-    padding: 0 8px 8px;
+    padding: 0 0 8px;
     .icon { display: none; }
+  }
+
+  .cop-category-card {
+    padding: 16px !important;
   }
 }

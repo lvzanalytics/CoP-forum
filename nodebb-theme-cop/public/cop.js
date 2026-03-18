@@ -1,75 +1,91 @@
 'use strict';
 
 $(document).ready(function () {
-	setupMobileSidebar();
+	setupNavbar();
+	setupMobileMenu();
+	setupActiveNavLink();
 	setupNProgress();
-	setupSidebarHighlight();
-	setupComposerResize();
-	setupSearch();
-	setupTopbarTitle();
-	setupBrandBarVisibility();
 
-	// Mobile sidebar toggle
-	function setupMobileSidebar() {
-		const sidebar = $('.sidebar-left');
-		const overlay = $('#cop-sidebar-overlay');
-		const toggle = $('#cop-mobile-toggle');
-
-		function openSidebar() {
-			sidebar.addClass('mobile-open');
-			overlay.addClass('active');
-		}
-
-		function closeSidebar() {
-			sidebar.removeClass('mobile-open');
-			overlay.removeClass('active');
-		}
-
-		toggle.on('click', function () {
-			if (sidebar.hasClass('mobile-open')) {
-				closeSidebar();
-			} else {
-				openSidebar();
-			}
-		});
-
-		overlay.on('click', closeSidebar);
-
-		// Close on navigation
-		$(window).on('action:ajaxify.start', closeSidebar);
-	}
-
-	// Sidebar toggle (desktop expand/collapse)
-	require(['hooks', 'api'], function (hooks, api) {
-		$('[component="sidebar/toggle"]').on('click', async function () {
-			const sidebarEl = $('.sidebar');
-			sidebarEl.toggleClass('open');
-			if (app.user.uid) {
-				await api.put(`/users/${app.user.uid}/settings`, {
-					settings: {
-						openSidebars: sidebarEl.hasClass('open') ? 'on' : 'off',
-					},
-				});
-			}
-			$(window).trigger('action:sidebar.toggle');
-		});
-
-		// Composer width adjustment
-		$(window).on('action:composer.resize action:sidebar.toggle', function () {
-			const isRtl = $('html').attr('data-dir') === 'rtl';
-			const css = {
-				width: $('#panel').width(),
-			};
-			const sidebarEl = $('.sidebar-left');
-			css[isRtl ? 'right' : 'left'] = sidebarEl.is(':visible') ? sidebarEl.outerWidth(true) : 0;
-			$('[component="composer"]').css(css);
-		});
-
+	// Chat modal control
+	require(['hooks'], function (hooks) {
 		hooks.on('filter:chat.openChat', function (hookData) {
 			hookData.modal = config.theme.chatModals && !utils.isMobile();
 			return hookData;
 		});
 	});
+
+	// Frosted glass navbar on scroll
+	function setupNavbar() {
+		var navbar = document.getElementById('cop-navbar');
+		if (!navbar) return;
+
+		function onScroll() {
+			if (window.scrollY > 10) {
+				navbar.classList.add('cop-navbar--scrolled');
+			} else {
+				navbar.classList.remove('cop-navbar--scrolled');
+			}
+		}
+
+		window.addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+	}
+
+	// Mobile drawer toggle
+	function setupMobileMenu() {
+		var toggle = $('#cop-mobile-toggle');
+		var drawer = $('#cop-mobile-drawer');
+		var overlay = $('#cop-drawer-overlay');
+
+		function openDrawer() {
+			drawer.addClass('open');
+			overlay.addClass('active');
+		}
+
+		function closeDrawer() {
+			drawer.removeClass('open');
+			overlay.removeClass('active');
+		}
+
+		toggle.on('click', function () {
+			if (drawer.hasClass('open')) {
+				closeDrawer();
+			} else {
+				openDrawer();
+			}
+		});
+
+		overlay.on('click', closeDrawer);
+
+		// Close on navigation
+		$(window).on('action:ajaxify.start', closeDrawer);
+	}
+
+	// Highlight active nav link
+	function setupActiveNavLink() {
+		function highlight() {
+			var path = window.location.pathname;
+			$('.cop-nav-link').removeClass('active');
+			$('.cop-drawer-nav a, .cop-drawer-categories a').removeClass('active');
+
+			$('.cop-nav-link[data-path]').each(function () {
+				var linkPath = $(this).data('path');
+				if (linkPath === '/' && (path === '/' || path === '' || path === '/categories')) {
+					$(this).addClass('active');
+				} else if (linkPath !== '/' && path.startsWith(linkPath)) {
+					$(this).addClass('active');
+				}
+			});
+
+			// Also check if we're on a category page — highlight "Espaces"
+			if (path.startsWith('/category/')) {
+				$('.cop-espaces-dropdown > .cop-nav-link').addClass('active');
+			}
+		}
+
+		highlight();
+		$(window).on('action:ajaxify.end', highlight);
+	}
 
 	function setupNProgress() {
 		require(['nprogress'], function (NProgress) {
@@ -84,124 +100,4 @@ $(document).ready(function () {
 			}
 		});
 	}
-
-	// Highlight active channel in sidebar
-	function setupSidebarHighlight() {
-		function highlightCurrent() {
-			$('.cop-channel-item a').removeClass('active');
-			const currentPath = window.location.pathname;
-			$('.cop-channel-item a').each(function () {
-				const href = $(this).attr('href');
-				if (href && currentPath.startsWith(href) && href !== '/') {
-					$(this).addClass('active');
-				}
-			});
-		}
-
-		highlightCurrent();
-		$(window).on('action:ajaxify.end', highlightCurrent);
-	}
-
-	function setupComposerResize() {
-		$(window).on('action:composer.resize', function () {
-			const isRtl = $('html').attr('data-dir') === 'rtl';
-			const css = {
-				width: $('#panel').width(),
-			};
-			const sidebarEl = $('.sidebar-left');
-			css[isRtl ? 'right' : 'left'] = sidebarEl.is(':visible') ? sidebarEl.outerWidth(true) : 0;
-			$('[component="composer"]').css(css);
-		});
-	}
-
-	function setupSearch() {
-		$('[component="sidebar/search"]').on('shown.bs.dropdown', function () {
-			$(this).find('[component="search/fields"] input[name="query"]').trigger('focus');
-		});
-	}
-
-	// Dynamic topbar title — updates on every page navigation
-	function setupTopbarTitle() {
-		function updateTitle() {
-			var data = ajaxify.data || {};
-			var iconEl = $('[component="cop/topbar/icon"]');
-			var titleEl = $('[component="cop/topbar/title"]');
-			var dividerEl = $('[component="cop/topbar/divider"]');
-			var descEl = $('[component="cop/topbar/description"]');
-
-			dividerEl.hide();
-			descEl.text('');
-
-			if (data.template && data.template.category) {
-				iconEl.html('#');
-				titleEl.text(data.name || '');
-				if (data.descriptionParsed) {
-					dividerEl.show();
-					descEl.html(data.descriptionParsed);
-				}
-			} else if (data.template && data.template.topic) {
-				iconEl.html('<i class="fa fa-comments fa-sm"></i>');
-				titleEl.text(data.title || '');
-			} else {
-				iconEl.html('<i class="fa fa-circle fa-2xs"></i>');
-				// breadcrumbs/title may contain [[translation:keys]] — use translator
-				var rawTitle = '';
-				if (data.breadcrumbs && data.breadcrumbs.length) {
-					rawTitle = data.breadcrumbs[data.breadcrumbs.length - 1].text || '';
-				} else if (data.title) {
-					rawTitle = data.title;
-				}
-				if (rawTitle) {
-					require(['translator'], function (translator) {
-						translator.translate(rawTitle, function (translated) {
-							titleEl.text(translated);
-						});
-					});
-				} else {
-					titleEl.text(document.title.split(' | ')[0] || '');
-				}
-			}
-		}
-
-		updateTitle();
-		$(window).on('action:ajaxify.end', updateTitle);
-	}
-
-	// Hide brand bar on pages that don't need it (account/profile pages)
-	function setupBrandBarVisibility() {
-		function toggleBrandBar() {
-			var data = ajaxify.data || {};
-			var brandBar = $('.cop-brand-bar');
-			var isAccountPage = data.template && (
-				data.template.name && data.template.name.startsWith('account/')
-			);
-			if (isAccountPage) {
-				brandBar.hide();
-			} else {
-				brandBar.show();
-			}
-		}
-
-		toggleBrandBar();
-		$(window).on('action:ajaxify.end', toggleBrandBar);
-	}
-
-	// Tooltip setup
-	const tooltipEls = $('.sidebar [title]');
-	tooltipEls.tooltip({
-		trigger: 'manual',
-		animation: false,
-		placement: 'right',
-	});
-
-	tooltipEls.on('mouseenter', function (ev) {
-		const target = $(ev.target);
-		const isSidebarOpen = target.parents('.sidebar').hasClass('open');
-		if (!isSidebarOpen) {
-			$(this).tooltip('show');
-		}
-	});
-	tooltipEls.on('click mouseleave', function () {
-		$(this).tooltip('hide');
-	});
 });

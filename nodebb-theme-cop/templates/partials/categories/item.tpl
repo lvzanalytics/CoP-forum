@@ -1,30 +1,18 @@
-<li component="categories/category" data-cid="{./cid}" class="cop-category-card d-flex align-items-center gap-3 px-3 py-3 rounded-2 mx-2 my-1 category-{./cid} {./unread-class}">
+<li component="categories/category" data-cid="{./cid}" class="cop-category-card d-flex align-items-start gap-4 category-{./cid} {./unread-class}">
 	<meta itemprop="name" content="{./name}">
 
 	<div class="flex-shrink-0">
-		{buildCategoryIcon(@value, "44px", "rounded-2")}
+		{buildCategoryIcon(@value, "56px", "rounded-3")}
 	</div>
 
 	<div class="flex-grow-1 d-flex flex-column gap-1" style="min-width: 0;">
 		<div class="d-flex align-items-center gap-2">
-			<h2 class="title fs-6 fw-semibold m-0 text-truncate">
+			<h2 class="title m-0 text-truncate">
 				<!-- IMPORT partials/categories/link.tpl -->
 			</h2>
-			{{{ if !./link }}}
-			<div class="d-flex gap-2 ms-auto flex-shrink-0">
-				<span class="badge text-body border border-0 stats text-xs" >
-					<i class="fa fa-fw fa-list fa-sm"></i>
-					<span class="fw-normal">{humanReadableNumber(./totalTopicCount, 0)}</span>
-				</span>
-				<span class="badge text-body border border-0 stats text-xs" >
-					<i class="fa-regular fa-fw fa-message fa-sm"></i>
-					<span class="fw-normal">{humanReadableNumber(./totalPostCount, 0)}</span>
-				</span>
-			</div>
-			{{{ end }}}
 		</div>
 		{{{ if ./descriptionParsed }}}
-		<div class="description text-muted text-xs w-100 text-truncate">
+		<div class="description w-100 text-truncate">
 			{./descriptionParsed}
 		</div>
 		{{{ end }}}
@@ -44,10 +32,14 @@
 		{{{ end }}}
 	</div>
 
-	{{{ if (!./link && ./teaser.pid) }}}
-	<div class="d-none d-lg-flex align-items-center gap-2 flex-shrink-0 text-muted" style="max-width: 200px;">
-		<a href="{{{ if ./teaser.user.userslug }}}{config.relative_path}/user/{./teaser.user.userslug}{{{ else }}}#{{{ end }}}" class="text-decoration-none avatar-tooltip" title="{./teaser.user.displayname}">{buildAvatar(./teaser.user, "20px", true)}</a>
-		<span class="text-xs timeago text-truncate" title="{./teaser.timestampISO}"></span>
+	{{{ if !./link }}}
+	<div class="d-none d-md-flex flex-column align-items-end flex-shrink-0 gap-1">
+		<span class="stats">{humanReadableNumber(./totalTopicCount, 0)} [[global:topics]] &middot; {humanReadableNumber(./totalPostCount, 0)} [[global:posts]]</span>
+		{{{ if ./teaser.pid }}}
+		<div class="d-flex align-items-center gap-2">
+			<span class="timeago text-truncate" style="font-size: 13px; color: #AEAEB2;" title="{./teaser.timestampISO}"></span>
+		</div>
+		{{{ end }}}
 	</div>
 	{{{ end }}}
 </li>

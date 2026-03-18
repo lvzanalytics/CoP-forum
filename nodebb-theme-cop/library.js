@@ -15,7 +15,6 @@ const defaults = {
 	topicSidebarTools: 'off',
 	topMobilebar: 'off',
 	autohideBottombar: 'on',
-	openSidebars: 'on',
 	chatModals: 'off',
 };
 
@@ -86,11 +85,6 @@ library.defineWidgetAreas = async function (areas) {
 			location: 'mainpost-footer',
 		},
 		{
-			name: 'Sidebar Footer',
-			template: 'global',
-			location: 'sidebar-footer',
-		},
-		{
 			name: 'Brand Header',
 			template: 'global',
 			location: 'brand-header',
@@ -111,14 +105,13 @@ library.getThemeConfig = async function (config) {
 	config.theme.topicSidebarTools = config.theme.topicSidebarTools === 'on';
 	config.theme.autohideBottombar = config.theme.autohideBottombar === 'on';
 	config.theme.topMobilebar = config.theme.topMobilebar === 'on';
-	config.theme.openSidebars = config.theme.openSidebars === 'on';
 	config.theme.chatModals = config.theme.chatModals === 'on';
 	config.openDraftsOnPageLoad = false;
 	return config;
 };
 
 library.filterMiddlewareRenderHeader = async function (hookData) {
-	// Fetch all categories for the channel sidebar
+	// Fetch all categories for the Espaces navbar dropdown
 	const allCategories = await categories.getAllCategories(hookData.req.uid || 0);
 	hookData.templateData.allCategories = allCategories.filter(c => !c.disabled && !c.parentCid);
 	hookData.templateData.bootswatchSkinOptions = await meta.css.getSkinSwitcherOptions(hookData.req.uid);

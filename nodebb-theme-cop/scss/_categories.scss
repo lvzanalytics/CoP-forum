@@ -1,0 +1,244 @@
+// ============================================
+// Categories — Card grid + topic list rows
+// ============================================
+
+// ---- Hero section on categories page ----
+.cop-hero {
+  text-align: center;
+  padding: 48px 24px 40px;
+  background-color: $surface-secondary;
+  border-bottom: 1px solid $border-subtle;
+  margin: 0 -24px;
+
+  .cop-hero__title {
+    font-size: $type-hero;
+    font-weight: 700;
+    color: $text-primary;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    line-height: 1.1;
+  }
+
+  .cop-hero__tagline {
+    font-size: $type-body;
+    color: $text-secondary;
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+// ---- Categories grid ----
+.categories-list {
+  padding: 24px 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  list-style: none;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  [component="categories/category"] {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0;
+    display: flex !important;
+    flex-direction: column !important;
+
+    > .d-flex {
+      width: 100%;
+    }
+  }
+}
+
+// ---- Category card ----
+.cop-category-card {
+  background-color: $surface-primary;
+  border: 1px solid $border-subtle !important;
+  border-radius: $radius-lg !important;
+  padding: 24px !important;
+  margin: 0 !important;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+
+  .flex-shrink-0 {
+    .category-icon {
+      width: 56px !important;
+      height: 56px !important;
+      border-radius: $radius-lg !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+  }
+
+  .title {
+    font-size: $type-h3 !important;
+    font-weight: 600;
+    color: $text-primary;
+
+    a {
+      color: $text-primary;
+      &:hover { color: $accent-primary; }
+    }
+  }
+
+  .description {
+    color: $text-secondary !important;
+    font-size: $type-body-sm !important;
+  }
+
+  .stats {
+    font-size: $type-caption !important;
+    color: $text-tertiary !important;
+  }
+
+  .meta.stats .card {
+    background-color: transparent !important;
+    border: none !important;
+
+    .fs-5 {
+      font-size: $type-body-sm !important;
+      color: $text-secondary;
+    }
+
+    span.text-lowercase, i {
+      color: $text-tertiary;
+    }
+  }
+
+  &.unread-class .title a {
+    color: $accent-primary;
+    font-weight: 700;
+  }
+}
+
+.cop-subcategory-badge {
+  background-color: $surface-secondary !important;
+  color: $accent-primary !important;
+  font-size: $type-caption;
+  padding: 4px 10px !important;
+  border-radius: $radius-full !important;
+
+  &:hover {
+    background-color: $accent-light !important;
+  }
+}
+
+// ---- Category page header ----
+.category-header {
+  padding: 24px 0;
+  border-bottom: 1px solid $border-subtle;
+
+  h1 {
+    font-size: $type-h2 !important;
+    font-weight: 700;
+    color: $text-primary;
+  }
+
+  .badge.stats {
+    background-color: $surface-secondary;
+    color: $text-secondary;
+  }
+
+  .description {
+    color: $text-secondary !important;
+  }
+}
+
+// ---- Topics list ----
+.topics-list {
+  padding: 0 !important;
+
+  [component="category/topic"] {
+    border-bottom: 1px solid $border-subtle !important;
+    padding: 16px 0 !important;
+    transition: background-color $transition-fast;
+    background: none !important;
+
+    &:hover {
+      background-color: rgba($surface-secondary, 0.5) !important;
+    }
+
+    .avatar-tooltip img,
+    .avatar-tooltip .avatar {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: $radius-full;
+    }
+
+    .title {
+      font-size: $type-body-sm !important;
+      font-weight: 600;
+      color: $text-primary;
+
+      a {
+        color: inherit;
+        &:hover { color: $accent-primary; }
+      }
+    }
+
+    [component="topic/labels"] .badge {
+      background-color: $surface-secondary;
+      border-color: $border-subtle !important;
+      color: $text-secondary;
+    }
+
+    .tag-list .badge {
+      background-color: $accent-light;
+      border: none !important;
+      color: $accent-primary;
+    }
+
+    .meta.stats .card,
+    .meta.stats .card.card-header {
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+
+      .fs-5 { font-size: $type-body-sm !important; color: $text-secondary; }
+      .text-lowercase, i { color: $text-tertiary; }
+    }
+
+    .timeago {
+      color: $text-tertiary !important;
+      font-size: $type-caption !important;
+    }
+
+    .teaser .lastpost {
+      border-color: $border-subtle !important;
+    }
+  }
+}
+
+// ---- Topic list bar ----
+.topic-list-header,
+[component="category/controls"],
+.post-bar {
+  padding: 12px 0;
+  border-bottom: 1px solid $border-subtle;
+  background-color: transparent;
+
+  .btn {
+    color: $text-secondary;
+    font-size: $type-body-sm;
+
+    &:hover {
+      color: $text-primary;
+      background-color: $surface-secondary;
+    }
+  }
+}
+
+#category-no-topics {
+  margin: 24px 0;
+}

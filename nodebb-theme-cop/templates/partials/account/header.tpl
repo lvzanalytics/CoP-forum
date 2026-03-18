@@ -1,5 +1,5 @@
 <div class="account cop-account w-100 mx-auto">
-	<!-- Clean profile banner — no absolute positioning -->
+	<!-- Profile banner -->
 	<div class="cop-profile-banner" component="account/cover" style="background-image: url({cover:url}); background-position: {cover:position};">
 		{{{ if allowCoverPicture }}}
 		{{{ if canEdit }}}

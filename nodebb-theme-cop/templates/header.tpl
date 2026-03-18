@@ -25,27 +25,33 @@
 <body class="{bodyClass} cop-theme skin-{{{if bootswatchSkin}}}{bootswatchSkin}{{{else}}}noskin{{{end}}}">
 	<a class="visually-hidden-focusable position-absolute top-0 start-0 p-3 m-3 bg-body" style="z-index: 1021;" href="#content">[[global:skip-to-content]]</a>
 
-	<div class="layout-container d-flex">
-		<!-- IMPORT partials/sidebar-left.tpl -->
+	<!-- IMPORT partials/header/topbar.tpl -->
 
-		<div class="cop-sidebar-overlay" id="cop-sidebar-overlay"></div>
-
-		<main id="panel" class="d-flex flex-column flex-grow-1" style="min-width: 0;">
-			<!-- IMPORT partials/header/topbar.tpl -->
-
-			<!-- Brand bar: logo + site title (outside #content so it persists across navigation) -->
-			<div class="cop-brand-bar">
-				<a href="{relative_path}/" class="cop-brand-link">
-					{{{ if brand:logo }}}
-					<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="cop-brand-logo" />
-					{{{ end }}}
-					{{{ if !brand:logo }}}
-					<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="cop-brand-logo" />
-					{{{ end }}}
+	<!-- Mobile drawer -->
+	<div class="cop-drawer-overlay" id="cop-drawer-overlay"></div>
+	<div class="cop-mobile-drawer" id="cop-mobile-drawer">
+		<ul class="cop-drawer-nav">
+			<li><a href="{relative_path}/">[[themes/cop:nav.home]]</a></li>
+			<li><a href="{relative_path}/recent">[[themes/cop:nav.recent]]</a></li>
+			<li><a href="{relative_path}/users">[[themes/cop:nav.members]]</a></li>
+		</ul>
+		<h6 class="cop-drawer-section-title">[[themes/cop:nav.espaces]]</h6>
+		<ul class="cop-drawer-categories">
+			{{{ each allCategories }}}
+			<li>
+				<a href="{config.relative_path}/category/{allCategories.slug}">
+					<span class="cop-drawer-cat-icon">
+						{{{ if allCategories.icon }}}<i class="fa {allCategories.icon}"></i>{{{ else }}}#</span>{{{ end }}}
+					</span>
+					<span>{allCategories.name}</span>
 				</a>
-				<span class="cop-brand-title">{config.siteTitle}</span>
-			</div>
+			</li>
+			{{{ end }}}
+		</ul>
+	</div>
 
-			<div class="d-flex flex-column flex-grow-1 h-100" id="content" style="overflow-y: auto;">
+	<main id="panel">
+		<div class="cop-page-wrapper">
+			<div id="content">
 			<!-- IMPORT partials/noscript/warning.tpl -->
 			<!-- IMPORT partials/noscript/message.tpl -->

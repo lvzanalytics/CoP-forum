@@ -1,44 +1,44 @@
 // ============================================
-// Quick Reply / Composer — Light content area
+// Quick Reply / Composer
 // ============================================
 
 .quick-reply {
-  padding: 0 20px 16px;
+  padding: 0 0 24px;
   margin: 0 !important;
   gap: 12px !important;
   border-top: 1px solid $border-subtle;
-  background-color: $content-bg;
+  background-color: transparent;
   position: sticky;
   bottom: 0;
   z-index: 10;
 
   .icon {
-    padding-top: 12px;
+    padding-top: 16px;
 
     .avatar, img {
-      width: 36px !important;
-      height: 36px !important;
+      width: 40px !important;
+      height: 40px !important;
       border-radius: $radius-full;
     }
   }
 
-  form { padding-top: 12px; }
+  form { padding-top: 16px; }
 
   .quickreply-message textarea {
-    background-color: $content-bg-alt;
+    background-color: $surface-primary;
     border: 1px solid $border-medium;
     border-radius: $radius-lg;
     color: $text-primary;
-    font-size: $font-size-base;
-    padding: 12px 16px;
-    min-height: 44px;
+    font-size: $type-body;
+    padding: 14px 18px;
+    min-height: 48px;
     max-height: 300px;
     resize: none;
 
     &:focus {
       border-color: $accent-primary;
-      background-color: $content-bg;
-      box-shadow: 0 0 0 2px rgba($accent-primary, 0.15);
+      background-color: $surface-primary;
+      box-shadow: 0 0 0 3px rgba($accent-primary, 0.1);
       color: $text-primary;
     }
 
@@ -46,18 +46,16 @@
   }
 
   .btn {
-    border-radius: $radius-md;
-
     &.btn-ghost {
       color: $text-tertiary;
       border-color: $border-subtle !important;
-      &:hover { color: $text-primary; background-color: $content-bg-hover; }
+      &:hover { color: $text-primary; background-color: $surface-secondary; }
     }
 
     &.btn-primary {
       background-color: $accent-primary;
       font-weight: 600;
-      padding: 6px 16px;
+      padding: 8px 20px;
       &:hover { background-color: $accent-hover; }
     }
   }
@@ -65,28 +63,29 @@
 
 // Full composer
 [component="composer"] {
-  background-color: $content-bg;
+  background-color: $surface-primary;
   border-top: 1px solid $border-medium;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
 
-  .composer { background-color: $content-bg; }
+  .composer { background-color: $surface-primary; }
 
   .write-container {
     textarea, .write {
-      background-color: $content-bg;
+      background-color: $surface-primary;
       border: 1px solid $border-medium;
       border-radius: $radius-md;
       color: $text-primary;
+      font-size: $type-body;
 
       &:focus {
         border-color: $accent-primary;
-        box-shadow: 0 0 0 2px rgba($accent-primary, 0.15);
+        box-shadow: 0 0 0 3px rgba($accent-primary, 0.1);
       }
     }
   }
 
   .title {
-    background-color: $content-bg;
+    background-color: $surface-primary;
     border: 1px solid $border-medium;
     border-radius: $radius-md;
     color: $text-primary;
@@ -94,6 +93,6 @@
 
   .formatting-bar {
     border-color: $border-subtle;
-    background-color: $content-bg;
+    background-color: $surface-primary;
   }
 }

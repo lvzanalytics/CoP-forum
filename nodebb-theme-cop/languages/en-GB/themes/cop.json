@@ -1,6 +1,9 @@
 {
-	"channels": "Channels",
-	"navigation": "Navigation",
-	"online": "Online",
-	"header.channels": "Channels"
+	"nav.home": "Home",
+	"nav.espaces": "Spaces",
+	"nav.recent": "Recent",
+	"nav.members": "Members",
+	"hero.tagline": "Community of Practice in Public Policy Evaluation",
+	"footer.tagline": "Community of Practice in Public Policy Evaluation Platform — Republic of Côte d'Ivoire",
+	"footer.copyright": "© 2026 Ministry — All rights reserved"
 }

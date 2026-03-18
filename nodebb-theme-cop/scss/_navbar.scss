@@ -1,0 +1,327 @@
+// ============================================
+// Navbar — 64px, frosted glass on scroll
+// ============================================
+
+.cop-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $navbar-height;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid $border-subtle;
+  z-index: $z-navbar;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  transition: background-color $transition-normal, backdrop-filter $transition-normal, box-shadow $transition-normal;
+
+  // Frosted glass on scroll
+  &.cop-navbar--scrolled {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  // ---- Left: Logo + Title ----
+  .cop-navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    text-decoration: none;
+
+    .cop-navbar__logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .cop-navbar__title {
+      font-size: $type-body;
+      font-weight: 700;
+      color: $text-primary;
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  // ---- Center: Nav links ----
+  .cop-navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+
+    .cop-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 16px;
+      border-radius: $radius-full;
+      font-size: $type-body-sm;
+      font-weight: 500;
+      color: $text-secondary;
+      text-decoration: none;
+      transition: all $transition-fast;
+      white-space: nowrap;
+
+      &:hover {
+        color: $text-primary;
+        background-color: $surface-secondary;
+      }
+
+      &.active {
+        color: $accent-primary;
+        background-color: $accent-light;
+      }
+
+      .fa-chevron-down {
+        font-size: 10px;
+        margin-left: 2px;
+      }
+    }
+  }
+
+  // ---- Espaces dropdown ----
+  .cop-espaces-dropdown {
+    .dropdown-menu {
+      min-width: 340px;
+      max-width: 420px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .cop-espace-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: $radius-md;
+      color: $text-primary;
+      text-decoration: none;
+      transition: background-color $transition-fast;
+
+      &:hover {
+        background-color: $surface-secondary;
+      }
+
+      .cop-espace-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: $radius-md;
+        background-color: $accent-light;
+        color: $accent-primary;
+        font-size: $type-body;
+        flex-shrink: 0;
+      }
+
+      .cop-espace-info {
+        min-width: 0;
+
+        .cop-espace-name {
+          font-size: $type-body-sm;
+          font-weight: 600;
+          color: $text-primary;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .cop-espace-desc {
+          font-size: $type-caption;
+          color: $text-secondary;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+
+  // ---- Right: Actions ----
+  .cop-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      z-index: $z-dropdown;
+    }
+
+    .cop-action-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $radius-full;
+      color: $text-secondary;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: all $transition-fast;
+      font-size: $type-body-sm;
+      text-decoration: none;
+      position: relative;
+
+      &:hover {
+        color: $text-primary;
+        background-color: $surface-secondary;
+      }
+
+      .badge {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        font-size: 9px;
+        padding: 2px 5px;
+        background-color: $orange !important;
+      }
+    }
+  }
+
+  // Notification/chat dropdown width
+  .notifications-dropdown,
+  .chats-dropdown {
+    width: 380px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  // User control list
+  #user-control-list {
+    min-width: 220px;
+  }
+
+  // ---- Mobile hamburger ----
+  .cop-navbar__mobile-toggle {
+    display: none;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-full;
+    color: $text-secondary;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+
+    &:hover {
+      color: $text-primary;
+      background-color: $surface-secondary;
+    }
+  }
+}
+
+// ---- Mobile Drawer ----
+.cop-mobile-drawer {
+  display: none;
+  position: fixed;
+  top: $navbar-height;
+  left: 0;
+  right: 0;
+  background-color: $surface-primary;
+  border-bottom: 1px solid $border-subtle;
+  box-shadow: $shadow-md;
+  z-index: $z-mobile-drawer;
+  padding: 16px 24px;
+  max-height: calc(100vh - #{$navbar-height});
+  overflow-y: auto;
+
+  &.open {
+    display: block;
+  }
+
+  .cop-drawer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 2px;
+    }
+
+    a {
+      display: block;
+      padding: 12px 16px;
+      border-radius: $radius-md;
+      font-size: $type-body;
+      font-weight: 500;
+      color: $text-primary;
+      text-decoration: none;
+
+      &:hover {
+        background-color: $surface-secondary;
+      }
+
+      &.active {
+        color: $accent-primary;
+        background-color: $accent-light;
+      }
+    }
+  }
+
+  .cop-drawer-section-title {
+    font-size: $type-overline;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $text-tertiary;
+    padding: 16px 16px 8px;
+    margin: 0;
+  }
+
+  .cop-drawer-categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+
+      .cop-drawer-cat-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: $radius-md;
+        background-color: $accent-light;
+        color: $accent-primary;
+        font-size: $type-body-sm;
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+// Mobile drawer overlay
+.cop-drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: $navbar-height;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: $z-mobile-drawer - 1;
+
+  &.active {
+    display: block;
+  }
+}

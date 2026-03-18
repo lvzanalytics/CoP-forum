@@ -1,6 +1,6 @@
 // ============================================
 // Base reset & global styles
-// Light content + dark shell
+// Apple-inspired: clean, generous, minimal
 // ============================================
 
 *, *::before, *::after {
@@ -16,39 +16,95 @@ html {
 
 body {
   font-family: $font-primary;
-  font-size: $font-size-base;
-  line-height: 1.5;
+  font-size: $type-body;
+  line-height: 1.65;
   color: $text-primary;
-  background-color: $content-bg;
+  background-color: $surface-page;
   margin: 0;
-  overflow: hidden;
 
-  --bs-body-bg: #{$content-bg};
+  --bs-body-bg: #{$surface-page};
   --bs-body-color: #{$text-primary};
   --bs-border-color: #{$border-medium};
-  --bs-link-color: #{$text-link};
+  --bs-link-color: #{$accent-primary};
   --bs-link-hover-color: #{$accent-hover};
   --bs-primary: #{$accent-primary};
-  --bs-primary-rgb: 46, 125, 50;
+  --bs-primary-rgb: 45, 106, 79;
 }
 
-// Dropdown menus (content area)
+// Hide Harmony's sidebar/layout artifacts
+.sidebar-left,
+.sidebar-right,
+.brand-container,
+nav.breadcrumb,
+.breadcrumb {
+  display: none !important;
+}
+
+// Links
+a {
+  color: $accent-primary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $accent-hover;
+  }
+}
+
+// Selection
+::selection {
+  background-color: rgba($accent-primary, 0.15);
+  color: $text-primary;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: $radius-full;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.01em;
+  color: $text-primary;
+}
+
+// Dropdown menus
 .dropdown-menu {
-  background-color: $content-bg;
-  border: 1px solid $border-medium;
-  border-radius: $radius-md;
-  box-shadow: $shadow-lg;
+  background-color: $surface-primary;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
   padding: 6px;
 
   .dropdown-item {
     color: $text-primary;
-    border-radius: $radius-sm;
-    padding: 6px 10px;
-    font-size: $font-size-base;
+    border-radius: $radius-md;
+    padding: 8px 12px;
+    font-size: $type-body-sm;
+    transition: background-color $transition-fast;
 
     &:hover, &:focus {
-      background-color: $content-bg-hover;
-      color: $text-bright;
+      background-color: $surface-secondary;
+      color: $text-primary;
     }
 
     &.active, &:active {
@@ -62,61 +118,21 @@ body {
   }
 }
 
-// Links
-a {
-  color: $text-link;
-  text-decoration: none;
-  transition: color $transition-fast;
-
-  &:hover {
-    color: $accent-hover;
-  }
-}
-
-// Selection color
-::selection {
-  background-color: rgba($accent-primary, 0.2);
-  color: $text-bright;
-}
-
-// Scrollbar styling
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: $radius-full;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.25);
-  }
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
-}
-
 // Form elements
 .form-control, .form-select {
-  background-color: $content-bg;
+  background-color: $surface-primary;
   border: 1px solid $border-medium;
   color: $text-primary;
   border-radius: $radius-md;
-  font-size: $font-size-base;
+  font-size: $type-body-sm;
+  padding: 10px 14px;
   transition: border-color $transition-fast, box-shadow $transition-fast;
 
   &:focus {
-    background-color: $content-bg;
+    background-color: $surface-primary;
     border-color: $accent-primary;
     color: $text-primary;
-    box-shadow: 0 0 0 2px rgba($accent-primary, 0.2);
+    box-shadow: 0 0 0 3px rgba($accent-primary, 0.1);
   }
 
   &::placeholder {
@@ -124,16 +140,17 @@ a {
   }
 }
 
-// Buttons
+// Buttons — pill-shaped
 .btn {
-  font-size: $font-size-base;
+  font-size: $type-body-sm;
   font-weight: 500;
-  border-radius: $radius-md;
+  border-radius: $radius-full;
   transition: all $transition-fast;
   border: none;
+  padding: 8px 20px;
 
   &:focus-visible {
-    box-shadow: 0 0 0 2px rgba($accent-primary, 0.4);
+    box-shadow: 0 0 0 3px rgba($accent-primary, 0.2);
   }
 }
 
@@ -152,7 +169,7 @@ a {
   color: $text-secondary;
 
   &:hover {
-    background-color: $content-bg-hover;
+    background-color: $surface-secondary;
     color: $text-primary;
   }
 }
@@ -163,25 +180,25 @@ a {
   background: transparent;
 
   &:hover {
-    background-color: $content-bg-hover;
+    background-color: $surface-secondary;
     color: $text-primary;
-    border-color: $border-strong;
+    border-color: $border-medium;
   }
 }
 
 // Badges
 .badge {
   font-weight: 500;
-  font-size: $font-size-xs;
-  padding: 2px 8px;
+  font-size: $type-overline;
+  padding: 3px 10px;
   border-radius: $radius-full;
 }
 
 // Modal overrides
 .modal-content {
-  background-color: $content-bg;
-  border: 1px solid $border-medium;
-  border-radius: $radius-lg;
+  background-color: $surface-primary;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-xl;
   box-shadow: $shadow-lg;
 }
 
@@ -195,11 +212,12 @@ a {
 
 // Tooltip
 .tooltip-inner {
-  background-color: $shell-bg;
-  color: $shell-text-bright;
-  font-size: $font-size-sm;
-  border-radius: $radius-sm;
+  background-color: $text-primary;
+  color: #fff;
+  font-size: $type-caption;
+  border-radius: $radius-md;
   box-shadow: $shadow-md;
+  padding: 6px 12px;
 }
 
 // Status indicators
@@ -208,16 +226,9 @@ a {
   height: 10px;
 
   &.online { background-color: $accent-primary; }
-  &.dnd { background-color: $accent-red; }
-  &.away { background-color: $accent-gold; }
+  &.dnd { background-color: $red; }
+  &.away { background-color: $gold; }
   &.offline { background-color: $text-tertiary; }
-}
-
-// Hide brand container (we have topbar)
-.brand-container,
-.breadcrumb,
-nav.breadcrumb {
-  display: none !important;
 }
 
 // Pagination
@@ -227,12 +238,12 @@ nav.breadcrumb {
       background-color: transparent;
       border-color: $border-subtle;
       color: $text-secondary;
-      border-radius: $radius-sm;
+      border-radius: $radius-md;
       margin: 0 2px;
-      font-size: $font-size-sm;
+      font-size: $type-body-sm;
 
       &:hover {
-        background-color: $content-bg-hover;
+        background-color: $surface-secondary;
         color: $text-primary;
       }
     }
@@ -245,9 +256,15 @@ nav.breadcrumb {
   }
 }
 
-// Card overrides for light theme
+// Card overrides
 .card, .card-header, .card-body, .card-footer {
-  background-color: $content-bg;
+  background-color: $surface-primary;
   border-color: $border-subtle;
   color: $text-primary;
+}
+
+// HR
+hr {
+  border-color: $border-subtle;
+  opacity: 1;
 }

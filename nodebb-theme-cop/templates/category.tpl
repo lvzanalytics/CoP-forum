@@ -1,18 +1,18 @@
 <!-- IMPORT partials/breadcrumbs-json-ld.tpl -->
 
 <div class="cop-category-view d-flex flex-column flex-fill">
-	<!-- Category header bar -->
-	<div class="category-header d-flex flex-wrap align-items-center gap-2 px-3 py-2 border-bottom" >
-		{buildCategoryIcon(@value, "32px", "rounded-1 flex-shrink-0")}
+	<!-- Category header -->
+	<div class="category-header d-flex flex-wrap align-items-center gap-3">
+		{buildCategoryIcon(@value, "36px", "rounded-2 flex-shrink-0")}
 		<div class="d-flex flex-column">
-			<h1 class="fs-6 fw-semibold mb-0">{./name}</h1>
+			<h1 class="mb-0">{./name}</h1>
 		</div>
 		<div class="d-flex gap-2 ms-auto align-items-center">
-			<span class="badge text-body border border-0 stats text-xs" >
+			<span class="badge text-body border border-0 stats">
 				<span class="fw-bold">{humanReadableNumber(totalTopicCount)}</span>
 				<span class="text-lowercase fw-normal">[[global:topics]]</span>
 			</span>
-			<span class="badge text-body border border-0 stats text-xs" >
+			<span class="badge text-body border border-0 stats">
 				<span class="fw-bold">{humanReadableNumber(totalPostCount)}</span>
 				<span class="text-lowercase fw-normal">[[global:posts]]</span>
 			</span>
@@ -20,13 +20,13 @@
 	</div>
 
 	{{{ if ./descriptionParsed }}}
-	<div class="px-3 py-2 text-muted text-sm border-bottom" >
+	<div class="py-2 text-muted" style="font-size: 14px;">
 		{./descriptionParsed}
 	</div>
 	{{{ end }}}
 
 	{{{ if widgets.header.length }}}
-	<div data-widget-area="header" class="px-3 py-2">
+	<div data-widget-area="header" class="py-2">
 		{{{ each widgets.header }}}
 		{{widgets.header.html}}
 		{{{ end }}}
@@ -41,7 +41,7 @@
 		{{{ end }}}
 
 		{{{ if (./inbox && (./hasFollowers == false)) }}}
-		<div class="alert alert-warning mx-3 mt-2" id="category-no-followers" data-bs-toggle="dropdown" data-bs-target='[component="topic/watch"] button' aria-hidden="true">
+		<div class="alert alert-warning mt-3" id="category-no-followers" data-bs-toggle="dropdown" data-bs-target='[component="topic/watch"] button' aria-hidden="true">
 			<i class="fa fa-triangle-exclamation pe-2"></i>
 			[[category:no-followers]]
 			<a href="#" class="stretched-link"></a>
@@ -49,7 +49,7 @@
 		{{{ end }}}
 
 		{{{ if (!topics.length && privileges.topics:create) }}}
-		<div class="alert alert-info mx-3 mt-2" id="category-no-topics">
+		<div class="alert alert-info mt-3" id="category-no-topics">
 			[[category:no-topics]]
 		</div>
 		{{{ end }}}
@@ -57,7 +57,7 @@
 		<!-- IMPORT partials/topics_list.tpl -->
 
 		{{{ if config.usePagination }}}
-		<div class="px-3">
+		<div class="py-3">
 		<!-- IMPORT partials/paginator.tpl -->
 		</div>
 		{{{ end }}}

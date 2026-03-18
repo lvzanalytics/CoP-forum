@@ -27,10 +27,10 @@
 	</div>
 
 	<!-- Topic header -->
-	<div class="cop-topic-header px-4 py-3 border-bottom" >
+	<div class="cop-topic-header py-4 border-bottom">
 		<div class="d-flex flex-column gap-2">
 			<div class="d-flex align-items-center gap-2 flex-wrap">
-				<h1 component="post/header" class="fs-5 fw-bold mb-0 text-break">
+				<h1 component="post/header" class="mb-0 text-break" style="font-size: 1.375rem; font-weight: 700;">
 					<span class="topic-title" component="topic/title">{title}</span>
 				</h1>
 				<span component="topic/labels" class="d-flex gap-1 {{{ if (!scheduled && (!pinned && (!locked && (!icons.length && (!oldCid || (oldCid == "-1")))))) }}}hidden{{{ end }}}">
@@ -55,7 +55,7 @@
 	</div>
 
 	<!-- Messages area -->
-	<div class="flex-fill" style="overflow-y: auto;">
+	<div class="flex-fill">
 		<!-- IMPORT partials/post_bar.tpl -->
 		{{{ if merger }}}
 		<!-- IMPORT partials/topic/merged-message.tpl -->
@@ -85,7 +85,7 @@
 		</ul>
 
 		{{{ if browsingUsers }}}
-		<div class="px-4 py-2">
+		<div class="py-3">
 			<!-- IMPORT partials/topic/browsing-users.tpl -->
 		</div>
 		{{{ end }}}
@@ -99,7 +99,7 @@
 		{{{ end }}}
 
 		{{{ if config.usePagination }}}
-		<div class="px-4 py-2">
+		<div class="py-3">
 		<!-- IMPORT partials/paginator.tpl -->
 		</div>
 		{{{ end }}}

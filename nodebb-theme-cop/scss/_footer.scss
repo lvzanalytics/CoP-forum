@@ -1,0 +1,61 @@
+// ============================================
+// Site Footer
+// ============================================
+
+.cop-site-footer {
+  margin-top: auto;
+  padding: 40px 0 24px;
+  border-top: 1px solid $border-subtle;
+  text-align: center;
+
+  .cop-footer__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+
+    img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    span {
+      font-size: $type-body-sm;
+      font-weight: 600;
+      color: $text-primary;
+    }
+  }
+
+  .cop-footer__tagline {
+    font-size: $type-caption;
+    color: $text-secondary;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .cop-footer__links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+
+    a {
+      font-size: $type-caption;
+      color: $text-secondary;
+      text-decoration: none;
+
+      &:hover {
+        color: $accent-primary;
+      }
+    }
+  }
+
+  .cop-footer__copyright {
+    font-size: $type-caption;
+    color: $text-tertiary;
+  }
+}

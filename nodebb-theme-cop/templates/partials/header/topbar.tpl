@@ -1,24 +1,57 @@
-<div class="cop-topbar">
-	<button class="cop-mobile-toggle" id="cop-mobile-toggle" aria-label="Toggle sidebar">
-		<i class="fa fa-bars"></i>
-	</button>
+<header class="cop-navbar" id="cop-navbar">
+	<!-- Left: Logo + Title -->
+	<a href="{relative_path}/" class="cop-navbar__brand">
+		{{{ if brand:logo }}}
+		<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="cop-navbar__logo" />
+		{{{ end }}}
+		{{{ if !brand:logo }}}
+		<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="cop-navbar__logo" />
+		{{{ end }}}
+		<span class="cop-navbar__title">{config.siteTitle}</span>
+	</a>
 
-	<div class="cop-channel-info">
-		<span class="channel-hash-icon" component="cop/topbar/icon"><i class="fa fa-circle fa-2xs"></i></span>
-		<span class="channel-title" component="cop/topbar/title"></span>
-		<span class="channel-divider" component="cop/topbar/divider" style="display:none;"></span>
-		<span class="channel-description" component="cop/topbar/description"></span>
-	</div>
-
-	<div class="cop-toolbar">
-		{{{ if config.loggedIn }}}
-		<!-- Notifications dropdown -->
-		<div component="notifications" class="dropdown" style="z-index: 1050;">
-			<a data-bs-toggle="dropdown" href="#" role="button" class="toolbar-btn position-relative" aria-haspopup="true" aria-expanded="false" aria-label="[[global:header.notifications]]">
-				<i component="notifications/icon" class="fa {{{ if unreadCount.notification}}}fa-bell{{{ else }}}fa-bell-o{{{ end }}}" data-content="{unreadCount.notification}"></i>
-				<span component="notifications/count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {{{ if !unreadCount.notification }}}hidden{{{ end }}}" style="font-size: 0.55rem; padding: 2px 4px;">{unreadCount.notification}</span>
+	<!-- Center: Nav links -->
+	<ul class="cop-navbar__nav">
+		<li><a href="{relative_path}/" class="cop-nav-link" data-path="/">[[themes/cop:nav.home]]</a></li>
+		<li class="cop-espaces-dropdown dropdown">
+			<a href="#" class="cop-nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				[[themes/cop:nav.espaces]] <i class="fa fa-chevron-down"></i>
 			</a>
-			<ul class="notifications-dropdown dropdown-menu dropdown-menu-end p-1 shadow" style="z-index: 1060; width: 360px; max-height: 500px; overflow-y: auto;" role="menu">
+			<div class="dropdown-menu p-2">
+				{{{ each allCategories }}}
+				<a href="{config.relative_path}/category/{allCategories.slug}" class="cop-espace-item">
+					<span class="cop-espace-icon">
+						{{{ if allCategories.icon }}}<i class="fa {allCategories.icon}"></i>{{{ else }}}#</span>{{{ end }}}
+					</span>
+					<div class="cop-espace-info">
+						<div class="cop-espace-name">{allCategories.name}</div>
+						{{{ if allCategories.descriptionParsed }}}
+						<div class="cop-espace-desc">{allCategories.descriptionParsed}</div>
+						{{{ end }}}
+					</div>
+				</a>
+				{{{ end }}}
+			</div>
+		</li>
+		<li><a href="{relative_path}/recent" class="cop-nav-link" data-path="/recent">[[themes/cop:nav.recent]]</a></li>
+		<li><a href="{relative_path}/users" class="cop-nav-link" data-path="/users">[[themes/cop:nav.members]]</a></li>
+	</ul>
+
+	<!-- Right: Actions -->
+	<div class="cop-navbar__actions">
+		<!-- Search -->
+		<a href="{relative_path}/search" class="cop-action-btn" title="[[global:search]]">
+			<i class="fa fa-search"></i>
+		</a>
+
+		{{{ if config.loggedIn }}}
+		<!-- Notifications -->
+		<div component="notifications" class="dropdown">
+			<a data-bs-toggle="dropdown" href="#" role="button" class="cop-action-btn" aria-haspopup="true" aria-expanded="false" aria-label="[[global:header.notifications]]">
+				<i component="notifications/icon" class="fa {{{ if unreadCount.notification}}}fa-bell{{{ else }}}fa-bell-o{{{ end }}}"></i>
+				<span component="notifications/count" class="badge rounded-pill {{{ if !unreadCount.notification }}}hidden{{{ end }}}">{unreadCount.notification}</span>
+			</a>
+			<ul class="notifications-dropdown dropdown-menu dropdown-menu-end p-1 shadow" role="menu">
 				<li>
 					<div component="notifications/list" class="list-container notification-list overscroll-behavior-contain pe-1 ff-base">
 						<div class="mb-2 p-1">
@@ -56,14 +89,14 @@
 			</ul>
 		</div>
 
-		<!-- Chats dropdown -->
+		<!-- Chats -->
 		{{{ if canChat }}}
-		<div class="dropdown" style="z-index: 1050;">
-			<a data-bs-toggle="dropdown" href="#" role="button" class="toolbar-btn position-relative" component="chat/dropdown" aria-haspopup="true" aria-expanded="false" aria-label="[[global:header.chats]]">
-				<i component="chat/icon" class="fa {{{ if unreadCount.chat}}}fa-comment{{{ else }}}fa-comment-o{{{ end }}}" data-content="{unreadCount.chat}"></i>
-				<span component="chat/count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger {{{ if !unreadCount.chat }}}hidden{{{ end }}}" style="font-size: 0.55rem; padding: 2px 4px;">{unreadCount.chat}</span>
+		<div class="dropdown">
+			<a data-bs-toggle="dropdown" href="#" role="button" class="cop-action-btn" component="chat/dropdown" aria-haspopup="true" aria-expanded="false" aria-label="[[global:header.chats]]">
+				<i component="chat/icon" class="fa {{{ if unreadCount.chat}}}fa-comment{{{ else }}}fa-comment-o{{{ end }}}"></i>
+				<span component="chat/count" class="badge rounded-pill {{{ if !unreadCount.chat }}}hidden{{{ end }}}">{unreadCount.chat}</span>
 			</a>
-			<ul class="chats-dropdown dropdown-menu dropdown-menu-end p-1 shadow" style="z-index: 1060; width: 360px; max-height: 500px; overflow-y: auto;" role="menu">
+			<ul class="chats-dropdown dropdown-menu dropdown-menu-end p-1 shadow" role="menu">
 				<li>
 					<div component="chat/list" class="list-container chats-list overscroll-behavior-contain p-0 pe-1 ff-base">
 						<div class="rounded-1">
@@ -97,20 +130,13 @@
 			</ul>
 		</div>
 		{{{ end }}}
-		{{{ end }}}
 
-		<!-- Search -->
-		<a href="{relative_path}/search" class="toolbar-btn" title="[[global:search]]">
-			<i class="fa fa-search"></i>
-		</a>
-
-		<!-- User menu dropdown -->
-		{{{ if config.loggedIn }}}
-		<div class="dropdown" style="z-index: 1050;">
-			<a component="header/avatar" id="user_dropdown" href="#" role="button" class="toolbar-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="[[user:user-menu]]">
-				{buildAvatar(user, "24px", true)}
+		<!-- User menu -->
+		<div class="dropdown">
+			<a component="header/avatar" id="user_dropdown" href="#" role="button" class="cop-action-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="[[user:user-menu]]">
+				{buildAvatar(user, "28px", true)}
 			</a>
-			<ul id="user-control-list" component="header/usercontrol" class="dropdown-menu dropdown-menu-end shadow p-1 text-sm" style="z-index: 1060;" role="menu">
+			<ul id="user-control-list" component="header/usercontrol" class="dropdown-menu dropdown-menu-end shadow p-1 text-sm" role="menu">
 				<li>
 					<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" component="header/profilelink" href="{relative_path}/user/{user.userslug}" role="menuitem">
 						<span component="user/status" class="flex-shrink-0 border border-white border-2 rounded-circle status {user.status}"></span>
@@ -209,10 +235,17 @@
 				</li>
 			</ul>
 		</div>
-		{{{ else }}}
-		<a href="{relative_path}/login" class="toolbar-btn" title="[[global:login]]">
+		{{{ end }}}
+
+		{{{ if !config.loggedIn }}}
+		<a href="{relative_path}/login" class="cop-action-btn" title="[[global:login]]">
 			<i class="fa fa-sign-in"></i>
 		</a>
 		{{{ end }}}
 	</div>
-</div>
+
+	<!-- Mobile toggle -->
+	<button class="cop-navbar__mobile-toggle" id="cop-mobile-toggle" aria-label="Toggle menu">
+		<i class="fa fa-bars"></i>
+	</button>
+</header>

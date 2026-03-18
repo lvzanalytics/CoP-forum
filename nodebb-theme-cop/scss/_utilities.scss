@@ -1,29 +1,29 @@
 // ============================================
-// Utility overrides — light content area
+// Utility overrides
 // ============================================
 
 // Alerts
 .alert {
-  border-radius: $radius-md;
+  border-radius: $radius-lg;
 
   &.alert-info {
-    background-color: rgba($accent-blue, 0.08);
-    border-color: rgba($accent-blue, 0.15);
-    color: darken($accent-blue, 15%);
+    background-color: rgba($blue, 0.06);
+    border-color: rgba($blue, 0.12);
+    color: darken($blue, 15%);
   }
   &.alert-warning {
-    background-color: rgba($accent-gold, 0.12);
-    border-color: rgba($accent-gold, 0.2);
-    color: darken($accent-gold, 30%);
+    background-color: rgba($gold, 0.1);
+    border-color: rgba($gold, 0.18);
+    color: darken($gold, 30%);
   }
   &.alert-danger {
-    background-color: rgba($accent-red, 0.08);
-    border-color: rgba($accent-red, 0.15);
-    color: $accent-red;
+    background-color: rgba($red, 0.06);
+    border-color: rgba($red, 0.12);
+    color: $red;
   }
   &.alert-success {
-    background-color: rgba($accent-primary, 0.08);
-    border-color: rgba($accent-primary, 0.15);
+    background-color: rgba($accent-primary, 0.06);
+    border-color: rgba($accent-primary, 0.12);
     color: darken($accent-primary, 10%);
   }
 }
@@ -33,10 +33,10 @@
   z-index: $z-toast !important;
 
   .alert {
-    background-color: $content-bg;
-    border: 1px solid $border-medium;
-    border-radius: $radius-md;
-    box-shadow: $shadow-lg;
+    background-color: $surface-primary;
+    border: 1px solid $border-subtle;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
     color: $text-primary;
   }
 }
@@ -44,36 +44,36 @@
 // NProgress
 #nprogress {
   .bar {
-    background-color: $accent-orange !important;
+    background-color: $accent-primary !important;
     height: 2px !important;
   }
   .peg {
-    box-shadow: 0 0 10px $accent-orange, 0 0 5px $accent-orange !important;
+    box-shadow: 0 0 10px $accent-primary, 0 0 5px $accent-primary !important;
   }
 }
 
 // Search
 .search-dropdown {
-  background-color: $content-bg;
-  border: 1px solid $border-medium;
-  border-radius: $radius-md;
-  box-shadow: $shadow-lg;
+  background-color: $surface-primary;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
 }
 
-// Login/Register
+// Login/Register containers
 .login-container, .register-container {
   .card, .form-container {
-    background-color: $content-bg;
+    background-color: $surface-primary;
     border: 1px solid $border-subtle;
-    border-radius: $radius-lg;
-    box-shadow: $shadow-md;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
   }
 }
 
 // Bootbox
 .bootbox .modal-content {
-  background-color: $content-bg;
-  border: 1px solid $border-medium;
+  background-color: $surface-primary;
+  border: 1px solid $border-subtle;
 }
 
 // Nav tabs
@@ -85,7 +85,8 @@
     border: none;
     border-bottom: 2px solid transparent;
     border-radius: 0;
-    padding: 8px 16px;
+    padding: 10px 18px;
+    font-weight: 500;
 
     &:hover {
       color: $text-primary;
@@ -101,31 +102,31 @@
 
 // Text & background overrides
 .text-muted { color: $text-secondary !important; }
-.bg-light { background-color: $content-bg-alt !important; }
-.bg-body { background-color: $content-bg !important; }
+.bg-light { background-color: $surface-secondary !important; }
+.bg-body { background-color: $surface-primary !important; }
 .text-body { color: $text-primary !important; }
 
 // Bottom bar (mobile)
 .bottombar-nav {
-  background-color: $shell-bg;
-  border-top: 1px solid $shell-border;
+  background-color: $surface-primary;
+  border-top: 1px solid $border-subtle;
 
   .nav-link {
-    color: $shell-text;
-    &:hover, &.active { color: $shell-text-bright; }
+    color: $text-secondary;
+    &:hover, &.active { color: $accent-primary; }
   }
 }
 
-// Sticky tools (mobile)
+// Sticky tools
 .sticky-tools {
-  background-color: $content-bg;
+  background-color: $surface-primary;
   border-bottom: 1px solid $border-subtle;
 }
 
-// Pagination block (mobile)
+// Pagination block
 .pagination-block {
-  background-color: $content-bg;
-  border: 1px solid $border-medium;
-  border-radius: $radius-md;
-  box-shadow: $shadow-lg;
+  background-color: $surface-primary;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
 }

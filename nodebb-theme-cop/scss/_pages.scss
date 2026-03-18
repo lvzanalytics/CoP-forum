@@ -1,5 +1,5 @@
 // ============================================
-// Pages — Discord/Slack aesthetic for all pages
+// Pages — Apple-aesthetic for all page types
 // ============================================
 
 // ---- Topic List Bar (shared toolbar) ----
@@ -7,21 +7,21 @@
   margin-bottom: 0 !important;
 
   .card.card-header {
-    background-color: $content-bg !important;
+    background-color: transparent !important;
     border: none !important;
     border-bottom: 1px solid $border-subtle !important;
     border-radius: 0 !important;
-    padding: 8px 16px !important;
+    padding: 12px 0 !important;
     box-shadow: none !important;
 
     .btn {
-      font-size: $font-size-sm;
+      font-size: $type-body-sm;
       color: $text-secondary;
-      border-radius: $radius-md;
+      border-radius: $radius-full;
 
       &:hover {
         color: $text-primary;
-        background-color: $content-bg-hover;
+        background-color: $surface-secondary;
       }
 
       &.btn-primary {
@@ -42,7 +42,7 @@
 }
 
 .sticky-tools {
-  background-color: $content-bg !important;
+  background-color: $surface-primary !important;
   border-bottom: 1px solid $border-subtle !important;
   margin-bottom: 0 !important;
 
@@ -57,76 +57,15 @@
 // ---- Category Stats Badges ----
 .category-header .badge.stats,
 .cop-category-card .badge.stats {
-  background-color: $content-bg-alt !important;
+  background-color: $surface-secondary !important;
   color: $text-secondary !important;
-}
-
-.cop-subcategory-badge {
-  background-color: $content-bg-alt !important;
-  color: $text-link !important;
-
-  &:hover {
-    background-color: $accent-light !important;
-    color: $accent-primary !important;
-  }
-}
-
-// ---- Topics List ----
-.topics-list {
-  [component="category/topic"] {
-    border-bottom: 1px solid $border-subtle !important;
-    padding: 12px 20px !important;
-    transition: background-color $transition-fast;
-    background: none !important;
-
-    &:hover {
-      background-color: $content-bg-hover !important;
-    }
-
-    .title {
-      font-size: $font-size-base !important;
-      a { color: $text-primary !important; &:hover { color: $accent-primary !important; } }
-    }
-
-    .meta.stats .card,
-    .meta.stats .card.card-header {
-      background-color: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 2px 6px !important;
-
-      .fs-5 { font-size: $font-size-sm !important; color: $text-secondary; }
-      .text-lowercase, i { color: $text-tertiary; }
-    }
-
-    .teaser .lastpost {
-      border-color: $border-medium !important;
-    }
-
-    .tag-list .badge {
-      background-color: $accent-light !important;
-      border-color: transparent !important;
-      color: $accent-primary !important;
-    }
-
-    [component="topic/labels"] .badge {
-      border-color: $border-subtle !important;
-      background-color: $content-bg-alt !important;
-      color: $text-secondary !important;
-    }
-
-    .timeago {
-      color: $text-tertiary !important;
-      font-size: $font-size-xs !important;
-    }
-  }
 }
 
 // ---- Users Page ----
 .users {
   h3 {
     color: $text-primary !important;
-    font-size: $font-size-lg !important;
+    font-size: $type-h3 !important;
     font-weight: 600 !important;
   }
 
@@ -140,16 +79,16 @@
 
     > div > .btn-ghost,
     > div > div > .btn-ghost {
-      background-color: $content-bg !important;
+      background-color: $surface-primary !important;
       border: 1px solid $border-subtle !important;
       border-radius: $radius-lg !important;
-      padding: 14px !important;
+      padding: 16px !important;
       transition: all $transition-fast !important;
 
       &:hover {
-        background-color: $content-bg-hover !important;
         border-color: $accent-primary !important;
         box-shadow: $shadow-sm !important;
+        transform: translateY(-1px);
       }
 
       .avatar {
@@ -175,10 +114,10 @@
 
   .nav .btn-ghost {
     color: $text-secondary !important;
-    border-radius: $radius-md !important;
+    border-radius: $radius-full !important;
 
     &:hover {
-      background-color: $content-bg-hover !important;
+      background-color: $surface-secondary !important;
       color: $text-primary !important;
     }
 
@@ -193,7 +132,7 @@
 
     .btn-ghost {
       border-radius: $radius-md !important;
-      &:hover { background-color: $content-bg-hover !important; }
+      &:hover { background-color: $surface-secondary !important; }
     }
 
     .fa-circle.text-primary {
@@ -210,24 +149,23 @@
 
   h2 {
     color: $text-primary !important;
-    font-size: $font-size-xl !important;
+    font-size: $type-h2 !important;
   }
 }
 
-// ---- Account Pages — Discord-style profile ----
+// ---- Account Pages ----
 .cop-account {
   padding: 0 !important;
 
-  // Banner — simple block element, no absolute
+  // Banner
   .cop-profile-banner {
-    height: 180px;
+    height: 200px;
     background-size: cover;
     background-position: center;
-    background-color: $shell-bg;
+    background-color: $accent-primary;
     position: relative;
     overflow: hidden;
 
-    // Cover edit controls
     .controls {
       display: none;
       position: absolute;
@@ -257,20 +195,20 @@
 
   // Profile card below banner
   .cop-profile-card {
-    padding: 16px 20px;
+    padding: 16px 0;
     border-bottom: 1px solid $border-subtle;
-    background: $content-bg;
+    background: transparent;
     position: relative;
     z-index: 2;
   }
 
   .cop-avatar-wrapper {
     position: relative;
-    background: $content-bg;
+    background: $surface-primary;
     border-radius: $radius-full;
     padding: 4px;
     flex-shrink: 0;
-    margin-top: -64px; // pull avatar up into the banner
+    margin-top: -64px;
 
     .avatar {
       border-radius: $radius-full !important;
@@ -295,14 +233,14 @@
   }
 
   .cop-display-name {
-    font-size: $font-size-2xl;
+    font-size: $type-h1;
     font-weight: 700;
     color: $text-primary;
   }
 
   .cop-username {
     color: $text-secondary;
-    font-size: $font-size-sm;
+    font-size: $type-body-sm;
     font-weight: 500;
   }
 
@@ -313,11 +251,11 @@
 
   .btn-ghost {
     color: $text-secondary;
-    border-radius: $radius-md;
-    font-size: $font-size-sm;
+    border-radius: $radius-full;
+    font-size: $type-body-sm;
 
     &:hover {
-      background-color: $content-bg-hover !important;
+      background-color: $surface-secondary !important;
       color: $text-primary !important;
     }
 
@@ -327,7 +265,6 @@
     }
   }
 
-  // Account content area
   .account-content {
     min-width: 0;
   }
@@ -337,7 +274,7 @@
     padding: 0 !important;
 
     .card.card-header {
-      background-color: $content-bg-alt !important;
+      background-color: $surface-secondary !important;
       border: 1px solid $border-subtle !important;
       border-radius: $radius-md !important;
       box-shadow: none !important;
@@ -349,7 +286,7 @@
 
   // Settings page sticky header
   .position-sticky.top-0 {
-    background-color: $content-bg !important;
+    background-color: $surface-primary !important;
     z-index: 5;
     padding: 12px 0 !important;
     border-bottom: 1px solid $border-subtle;
@@ -357,30 +294,29 @@
 
   // Forms
   h6.fw-bold { color: $text-primary; }
-  .form-label { color: $text-secondary; font-size: $font-size-sm; }
+  .form-label { color: $text-secondary; font-size: $type-body-sm; }
   .form-check-label { color: $text-primary; }
   .form-text { color: $text-tertiary; }
   hr { border-color: $border-subtle; }
 
   .table {
-    --bs-table-bg: #{$content-bg};
+    --bs-table-bg: #{$surface-primary};
     --bs-table-border-color: #{$border-subtle};
-    th { background-color: $content-bg-alt; color: $text-secondary; font-size: $font-size-sm; }
+    th { background-color: $surface-secondary; color: $text-secondary; font-size: $type-body-sm; }
   }
 
-  // About me
   [component="aboutme"] {
     padding: 16px 0;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 }
 
 // Fallback for account pages that don't use cop-account yet
 .account:not(.cop-account) {
   .cover {
-    height: 180px;
+    height: 200px;
     background-size: cover;
-    background-color: $shell-bg;
+    background-color: $accent-primary;
 
     .save, .indicator { display: none !important; }
     .controls { display: none; }
@@ -392,11 +328,11 @@
   h3 { color: $text-primary !important; }
 
   .list-group-item {
-    background-color: $content-bg !important;
+    background-color: $surface-primary !important;
     border-color: $border-subtle !important;
     transition: background-color $transition-fast;
 
-    &:hover { background-color: $content-bg-hover !important; }
+    &:hover { background-color: $surface-secondary !important; }
   }
 }
 
@@ -409,10 +345,10 @@
     color: $accent-primary !important;
     border: none !important;
     font-weight: 500 !important;
-    padding: 6px 12px !important;
-    font-size: $font-size-sm !important;
+    padding: 6px 14px !important;
+    font-size: $type-body-sm !important;
 
-    &:hover { background-color: rgba($accent-primary, 0.15) !important; }
+    &:hover { background-color: rgba($accent-primary, 0.12) !important; }
   }
 }
 
@@ -422,13 +358,21 @@
   flex-direction: column;
   align-items: center;
 
+  .cop-login-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 24px;
+  }
+
   .card, .form-container {
-    background-color: $content-bg;
+    background-color: $surface-primary;
     border: 1px solid $border-subtle;
-    border-radius: $radius-lg;
-    box-shadow: $shadow-md;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
     max-width: 440px;
     width: 100%;
+    padding: 40px;
   }
 
   h1, h2, h3 { color: $text-primary; font-weight: 700; }
@@ -436,20 +380,27 @@
   .btn-primary {
     background-color: $accent-primary;
     font-weight: 600;
+    height: 48px;
+    font-size: $type-body;
     &:hover { background-color: $accent-hover; }
   }
 
-  .form-label { color: $text-secondary; font-size: $font-size-sm; font-weight: 500; }
+  .form-control {
+    height: 48px;
+    font-size: $type-body;
+  }
+
+  .form-label { color: $text-secondary; font-size: $type-body-sm; font-weight: 500; }
 }
 
 // ---- Post Bar (topic view toolbar) ----
 .post-bar {
   .card.card-header {
-    background-color: $content-bg !important;
+    background-color: transparent !important;
     border: none !important;
     border-bottom: 1px solid $border-subtle !important;
     border-radius: 0 !important;
-    padding: 8px 20px !important;
+    padding: 12px 0 !important;
     box-shadow: none !important;
   }
 }
@@ -457,13 +408,13 @@
 // ---- Topic Header ----
 .cop-topic-header {
   border-color: $border-subtle !important;
-  background-color: $content-bg;
+  background-color: transparent;
   h1 { color: $text-primary; }
 }
 
 // ---- World page header ----
 .category-header {
-  padding: 16px 20px !important;
+  padding: 24px 0 !important;
   border-bottom: 1px solid $border-subtle;
 
   h1 { color: $text-primary; }
@@ -471,68 +422,63 @@
 }
 
 // ---- General overrides ----
-hr {
-  border-color: $border-subtle;
-  opacity: 1;
-}
-
 #category-no-topics,
 .no-topics,
 .no-notifs {
-  background-color: $content-bg-alt;
+  background-color: $surface-secondary;
   border: 1px solid $border-subtle;
   color: $text-secondary;
   border-radius: $radius-md;
 }
 
 .list-group-item {
-  background-color: $content-bg;
+  background-color: $surface-primary;
   border-color: $border-subtle;
   color: $text-primary;
-  &:hover { background-color: $content-bg-hover; }
+  &:hover { background-color: $surface-secondary; }
   &.active { background-color: $accent-primary; border-color: $accent-primary; }
 }
 
 .nav-pills .nav-link {
   color: $text-secondary;
-  border-radius: $radius-md;
-  &:hover { background-color: $content-bg-hover; color: $text-primary; }
+  border-radius: $radius-full;
+  &:hover { background-color: $surface-secondary; color: $text-primary; }
   &.active { background-color: $accent-light; color: $accent-primary; }
 }
 
 .table {
-  --bs-table-bg: #{$content-bg};
+  --bs-table-bg: #{$surface-primary};
   --bs-table-color: #{$text-primary};
   --bs-table-border-color: #{$border-subtle};
-  --bs-table-striped-bg: #{$content-bg-alt};
-  --bs-table-hover-bg: #{$content-bg-hover};
+  --bs-table-striped-bg: #{$surface-secondary};
+  --bs-table-hover-bg: #{$surface-secondary};
 
   th {
-    background-color: $content-bg-alt;
+    background-color: $surface-secondary;
     color: $text-secondary;
-    font-size: $font-size-sm;
+    font-size: $type-body-sm;
     font-weight: 600;
   }
 }
 
 .accordion {
-  .accordion-item { background-color: $content-bg; border-color: $border-subtle; }
+  .accordion-item { background-color: $surface-primary; border-color: $border-subtle; }
   .accordion-button {
-    background-color: $content-bg; color: $text-primary;
-    &:not(.collapsed) { background-color: $content-bg-alt; color: $accent-primary; }
+    background-color: $surface-primary; color: $text-primary;
+    &:not(.collapsed) { background-color: $surface-secondary; color: $accent-primary; }
   }
 }
 
 // Border overrides
 .border-bottom { border-bottom-color: $border-subtle !important; }
-.border-start { border-left-color: $border-medium !important; }
+.border-start { border-left-color: $border-subtle !important; }
 .border-end { border-right-color: $border-subtle !important; }
 .border-top { border-top-color: $border-subtle !important; }
 
 // Card overrides — flatten all cards in content area
 #content .card,
 #content .card-header {
-  background-color: $content-bg !important;
+  background-color: $surface-primary !important;
   border-color: $border-subtle !important;
   box-shadow: none !important;
 }

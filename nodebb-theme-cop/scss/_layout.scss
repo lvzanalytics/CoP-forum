@@ -1,79 +1,28 @@
 // ============================================
-// Core Layout — Discord/Slack 3-pane layout
+// Layout — Full-width, horizontal navbar, centered content
 // ============================================
 
-body {
-  height: 100vh;
-  overflow: hidden;
+// Page wrapper — centers content below navbar
+.cop-page-wrapper {
+  max-width: $content-max-width;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  min-height: calc(100vh - #{$navbar-height});
 }
 
-.layout-container {
-  display: flex;
-  height: 100vh;
-  padding: 0 !important;
-  overflow: hidden;
-}
-
-// Main content area
+// Main panel
 #panel {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
   margin: 0 !important;
   gap: 0 !important;
-  min-width: 0;
-  height: 100vh;
-  overflow: hidden;
+  padding-top: $navbar-height; // space for fixed navbar
 }
 
-// Content scroll area
+// Content area
 #content {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
   padding: 0 !important;
   margin: 0 !important;
-  display: flex;
-  flex-direction: column;
   max-width: 100%;
-  height: calc(100vh - #{$topbar-height});
-}
-
-// Hide Harmony's default brand section
-.brand-container {
-  display: none !important;
-}
-
-// Brand bar — logo + site title inside content area
-.cop-brand-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  border-bottom: 1px solid $border-subtle;
-  background-color: $content-bg;
-  flex-shrink: 0;
-
-  .cop-brand-link {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .cop-brand-logo {
-    height: 42px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .cop-brand-title {
-    font-size: $font-size-lg;
-    font-weight: 700;
-    color: $text-primary;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }
 
 // Widget sidebar — hide (content is full-width)
@@ -84,17 +33,16 @@ body {
 // Widget header/footer — add padding
 [data-widget-area="header"],
 [data-widget-area="footer"] {
-  padding: 0 20px;
+  padding: 0;
 }
 
-// Make container full-width within the pane
+// Make container full-width within the wrapper
 .container-lg {
   max-width: 100% !important;
   padding: 0 !important;
 }
 
 // Fix row margins for sub-pages (recent, unread, popular, etc.)
-// Make all columns full-width (we hide the widget sidebar)
 #content > .row,
 #content .row.flex-fill {
   margin: 0;
@@ -106,8 +54,7 @@ body {
   }
 }
 
-// Sub-page content padding — all pages that use Harmony templates
-// !important needed to override Bootstrap column padding from row reset
+// Card-on-canvas — white card on warm gray canvas for sub-pages
 #content .recent,
 #content .unread,
 #content .popular,
@@ -119,27 +66,22 @@ body {
 #content .tag,
 #content .groups,
 #content .world {
-  padding: 16px 20px !important;
+  padding: 24px 0 !important;
 }
 
-// Account pages — cop-account handles its own padding
+// Account pages
 #content .account {
   padding: 0 !important;
   position: relative;
 }
 
-// Login/Register
+// Login/Register — centered card on canvas
 #content .login,
 #content .register {
-  padding: 40px 20px;
+  padding: 48px 24px;
 }
 
-// Hide right sidebar completely
-.sidebar-right {
-  display: none !important;
-}
-
-// Composer z-index — below topbar dropdown on desktop only
+// Composer z-index
 @media (min-width: 992px) {
   [component="composer"] {
     z-index: 900 !important;

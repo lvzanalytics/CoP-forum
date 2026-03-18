@@ -1,89 +1,72 @@
 // ============================================
-// CoP Theme — Ministry of Côte d'Ivoire
-// Dark green shell + white content area
+// CoP Theme — Apple-Inspired Design System
+// Clean, minimal, content-first
 // ============================================
 
-// Logo colors reference:
-// Green (shield): #1B5E20 / #2E7D32
-// Orange (flag): #E65100 / #F57C00
-// Gold (sun/ribbon): #F9A825 / #FBC02D
+// ---- Surfaces ----
+$surface-page:       #FAFAF8;    // Page background (warm near-white)
+$surface-primary:    #FFFFFF;    // Cards, navbar, content
+$surface-secondary:  #F5F5F3;   // Hover, alt rows, inputs
+$surface-tertiary:   #EBEBEA;   // Pressed/active states
 
-// Shell (sidebar + topbar) — logo shield green
-$shell-bg:        #1B5E20;    // Logo shield green — visible green, still dark enough for white text
-$shell-bg-light:  #216B27;    // Slightly lighter variant
-$shell-bg-hover:  #2E7D32;    // Hover states — brighter green
-$shell-bg-active: #1A5E1F;    // Active/selected — subtle darkening from base
-$shell-text:      #D4E8D4;    // Muted green-tinted text
-$shell-text-bright: #FFFFFF;  // High emphasis on dark
-$shell-text-dim:  #8DB58D;    // Tertiary text on dark
-$shell-border:    rgba(255, 255, 255, 0.12);
+// ---- Text ----
+$text-primary:       #1D1D1F;   // Headings, body (Apple's near-black)
+$text-secondary:     #6E6E73;   // Descriptions, meta
+$text-tertiary:      #AEAEB2;   // Timestamps, placeholders
 
-// Content area — clean white
-$content-bg:      #FFFFFF;
-$content-bg-alt:  #F8F9FA;    // Alternating rows, subtle bg
-$content-bg-hover: #F0F2F5;   // Hover states
-$content-bg-input: #F5F6F8;   // Input fields
+// ---- Accent ----
+$accent-primary:     #2D6A4F;   // CTAs, links, active (sophisticated teal-green)
+$accent-hover:       #1B4332;   // Hover on accent
+$accent-light:       rgba(45, 106, 79, 0.08); // Subtle green backgrounds
 
-// Content text
-$text-primary:    #1A1A2E;    // Near-black for readability
-$text-secondary:  #5F6368;    // Secondary/muted
-$text-tertiary:   #9AA0A6;    // Timestamps, disabled
-$text-link:       #1B6B2E;    // Green links matching brand
-$text-bright:     #000000;    // Max emphasis
+// ---- Semantic ----
+$gold:               #D4A843;   // Distinction badges (muted, elegant)
+$orange:             #E8722A;   // Notification badges
+$red:                #D32F2F;   // Error/urgent
+$blue:               #1976D2;   // Info
 
-// Accent colors from logo
-$accent-primary:  #2E7D32;    // Ministry green — primary action
-$accent-hover:    #388E3C;    // Green hover
-$accent-light:    rgba(46, 125, 50, 0.08); // Subtle green bg
-$accent-orange:   #F57C00;    // Orange from flag
-$accent-gold:     #F9A825;    // Gold from coat of arms
-$accent-red:      #D32F2F;    // Error/urgent
-$accent-blue:     #1976D2;    // Info
+// ---- Borders ----
+$border-subtle:      #E8E8E6;   // Most borders
+$border-medium:      #DADCD8;   // Inputs, stronger dividers
 
-// Borders (content area)
-$border-subtle:   #E8EAED;
-$border-medium:   #DADCE0;
-$border-strong:   #BDC1C6;
+// ---- Shadows ----
+$shadow-sm:          0 1px 2px rgba(0, 0, 0, 0.04);
+$shadow-md:          0 4px 16px rgba(0, 0, 0, 0.06);
+$shadow-lg:          0 8px 24px rgba(0, 0, 0, 0.08);
 
-// Shadows
-$shadow-sm:       0 1px 3px rgba(0, 0, 0, 0.08);
-$shadow-md:       0 4px 12px rgba(0, 0, 0, 0.12);
-$shadow-lg:       0 8px 24px rgba(0, 0, 0, 0.16);
-$shadow-glow:     0 0 20px rgba(46, 125, 50, 0.12);
+// ---- Dimensions ----
+$navbar-height:      64px;
+$content-max-width:  1120px;
 
-// Dimensions
-$sidebar-width:        260px;
-$sidebar-collapsed:    68px;
-$topbar-height:        52px;
-$message-max-width:    900px;
+// ---- Radii ----
+$radius-sm:          4px;
+$radius-md:          8px;
+$radius-lg:          12px;
+$radius-xl:          16px;
+$radius-full:        9999px;
 
-// Radii
-$radius-sm:       4px;
-$radius-md:       8px;
-$radius-lg:       12px;
-$radius-xl:       16px;
-$radius-full:     9999px;
-
-// Transitions
+// ---- Transitions ----
 $transition-fast:    150ms cubic-bezier(0.4, 0, 0.2, 1);
 $transition-normal:  250ms cubic-bezier(0.4, 0, 0.2, 1);
 $transition-slow:    350ms cubic-bezier(0.4, 0, 0.2, 1);
 
-// Typography
-$font-primary:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-$font-mono:       'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+// ---- Typography ----
+$font-primary:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-mono:          'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
-$font-size-xs:    0.6875rem;   // 11px
-$font-size-sm:    0.75rem;     // 12px
-$font-size-base:  0.875rem;    // 14px
-$font-size-md:    0.9375rem;   // 15px
-$font-size-lg:    1.0625rem;   // 17px
-$font-size-xl:    1.25rem;     // 20px
-$font-size-2xl:   1.5rem;      // 24px
+// Scale
+$type-hero:          2.5rem;     // 40px
+$type-h1:            1.75rem;    // 28px
+$type-h2:            1.375rem;   // 22px
+$type-h3:            1.125rem;   // 18px
+$type-body:          1rem;       // 16px
+$type-body-sm:       0.875rem;   // 14px
+$type-caption:       0.8125rem;  // 13px
+$type-overline:      0.6875rem;  // 11px
 
 // Z-index layers
-$z-sidebar:       100;
-$z-topbar:        200;
-$z-dropdown:      300;
-$z-modal:         400;
-$z-toast:         500;
+$z-navbar:           1000;
+$z-dropdown:         1010;
+$z-mobile-drawer:    1020;
+$z-modal:            1050;
+$z-toast:            1090;
