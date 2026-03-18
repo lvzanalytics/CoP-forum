@@ -42,15 +42,8 @@
   }
 
   [component="categories/category"] {
-    border: none !important;
-    padding: 0 !important;
+    border: none;
     margin: 0;
-    display: flex !important;
-    flex-direction: column !important;
-
-    > .d-flex {
-      width: 100%;
-    }
   }
 }
 
@@ -61,11 +54,10 @@
   border-radius: $radius-lg !important;
   padding: 24px !important;
   margin: 0 !important;
-  transition: transform $transition-fast, box-shadow $transition-fast;
-  cursor: pointer;
+  transition: box-shadow $transition-fast;
+  position: relative; // anchor for stretched link
 
   &:hover {
-    transform: translateY(-1px);
     box-shadow: $shadow-md;
   }
 
@@ -81,6 +73,7 @@
     }
   }
 
+  // Stretched link — title <a> covers the entire card
   .title {
     font-size: $type-h3 !important;
     font-weight: 600;
@@ -89,7 +82,21 @@
     a {
       color: $text-primary;
       &:hover { color: $accent-primary; }
+
+      // Stretch the link to cover the full card
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
     }
+  }
+
+  // Keep subcategory links clickable above the stretched link
+  .cop-subcategory-badge {
+    position: relative;
+    z-index: 1;
   }
 
   .description {

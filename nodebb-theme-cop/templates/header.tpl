@@ -35,13 +35,28 @@
 			<li><a href="{relative_path}/recent">[[themes/cop:nav.recent]]</a></li>
 			<li><a href="{relative_path}/users">[[themes/cop:nav.members]]</a></li>
 		</ul>
+		{{{ if navigation.length }}}
+		<h6 class="cop-drawer-section-title">[[themes/cop:nav.more]]</h6>
+		<ul class="cop-drawer-nav">
+			{{{ each navigation }}}
+			{{{ if displayMenuItem(@root, @index) }}}
+			<li>
+				<a href="{./route}" {{{ if ./id }}}id="{./id}"{{{ end }}}{{{ if ./targetBlank }}} target="_blank"{{{ end }}}>
+					{{{ if ./iconClass }}}<i class="fa {./iconClass} me-2"></i>{{{ end }}}
+					{./text}
+				</a>
+			</li>
+			{{{ end }}}
+			{{{ end }}}
+		</ul>
+		{{{ end }}}
 		<h6 class="cop-drawer-section-title">[[themes/cop:nav.espaces]]</h6>
 		<ul class="cop-drawer-categories">
 			{{{ each allCategories }}}
 			<li>
 				<a href="{config.relative_path}/category/{allCategories.slug}">
 					<span class="cop-drawer-cat-icon">
-						{{{ if allCategories.icon }}}<i class="fa {allCategories.icon}"></i>{{{ else }}}#</span>{{{ end }}}
+						{{{ if allCategories.icon }}}<i class="fa {allCategories.icon}"></i>{{{ else }}}#{{{ end }}}
 					</span>
 					<span>{allCategories.name}</span>
 				</a>

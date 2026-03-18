@@ -21,7 +21,7 @@
 				{{{ each allCategories }}}
 				<a href="{config.relative_path}/category/{allCategories.slug}" class="cop-espace-item">
 					<span class="cop-espace-icon">
-						{{{ if allCategories.icon }}}<i class="fa {allCategories.icon}"></i>{{{ else }}}#</span>{{{ end }}}
+						{{{ if allCategories.icon }}}<i class="fa {allCategories.icon}"></i>{{{ else }}}#{{{ end }}}
 					</span>
 					<div class="cop-espace-info">
 						<div class="cop-espace-name">{allCategories.name}</div>
@@ -35,6 +35,24 @@
 		</li>
 		<li><a href="{relative_path}/recent" class="cop-nav-link" data-path="/recent">[[themes/cop:nav.recent]]</a></li>
 		<li><a href="{relative_path}/users" class="cop-nav-link" data-path="/users">[[themes/cop:nav.members]]</a></li>
+		{{{ if navigation.length }}}
+		<li class="cop-more-dropdown dropdown">
+			<a href="#" class="cop-nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				[[themes/cop:nav.more]] <i class="fa fa-chevron-down"></i>
+			</a>
+			<div class="dropdown-menu dropdown-menu-end p-1">
+				{{{ each navigation }}}
+				{{{ if displayMenuItem(@root, @index) }}}
+				<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" href="{./route}" {{{ if ./id }}}id="{./id}"{{{ end }}}{{{ if ./targetBlank }}} target="_blank"{{{ end }}} title="{./title}">
+					{{{ if ./iconClass }}}<i class="fa {./iconClass} text-secondary"></i>{{{ end }}}
+					<span>{./text}</span>
+					{{{ if ./content }}}<span class="badge rounded-pill bg-danger ms-auto" style="font-size: 0.6rem;">{./content}</span>{{{ end }}}
+				</a>
+				{{{ end }}}
+				{{{ end }}}
+			</div>
+		</li>
+		{{{ end }}}
 	</ul>
 
 	<!-- Right: Actions -->
