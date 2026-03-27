@@ -141,22 +141,34 @@
 
         <!-- Latest Event -->
         <div class="bento-card bento-event">
-          <div class="event-tag">Prochainement</div>
-          <h4>Webinaire : Systèmes de données en évaluation</h4>
-          <div class="event-meta">
-            <span><i class="fa fa-calendar"></i> 12 Avril 2026</span>
-            <span><i class="fa fa-clock-o"></i> 10:00 WAT</span>
+          <div class="event-top">
+            <div class="event-date-block">
+              <span class="event-month">AVR</span>
+              <span class="event-day">12</span>
+            </div>
+            <div class="event-info">
+              <div class="event-tag">Prochainement</div>
+              <h4>Webinaire : Systèmes de données en évaluation</h4>
+            </div>
+          </div>
+          <div class="event-details">
+            <span><i class="fa fa-clock-o"></i> 10:00 — 12:00 WAT</span>
+            <span><i class="fa fa-video-camera"></i> Zoom</span>
           </div>
           <a href="{relative_path}/categories" class="btn-glass">S'inscrire <i class="fa fa-external-link"></i></a>
         </div>
 
         <!-- Feature Highlight -->
         <div class="bento-card bento-highlight">
-          <img class="bento-image-wide" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Architecture moderne Abidjan" />
-          <div class="highlight-content">
-            <i class="fa fa-shield"></i>
-            <h4>Souveraineté des données</h4>
-            <p>Une plateforme opérée par le Ministère, garantissant la confidentialité et la sécurité de vos échanges professionnels.</p>
+          <div class="highlight-inner">
+            <div class="highlight-icon-wrap">
+              <i class="fa fa-shield"></i>
+            </div>
+            <div class="highlight-text">
+              <h4>Souveraineté des données</h4>
+              <p>Une plateforme opérée par le Ministère, garantissant la confidentialité et la sécurité de vos échanges professionnels. Aucune donnée partagée avec des tiers.</p>
+            </div>
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="Architecture moderne" />
           </div>
         </div>
       </div>
