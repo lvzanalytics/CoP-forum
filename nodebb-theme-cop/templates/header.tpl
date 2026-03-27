@@ -4,6 +4,9 @@
 	<title>{browserTitle}</title>
 	{{{each metaTags}}}{function.buildMetaTag}{{{end}}}
 	<link rel="stylesheet" type="text/css" href="{relative_path}/assets/client{{{if bootswatchSkin}}}-{bootswatchSkin}{{{end}}}{{{ if (languageDirection=="rtl") }}}-rtl{{{ end }}}.css?{config.cache-buster}" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 	{{{each linkTags}}}{function.buildLinkTag}{{{end}}}
 
 	<script>

@@ -5,10 +5,13 @@
     { "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
     { "hook": "filter:widgets.getAreas", "method": "defineWidgetAreas" },
     { "hook": "filter:config.get", "method": "getThemeConfig" },
-    { "hook": "filter:middleware.renderHeader", "method": "filterMiddlewareRenderHeader" }
+    { "hook": "filter:middleware.renderHeader", "method": "filterMiddlewareRenderHeader" },
+    { "hook": "action:homepage.get:landing", "method": "onHomepageGet" },
+    { "hook": "filter:homepage.get", "method": "addHomepageRoute" }
   ],
   "scripts": [
-    "public/cop.js"
+    "public/cop.js",
+    "public/landing.js"
   ],
   "staticDirs": {
     "inter": "node_modules/@fontsource/inter/files",
