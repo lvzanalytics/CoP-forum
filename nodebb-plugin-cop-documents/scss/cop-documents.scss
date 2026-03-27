@@ -1,0 +1,73 @@
+// Document Library Styles
+
+.doc-card {
+	transition: box-shadow 0.2s ease-in-out;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+
+	&:hover {
+		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+	}
+
+	.card-title a {
+		color: inherit;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.card-text {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		font-size: 0.9rem;
+		color: #555;
+	}
+}
+
+.doc-filter-bar {
+	background-color: #f8f9fa;
+	border: 1px solid #dee2e6;
+
+	.form-label {
+		font-size: 0.85rem;
+		font-weight: 500;
+		margin-bottom: 0.25rem;
+	}
+}
+
+.doc-tags {
+	.badge {
+		font-weight: 400;
+		font-size: 0.78rem;
+		margin-right: 0.25rem;
+		margin-bottom: 0.25rem;
+	}
+}
+
+.doc-pending-badge {
+	font-size: 0.85rem;
+	display: inline-block;
+}
+
+.documents-view {
+	.table-sm th {
+		width: 40%;
+		color: #6c757d;
+		font-weight: 500;
+		font-size: 0.875rem;
+	}
+
+	.table-sm td {
+		font-size: 0.875rem;
+	}
+}
+
+.documents-pending {
+	.btn-sm {
+		font-size: 0.78rem;
+		padding: 0.2rem 0.5rem;
+	}
+}

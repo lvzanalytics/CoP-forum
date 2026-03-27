@@ -224,6 +224,12 @@ importers:
       nodebb-plugin-composer-default:
         specifier: 10.3.23
         version: 10.3.23
+      nodebb-plugin-cop-directory:
+        specifier: file:nodebb-plugin-cop-directory
+        version: file:nodebb-plugin-cop-directory
+      nodebb-plugin-cop-documents:
+        specifier: file:nodebb-plugin-cop-documents
+        version: file:nodebb-plugin-cop-documents
       nodebb-plugin-dbsearch:
         specifier: 6.4.0
         version: 6.4.0
@@ -251,6 +257,9 @@ importers:
       nodebb-rewards-essentials:
         specifier: 1.0.2
         version: 1.0.2
+      nodebb-theme-cop:
+        specifier: file:nodebb-theme-cop
+        version: file:nodebb-theme-cop
       nodebb-theme-harmony:
         specifier: 2.2.43
         version: 2.2.43
@@ -3798,6 +3807,12 @@ packages:
   nodebb-plugin-composer-default@10.3.23:
     resolution: {integrity: sha512-buaqKooR6cpIgWTKaft5g7UKzBlQ8+SmG/MRlZsIpATRX1kxzc4cm2SKOON//5ANlThRwXNsawhHNJPNFIx4sQ==}
 
+  nodebb-plugin-cop-directory@file:nodebb-plugin-cop-directory:
+    resolution: {directory: nodebb-plugin-cop-directory, type: directory}
+
+  nodebb-plugin-cop-documents@file:nodebb-plugin-cop-documents:
+    resolution: {directory: nodebb-plugin-cop-documents, type: directory}
+
   nodebb-plugin-dbsearch@6.4.0:
     resolution: {integrity: sha512-sqKxtCDksSco7R6qeYrWbQfMIuDOznM+xQ13I7RiG18pjWTv41lXLBWu60StHA8+0AvASAjT80aIxGZ2WUKCEw==}
 
@@ -3826,6 +3841,9 @@ packages:
 
   nodebb-rewards-essentials@1.0.2:
     resolution: {integrity: sha512-v4DgaJnezbJ9H+HsuADOOyuDbS6/n6xTo+wn3OpUwaNYZHzXxZiCXpp7elFaLBp85C+Z49TibPwzxtmlCy8nVw==}
+
+  nodebb-theme-cop@file:nodebb-theme-cop:
+    resolution: {directory: nodebb-theme-cop, type: directory}
 
   nodebb-theme-harmony@2.2.43:
     resolution: {integrity: sha512-Q5SkSOk0s4MqqLwqJOYH0pd0/+leLnaUS6FPsW8XjHZL3WRiJ3Dy7FAnr9y2oUZDz8BxjvhREGP5Gi5KSSqTaw==}
@@ -8661,6 +8679,10 @@ snapshots:
       screenfull: 5.2.0
       validator: 13.15.26
 
+  nodebb-plugin-cop-directory@file:nodebb-plugin-cop-directory: {}
+
+  nodebb-plugin-cop-documents@file:nodebb-plugin-cop-documents: {}
+
   nodebb-plugin-dbsearch@6.4.0:
     dependencies:
       lodash: 4.17.21
@@ -8715,6 +8737,10 @@ snapshots:
       - supports-color
 
   nodebb-rewards-essentials@1.0.2: {}
+
+  nodebb-theme-cop@file:nodebb-theme-cop:
+    dependencies:
+      '@fontsource/inter': 5.2.8
 
   nodebb-theme-harmony@2.2.43:
     dependencies:

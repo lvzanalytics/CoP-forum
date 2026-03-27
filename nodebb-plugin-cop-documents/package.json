@@ -1,0 +1,16 @@
+{
+  "name": "nodebb-plugin-cop-documents",
+  "version": "1.0.0",
+  "description": "Document library for the CoP platform",
+  "main": "library.js",
+  "nbbpm": {
+    "compatibility": "^4.0.0"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "documents",
+    "library"
+  ],
+  "license": "MIT"
+}

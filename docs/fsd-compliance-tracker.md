@@ -16,7 +16,7 @@
 
 ---
 
-## Milestone 2: Branding & User Profiles — IN PROGRESS
+## Milestone 2: Branding & User Profiles — COMPLETE
 
 ### Theme & Branding (DONE)
 
@@ -51,36 +51,36 @@
 
 ---
 
-## Milestone 3: Document Library & Directory — NOT STARTED
+## Milestone 3: Document Library & Directory — COMPLETE
 
 ### Documentation Repository (FSD §3.2)
 
-- [ ] File upload support (PDF, DOCX, XLSX, PPTX, JPG, PNG)
-- [ ] Configurable max file size (default 20MB)
-- [ ] Mandatory metadata form (title, author, date, description 50+ chars, category, tag)
-- [ ] Optional metadata (region, sector, source org, publication date, language)
-- [ ] Document categories (5 initial: Reports, Tools, Policy, Cases, Training)
-- [ ] Full-text search across titles, descriptions, tags, AI summaries
-- [ ] Filter by category, region, sector, tag
-- [ ] Access control: Public vs Members Only per document
-- [ ] Upload moderation queue (pending until approved)
-- [ ] Configurable auto-approval per category
-- [ ] Version control (retain originals, show latest, admin history)
-- [ ] Download tracking in analytics
-- [ ] Cloudflare R2 file storage integration
+- [x] File upload support (PDF, DOCX, XLSX, PPTX, JPG, PNG) — `nodebb-plugin-cop-documents` with configurable extension allowlist
+- [x] Configurable max file size (default 20MB) — admin settings panel
+- [x] Mandatory metadata form (title, author, date, description 50+ chars, category, tag) — upload form with server-side validation
+- [x] Optional metadata (region, sector, source org, publication date, language) — upload form fields
+- [x] Document categories (5 initial: Reports, Tools, Policy, Cases, Training) — translation keys with fr/en-GB
+- [x] Full-text search across titles, descriptions, tags, AI summaries — search filter on list page (AI summaries pending M5)
+- [x] Filter by category, region, sector, tag — filter bar on `/documents`
+- [x] Access control: Public vs Members Only per document — access field with middleware check
+- [x] Upload moderation queue (pending until approved) — `/documents/pending` with approve/reject actions
+- [x] Configurable auto-approval per category — admin settings checkboxes
+- [x] Version control (retain originals, show latest, admin history) — version upload form + version history table
+- [x] Download tracking in analytics — download counter incremented via API, sorted set index
+- [ ] Cloudflare R2 file storage integration — storage abstraction ready, R2 backend not yet wired
 
 ### Evaluator Member Directory (FSD §3.4)
 
-- [ ] Directory page showing members with completed profiles
-- [ ] Opt-out capability
-- [ ] Free-text search (names, orgs, bio)
-- [ ] Filter: Expertise area
-- [ ] Filter: Region
-- [ ] Filter: Organisation type
-- [ ] Filter: Sector focus
-- [ ] Profile view with privacy-respecting display
-- [ ] "Send Message" button on profiles (chat button exists; directory integration needed)
-- [ ] Admin-configurable expertise tags, sectors, org types
+- [x] Directory page showing members with completed profiles — `/directory` with member cards grid
+- [x] Opt-out capability — toggle on directory page, `directory:opted-out` DB set
+- [x] Free-text search (names, orgs, bio) — search bar filters on username, fullname, org, title, bio
+- [x] Filter: Expertise area — dropdown from custom field definitions
+- [x] Filter: Region — dropdown from custom field definitions
+- [x] Filter: Organisation type — dropdown from custom field definitions
+- [ ] Filter: Sector focus — not a separate custom field (sector is document metadata only)
+- [x] Profile view with privacy-respecting display — visibility checks replicated from accounts/helpers.js
+- [x] "Send Message" button on profiles (chat button exists; directory integration needed) — links to `/user/{slug}/chats`
+- [x] Admin-configurable expertise tags, sectors, org types — reads from `user-custom-fields` definitions set by admin
 
 ---
 
@@ -212,8 +212,8 @@
 | M1: Setup & Planning | 6 | 0 | 0 | 6 |
 | M2: Theme/Branding | 13 | 0 | 0 | 13 |
 | M2: User Profiles | 12 | 0 | 0 | 12 |
-| M3: Document Library | 0 | 0 | 13 | 13 |
-| M3: Member Directory | 0 | 1 | 9 | 10 |
+| M3: Document Library | 12 | 0 | 1 | 13 |
+| M3: Member Directory | 9 | 0 | 1 | 10 |
 | M4: Zoom/Teams Events | 1 | 0 | 4 | 5 |
 | M4: Social Sharing | 1 | 0 | 2 | 3 |
 | M4: Email/Notifications | 7 | 0 | 2 | 9 |
@@ -221,14 +221,15 @@
 | M5: AI Features | 0 | 0 | 24 | 24 |
 | Security | 12 | 0 | 4 | 16 |
 | Non-Functional | 4 | 1 | 3 | 8 |
-| **TOTAL** | **64 (50%)** | **2 (2%)** | **62 (48%)** | **128** |
+| **TOTAL** | **85 (66%)** | **1 (1%)** | **42 (33%)** | **128** |
 
 ---
 
 ## Priority Next Steps
 
 1. ~~**Finish M2**~~ — DONE: 6 custom profile fields created, privacy controls configured, anonymization verified
-2. **Start M3** — Build `nodebb-plugin-cop-documents` (doc library) and `nodebb-plugin-cop-directory` (member directory)
+2. ~~**Finish M3**~~ — DONE: `nodebb-plugin-cop-documents` (doc library) and `nodebb-plugin-cop-directory` (member directory) built; i18n select options fixed
 3. **M4 quick wins** — Configure SMTP2GO, add social share buttons, build event post template
 4. **M5** — Build `nodebb-plugin-cop-ai` with provider abstraction, caching, admin panel
 5. **Cross-cutting** — French privacy policy page, backup scripts, accessibility audit, load testing
+6. **Remaining M3** — Wire Cloudflare R2 storage backend, add sector focus filter to directory

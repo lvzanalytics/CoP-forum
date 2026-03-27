@@ -1,0 +1,17 @@
+{
+  "id": "nodebb-plugin-cop-directory",
+  "hooks": [
+    { "hook": "static:app.load", "method": "init" },
+    { "hook": "filter:admin.header.build", "method": "addAdminNavigation" }
+  ],
+  "scripts": [
+    "public/cop-directory.js"
+  ],
+  "scss": [
+    "scss/cop-directory.scss"
+  ],
+  "staticDirs": {
+    "cop-directory": "public"
+  },
+  "languages": "languages"
+}

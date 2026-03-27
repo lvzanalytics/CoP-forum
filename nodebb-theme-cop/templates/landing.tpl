@@ -35,7 +35,7 @@
             <div class="avatar"><img src="https://ui-avatars.com/api/?name=Paul+D&background=D32F2F&color=fff" alt=""></div>
             <div class="avatar-plus">+280</div>
           </div>
-          <a href="{relative_path}/users" class="btn-ghost-sm">[[themes/cop:landing.directory_btn]]</a>
+          <a href="{relative_path}/directory" class="btn-ghost-sm">[[themes/cop:landing.directory_btn]]</a>
         </div>
 
         <!-- Latest Event -->
@@ -110,7 +110,7 @@
               <li><i class="fa fa-search"></i> [[themes/cop:landing.pillar2_feat2]]</li>
               <li><i class="fa fa-lock"></i> [[themes/cop:landing.pillar2_feat3]]</li>
             </ul>
-            <a href="{relative_path}/categories" class="btn-link">[[themes/cop:landing.pillar2_link]] <i class="fa fa-chevron-right"></i></a>
+            <a href="{relative_path}/documents" class="btn-link">[[themes/cop:landing.pillar2_link]] <i class="fa fa-chevron-right"></i></a>
           </div>
           <div class="pillar-visual">
             <div class="visual-mockup visual-mockup--docs">
@@ -212,8 +212,8 @@
             <h4>[[themes/cop:landing.prefooter_platform]]</h4>
             <ul>
               <li><a href="{relative_path}/categories">[[themes/cop:landing.prefooter_forums]]</a></li>
-              <li><a href="{relative_path}/categories">[[themes/cop:landing.prefooter_docs]]</a></li>
-              <li><a href="{relative_path}/users">[[themes/cop:landing.prefooter_directory]]</a></li>
+              <li><a href="{relative_path}/documents">[[themes/cop:landing.prefooter_docs]]</a></li>
+              <li><a href="{relative_path}/directory">[[themes/cop:landing.prefooter_directory]]</a></li>
             </ul>
           </div>
           <div class="nav-col">

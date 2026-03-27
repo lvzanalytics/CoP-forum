@@ -35,8 +35,9 @@
 	<div class="cop-mobile-drawer" id="cop-mobile-drawer">
 		<ul class="cop-drawer-nav">
 			<li><a href="{relative_path}/">[[themes/cop:nav.home]]</a></li>
+			<li><a href="{relative_path}/documents">[[themes/cop:nav.documents]]</a></li>
+			<li><a href="{relative_path}/directory">[[themes/cop:nav.directory]]</a></li>
 			<li><a href="{relative_path}/recent">[[themes/cop:nav.recent]]</a></li>
-			<li><a href="{relative_path}/users">[[themes/cop:nav.members]]</a></li>
 		</ul>
 		{{{ if navigation.length }}}
 		<h6 class="cop-drawer-section-title">[[themes/cop:nav.more]]</h6>

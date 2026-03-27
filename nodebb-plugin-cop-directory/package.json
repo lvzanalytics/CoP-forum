@@ -1,0 +1,16 @@
+{
+  "name": "nodebb-plugin-cop-directory",
+  "version": "1.0.0",
+  "description": "Member directory for the CoP platform",
+  "main": "library.js",
+  "nbbpm": {
+    "compatibility": "^4.0.0"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "directory",
+    "members"
+  ],
+  "license": "MIT"
+}

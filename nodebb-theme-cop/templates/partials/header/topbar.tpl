@@ -33,8 +33,9 @@
 				{{{ end }}}
 			</div>
 		</li>
+		<li><a href="{relative_path}/documents" class="cop-nav-link" data-path="/documents">[[themes/cop:nav.documents]]</a></li>
+		<li><a href="{relative_path}/directory" class="cop-nav-link" data-path="/directory">[[themes/cop:nav.directory]]</a></li>
 		<li><a href="{relative_path}/recent" class="cop-nav-link" data-path="/recent">[[themes/cop:nav.recent]]</a></li>
-		<li><a href="{relative_path}/users" class="cop-nav-link" data-path="/users">[[themes/cop:nav.members]]</a></li>
 		{{{ if navigation.length }}}
 		<li class="cop-more-dropdown dropdown">
 			<a href="#" class="cop-nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

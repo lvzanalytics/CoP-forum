@@ -5,8 +5,9 @@
 			<footer class="cop-site-footer">
 				<div class="cop-footer__links">
 					<a href="{relative_path}/">[[themes/cop:nav.home]]</a>
+					<a href="{relative_path}/documents">[[themes/cop:nav.documents]]</a>
+					<a href="{relative_path}/directory">[[themes/cop:nav.directory]]</a>
 					<a href="{relative_path}/recent">[[themes/cop:nav.recent]]</a>
-					<a href="{relative_path}/users">[[themes/cop:nav.members]]</a>
 				</div>
 				<p class="cop-footer__copyright">[[themes/cop:footer.copyright]]</p>
 				<p class="cop-footer__built-by">[[themes/cop:footer.built-by]] <a href="https://lvzanalytics.com" target="_blank" rel="noopener">LVZ Analytics Corp</a></p>
