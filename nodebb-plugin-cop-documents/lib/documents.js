@@ -2,13 +2,13 @@
 
 const db = require.main.require('./src/database');
 const User = require.main.require('./src/user');
-const utils = require.main.require('./src/utils');
+const slugify = require.main.require('./src/slugify');
 
 const documents = module.exports;
 
 documents.create = async function (data) {
 	const docId = await db.incrObjectField('global', 'nextDocId');
-	const slug = utils.slugify(data.title) || 'document';
+	const slug = slugify(data.title) || 'document';
 	const now = Date.now();
 
 	const docData = {

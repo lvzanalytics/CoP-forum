@@ -19,8 +19,12 @@ const DOCS_PER_PAGE = 20;
 const DEFAULT_SETTINGS = {
 	maxFileSize: '20',
 	allowedExtensions: 'pdf,docx,xlsx,pptx,jpg,png',
-	storageBackend: 'local',
 	autoApproveCategories: '',
+	r2AccountId: '',
+	r2AccessKeyId: '',
+	r2SecretAccessKey: '',
+	r2Bucket: '',
+	r2PublicUrl: '',
 };
 
 const DOC_CATEGORIES = ['reports', 'tools', 'policy', 'cases', 'training'];
@@ -152,6 +156,8 @@ controllers.handleUpload = async function (req, res) {
 
 	// Validate required fields
 	if (!title || !author || !date || !description || !category || !tags) {
+		const missing = ['title', 'author', 'date', 'description', 'category', 'tags'].filter(f => !req.body[f]);
+		console.log('[cop-documents] Upload rejected - missing fields:', missing, '| body keys:', Object.keys(req.body), '| files:', (req.files || []).map(f => f.fieldname));
 		return controllerHelpers.formatApiResponse(400, res, new Error('[[cop-documents:upload.error_required]]'));
 	}
 
@@ -327,12 +333,19 @@ controllers.admin = async function (req, res) {
 };
 
 controllers.saveSettings = async function (req, res) {
-	const { maxFileSize, allowedExtensions, storageBackend, autoApproveCategories } = req.body;
+	const {
+		maxFileSize, allowedExtensions, autoApproveCategories,
+		r2AccountId, r2AccessKeyId, r2SecretAccessKey, r2Bucket, r2PublicUrl,
+	} = req.body;
 	await meta.settings.set('cop-documents', {
 		maxFileSize: String(maxFileSize || '20'),
 		allowedExtensions: allowedExtensions || 'pdf,docx,xlsx,pptx,jpg,png',
-		storageBackend: storageBackend || 'local',
 		autoApproveCategories: autoApproveCategories || '',
+		r2AccountId: r2AccountId || '',
+		r2AccessKeyId: r2AccessKeyId || '',
+		r2SecretAccessKey: r2SecretAccessKey || '',
+		r2Bucket: r2Bucket || '',
+		r2PublicUrl: r2PublicUrl || '',
 	});
 	return controllerHelpers.formatApiResponse(200, res, { success: true });
 };
