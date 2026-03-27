@@ -1,15 +1,15 @@
 <div class="landing-page" id="landing-page">
-  <!-- Section A: Hero (Cinematic & Intentional) -->
+  <!-- Section A: Hero -->
   <section class="landing-hero">
     <div class="hero-bg-overlay"></div>
     <div class="container-narrow">
       <div class="hero-content">
-        <span class="hero-badge">Ministère du Plan et du Développement</span>
-        <h1>Communauté de Pratique en Évaluation des Politiques Publiques</h1>
-        <p>L'espace d'excellence pour les professionnels de l'évaluation en Côte d'Ivoire. Collaborez, apprenez et renforcez l'impact de l'action publique.</p>
+        <span class="hero-badge">[[themes/cop:landing.hero_badge]]</span>
+        <h1>[[themes/cop:landing.hero_title]]</h1>
+        <p>[[themes/cop:landing.hero_desc]]</p>
         <div class="hero-btns">
-          <a href="{relative_path}/register" class="btn-primary-lg">Rejoindre la Communauté <i class="fa fa-arrow-right"></i></a>
-          <a href="#pillars" class="btn-outline-lg">Découvrir la plateforme</a>
+          <a href="{relative_path}/register" class="btn-primary-lg">[[themes/cop:landing.hero_cta_join]] <i class="fa fa-arrow-right"></i></a>
+          <a href="#pillars" class="btn-outline-lg">[[themes/cop:landing.hero_cta_discover]]</a>
         </div>
       </div>
     </div>
@@ -19,23 +19,23 @@
   <section class="landing-overview" id="pillars">
     <div class="container-narrow">
       <div class="section-header-left">
-        <h2 class="section-title">Aperçu de l'activité</h2>
-        <p>Rejoignez plus de 300 experts qui collaborent quotidiennement.</p>
+        <h2 class="section-title">[[themes/cop:landing.overview_title]]</h2>
+        <p>[[themes/cop:landing.overview_desc]]</p>
       </div>
 
       <div class="bento-grid">
         <!-- Directory Preview -->
         <div class="bento-card bento-directory">
-          <img class="bento-image" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600" alt="Experts africains en collaboration" />
-          <h3>Annuaire des Experts</h3>
-          <p>Trouvez le bon profil par domaine d'expertise.</p>
+          <img class="bento-image" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600" alt="[[themes/cop:landing.directory_title]]" />
+          <h3>[[themes/cop:landing.directory_title]]</h3>
+          <p>[[themes/cop:landing.directory_desc]]</p>
           <div class="directory-avatars">
             <div class="avatar"><img src="https://ui-avatars.com/api/?name=Jean+K&background=2D6A4F&color=fff" alt=""></div>
             <div class="avatar"><img src="https://ui-avatars.com/api/?name=Marie+O&background=F47B20&color=fff" alt=""></div>
             <div class="avatar"><img src="https://ui-avatars.com/api/?name=Paul+D&background=D32F2F&color=fff" alt=""></div>
             <div class="avatar-plus">+280</div>
           </div>
-          <a href="{relative_path}/users" class="btn-ghost-sm">Consulter l'annuaire</a>
+          <a href="{relative_path}/users" class="btn-ghost-sm">[[themes/cop:landing.directory_btn]]</a>
         </div>
 
         <!-- Latest Event -->
@@ -46,16 +46,16 @@
               <span class="event-day">12</span>
             </div>
             <div class="event-info">
-              <div class="event-tag">Prochainement</div>
-              <h4>Webinaire : Systèmes de données en évaluation</h4>
+              <div class="event-tag">[[themes/cop:landing.event_tag]]</div>
+              <h4>[[themes/cop:landing.event_title]]</h4>
             </div>
           </div>
-          <img class="event-image" src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&q=80&w=600" alt="Webinaire professionnel" />
+          <img class="event-image" src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&q=80&w=600" alt="[[themes/cop:landing.event_title]]" />
           <div class="event-details">
             <span><i class="fa fa-clock-o"></i> 10:00 — 12:00 WAT</span>
             <span><i class="fa fa-video-camera"></i> Zoom</span>
           </div>
-          <a href="{relative_path}/categories" class="btn-glass">S'inscrire <i class="fa fa-external-link"></i></a>
+          <a href="{relative_path}/categories" class="btn-glass">[[themes/cop:landing.event_btn]] <i class="fa fa-external-link"></i></a>
         </div>
 
         <!-- Feature Highlight -->
@@ -65,34 +65,34 @@
               <i class="fa fa-shield"></i>
             </div>
             <div class="highlight-text">
-              <h4>Souveraineté des données</h4>
-              <p>Une plateforme opérée par le Ministère, garantissant la confidentialité et la sécurité de vos échanges professionnels. Aucune donnée partagée avec des tiers.</p>
+              <h4>[[themes/cop:landing.highlight_title]]</h4>
+              <p>[[themes/cop:landing.highlight_desc]]</p>
             </div>
-            <img class="highlight-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=600" alt="Professionnelle africaine" />
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=600" alt="[[themes/cop:landing.highlight_title]]" />
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section C: The Pillars (Rich & Informative) -->
+  <!-- Section C: The Pillars -->
   <section class="landing-pillars">
     <div class="pillar-row pillar-row--dark">
       <div class="container-narrow">
         <div class="pillar-content">
           <div class="pillar-text">
-            <span class="pillar-label">Communication</span>
-            <h2>Espaces de Dialogue</h2>
-            <p>Engagez des discussions thématiques avec vos pairs. Posez des questions, partagez vos défis et trouvez des solutions collectives au sein de nos forums spécialisés.</p>
+            <span class="pillar-label">[[themes/cop:landing.pillar1_label]]</span>
+            <h2>[[themes/cop:landing.pillar1_title]]</h2>
+            <p>[[themes/cop:landing.pillar1_desc]]</p>
             <ul class="pillar-list">
-              <li><i class="fa fa-check"></i> Catégories thématiques structurées</li>
-              <li><i class="fa fa-check"></i> Système de tags intelligents</li>
-              <li><i class="fa fa-check"></i> Notifications en temps réel</li>
+              <li><i class="fa fa-check"></i> [[themes/cop:landing.pillar1_feat1]]</li>
+              <li><i class="fa fa-check"></i> [[themes/cop:landing.pillar1_feat2]]</li>
+              <li><i class="fa fa-check"></i> [[themes/cop:landing.pillar1_feat3]]</li>
             </ul>
-            <a href="{relative_path}/categories" class="btn-link">Explorer les forums <i class="fa fa-chevron-right"></i></a>
+            <a href="{relative_path}/categories" class="btn-link">[[themes/cop:landing.pillar1_link]] <i class="fa fa-chevron-right"></i></a>
           </div>
           <div class="pillar-visual">
-            <img class="pillar-image" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800" alt="Professionnels africains en discussion" />
+            <img class="pillar-image" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800" alt="[[themes/cop:landing.pillar1_title]]" />
           </div>
         </div>
       </div>
@@ -102,22 +102,22 @@
       <div class="container-narrow">
         <div class="pillar-content reverse">
           <div class="pillar-text">
-            <span class="pillar-label">Savoir</span>
-            <h2>Bibliothèque Intelligente</h2>
-            <p>Accédez à des centaines de rapports, guides et études. Notre IA intégrée vous aide à synthétiser les documents longs pour extraire l'essentiel en quelques secondes.</p>
+            <span class="pillar-label">[[themes/cop:landing.pillar2_label]]</span>
+            <h2>[[themes/cop:landing.pillar2_title]]</h2>
+            <p>[[themes/cop:landing.pillar2_desc]]</p>
             <ul class="pillar-list">
-              <li><i class="fa fa-magic"></i> Résumés automatiques par IA</li>
-              <li><i class="fa fa-search"></i> Recherche plein texte avancée</li>
-              <li><i class="fa fa-lock"></i> Accès sécurisé aux documents sensibles</li>
+              <li><i class="fa fa-magic"></i> [[themes/cop:landing.pillar2_feat1]]</li>
+              <li><i class="fa fa-search"></i> [[themes/cop:landing.pillar2_feat2]]</li>
+              <li><i class="fa fa-lock"></i> [[themes/cop:landing.pillar2_feat3]]</li>
             </ul>
-            <a href="{relative_path}/categories" class="btn-link">Consulter la bibliothèque <i class="fa fa-chevron-right"></i></a>
+            <a href="{relative_path}/categories" class="btn-link">[[themes/cop:landing.pillar2_link]] <i class="fa fa-chevron-right"></i></a>
           </div>
           <div class="pillar-visual">
             <div class="visual-mockup visual-mockup--docs">
               <div class="mock-doc">
                 <div class="doc-icon"><i class="fa fa-file-pdf-o"></i></div>
-                <div class="doc-title">Rapport d'évaluation — Programme Santé Rurale 2025</div>
-                <div class="doc-meta">PDF &middot; 2.4 Mo &middot; Ministère de la Santé</div>
+                <div class="doc-title">[[themes/cop:landing.doc_title]]</div>
+                <div class="doc-meta">[[themes/cop:landing.doc_meta]]</div>
                 <div class="doc-lines">
                   <div class="doc-line"></div>
                   <div class="doc-line"></div>
@@ -125,8 +125,8 @@
                   <div class="doc-line"></div>
                 </div>
                 <div class="doc-ai-summary">
-                  <div class="ai-badge"><i class="fa fa-bolt"></i> Résumé IA</div>
-                  <p class="ai-text">Ce rapport évalue l'impact du programme de santé rurale dans 8 régions. Les résultats montrent une amélioration de 34% de l'accès aux soins primaires...</p>
+                  <div class="ai-badge"><i class="fa fa-bolt"></i> [[themes/cop:landing.doc_ai_badge]]</div>
+                  <p class="ai-text">[[themes/cop:landing.doc_ai_text]]</p>
                 </div>
               </div>
             </div>
@@ -136,55 +136,55 @@
     </div>
   </section>
 
-  <!-- Section D: Role Selection (Interactive & Personal) -->
+  <!-- Section D: Role Selection -->
   <section class="landing-roles">
     <div class="container-narrow">
       <div class="section-header">
-        <span class="section-subtitle">Votre Parcours</span>
-        <h2 class="section-title">Quel est votre rôle dans l'écosystème ?</h2>
+        <span class="section-subtitle">[[themes/cop:landing.roles_subtitle]]</span>
+        <h2 class="section-title">[[themes/cop:landing.roles_title]]</h2>
       </div>
       <div class="role-grid">
         <div class="role-card" data-role="decideur">
           <div class="role-icon role-icon--teal"><i class="fa fa-university"></i></div>
           <div class="role-info">
-            <h3>Décideur Politique</h3>
-            <p>Accédez aux preuves pour orienter vos décisions stratégiques.</p>
+            <h3>[[themes/cop:landing.role1_title]]</h3>
+            <p>[[themes/cop:landing.role1_desc]]</p>
           </div>
         </div>
         <div class="role-card" data-role="chercheur">
           <div class="role-icon role-icon--orange"><i class="fa fa-flask"></i></div>
           <div class="role-info">
-            <h3>Chercheur</h3>
-            <p>Contribuez aux méthodologies et partagez vos travaux académiques.</p>
+            <h3>[[themes/cop:landing.role2_title]]</h3>
+            <p>[[themes/cop:landing.role2_desc]]</p>
           </div>
         </div>
         <div class="role-card" data-role="evaluateur">
           <div class="role-icon role-icon--green"><i class="fa fa-check-circle"></i></div>
           <div class="role-info">
-            <h3>Évaluateur</h3>
-            <p>Échangez sur les bonnes pratiques et développez vos compétences.</p>
+            <h3>[[themes/cop:landing.role3_title]]</h3>
+            <p>[[themes/cop:landing.role3_desc]]</p>
           </div>
         </div>
         <div class="role-card" data-role="etudiant">
           <div class="role-icon role-icon--red"><i class="fa fa-graduation-cap"></i></div>
           <div class="role-info">
-            <h3>Étudiant</h3>
-            <p>Apprenez des experts et accédez à une base documentaire riche.</p>
+            <h3>[[themes/cop:landing.role4_title]]</h3>
+            <p>[[themes/cop:landing.role4_desc]]</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section E: Final CTA (Warm & Direct) -->
+  <!-- Section E: Final CTA -->
   <section class="landing-cta">
     <div class="container-narrow">
       <div class="cta-box">
-        <h2>Prêt à contribuer à l'excellence de l'évaluation ?</h2>
-        <p>L'inscription est gratuite pour tous les professionnels du secteur public, privé et de la société civile en Côte d'Ivoire.</p>
+        <h2>[[themes/cop:landing.cta_title]]</h2>
+        <p>[[themes/cop:landing.cta_desc]]</p>
         <div class="cta-btns">
-          <a href="{relative_path}/register" class="btn-primary-xl">Créer mon compte professionnel</a>
-          <a href="{relative_path}/login" class="btn-link-white">Déjà membre ? Se connecter</a>
+          <a href="{relative_path}/register" class="btn-primary-xl">[[themes/cop:landing.cta_register]]</a>
+          <a href="{relative_path}/login" class="btn-link-white">[[themes/cop:landing.cta_login]]</a>
         </div>
       </div>
     </div>
@@ -201,27 +201,27 @@
           {{{ if !brand:logo }}}
           <img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="footer-logo">
           {{{ end }}}
-          <p>Ministère du Plan et du Développement<br>République de Côte d'Ivoire</p>
+          <p>[[themes/cop:landing.prefooter_ministry]]<br>[[themes/cop:landing.prefooter_country]]</p>
           <div class="status-indicator">
             <span class="pulse-dot"></span>
-            <span>Plateforme opérationnelle</span>
+            <span>[[themes/cop:landing.prefooter_status]]</span>
           </div>
         </div>
         <div class="prefooter-nav">
           <div class="nav-col">
-            <h4>Plateforme</h4>
+            <h4>[[themes/cop:landing.prefooter_platform]]</h4>
             <ul>
-              <li><a href="{relative_path}/categories">Espaces de Dialogue</a></li>
-              <li><a href="{relative_path}/categories">Documentation</a></li>
-              <li><a href="{relative_path}/users">Annuaire</a></li>
+              <li><a href="{relative_path}/categories">[[themes/cop:landing.prefooter_forums]]</a></li>
+              <li><a href="{relative_path}/categories">[[themes/cop:landing.prefooter_docs]]</a></li>
+              <li><a href="{relative_path}/users">[[themes/cop:landing.prefooter_directory]]</a></li>
             </ul>
           </div>
           <div class="nav-col">
-            <h4>Support</h4>
+            <h4>[[themes/cop:landing.prefooter_support]]</h4>
             <ul>
-              <li><a href="{relative_path}/register">Inscription</a></li>
-              <li><a href="{relative_path}/login">Connexion</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="{relative_path}/register">[[themes/cop:landing.prefooter_register]]</a></li>
+              <li><a href="{relative_path}/login">[[themes/cop:landing.prefooter_login]]</a></li>
+              <li><a href="#">[[themes/cop:landing.prefooter_contact]]</a></li>
             </ul>
           </div>
         </div>
