@@ -49,6 +49,99 @@ const CATEGORIES = [
 	},
 ];
 
+const CUSTOM_FIELDS = [
+	{
+		key: 'fullname_org',
+		name: '[[cop:profile.fullname_org]]',
+		icon: 'fa-solid fa-user-tie',
+		type: 'input-text',
+		'min:rep': 0,
+		'select-options': '',
+		visibility: 'all',
+	},
+	{
+		key: 'title_role',
+		name: '[[cop:profile.title_role]]',
+		icon: 'fa-solid fa-id-badge',
+		type: 'input-text',
+		'min:rep': 0,
+		'select-options': '',
+		visibility: 'all',
+	},
+	{
+		key: 'org_type',
+		name: '[[cop:profile.org_type]]',
+		icon: 'fa-solid fa-building',
+		type: 'select',
+		'min:rep': 0,
+		'select-options': [
+			'Consultant indépendant',
+			'Administration publique',
+			'ONG / Société civile',
+			'Université / Recherche',
+			'Organisation internationale',
+		].join('\n'),
+		visibility: 'all',
+	},
+	{
+		key: 'expertise',
+		name: '[[cop:profile.expertise]]',
+		icon: 'fa-solid fa-chart-line',
+		type: 'select-multi',
+		'min:rep': 0,
+		'select-options': [
+			'Santé',
+			'Éducation',
+			'Environnement & Climat',
+			'Agriculture & Sécurité alimentaire',
+			'Gouvernance & Institutions',
+			'Protection sociale',
+			'Infrastructure & Transport',
+			'Économie & Finances publiques',
+			'Genre & Inclusion',
+			'Développement urbain',
+			'Énergie & Ressources naturelles',
+			'Emploi & Formation professionnelle',
+			'Eau & Assainissement',
+			'Autre',
+		].join('\n'),
+		visibility: 'all',
+	},
+	{
+		key: 'region',
+		name: '[[cop:profile.region]]',
+		icon: 'fa-solid fa-map-location-dot',
+		type: 'select',
+		'min:rep': 0,
+		'select-options': [
+			'District Autonome d\'Abidjan',
+			'District Autonome de Yamoussoukro',
+			'Bas-Sassandra',
+			'Comoé',
+			'Denguélé',
+			'Gôh-Djiboua',
+			'Lacs',
+			'Lagunes',
+			'Montagnes',
+			'Sassandra-Marahoué',
+			'Savanes',
+			'Vallée du Bandama',
+			'Woroba',
+			'Zanzan',
+		].join('\n'),
+		visibility: 'all',
+	},
+	{
+		key: 'bio_pro',
+		name: '[[cop:profile.bio_pro]]',
+		icon: 'fa-solid fa-pen-fancy',
+		type: 'textarea',
+		'min:rep': 0,
+		'select-options': '',
+		visibility: 'loggedin',
+	},
+];
+
 const ADMIN_UID = 1;
 
 // ── Main ────────────────────────────────────────────────────────────
@@ -99,6 +192,18 @@ async function main() {
 	for (const groupName of requiredGroups) {
 		const exists = await groups.exists(groupName);
 		console.log(`  ${groupName}: ${exists ? 'OK' : 'MISSING!'}`);
+	}
+
+	// 5. Create custom profile fields
+	console.log('\n── Creating custom profile fields ──');
+	const fieldKeys = CUSTOM_FIELDS.map(f => f.key);
+	const fieldScores = CUSTOM_FIELDS.map((_, i) => i + 10);
+	await db.sortedSetAdd('user-custom-fields', fieldScores, fieldKeys);
+	await db.setObjectBulk(
+		CUSTOM_FIELDS.map(f => [`user-custom-field:${f.key}`, f])
+	);
+	for (const f of CUSTOM_FIELDS) {
+		console.log(`  ${f.key} (${f.type}, visibility: ${f.visibility})`);
 	}
 
 	// Done

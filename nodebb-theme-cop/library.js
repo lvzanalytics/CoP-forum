@@ -125,7 +125,7 @@ library.getThemeConfig = async function (config) {
 library.filterMiddlewareRenderHeader = async function (hookData) {
 	// Fetch all categories for the Espaces navbar dropdown
 	const allCategories = await categories.getAllCategories(hookData.req.uid || 0);
-	hookData.templateData.allCategories = allCategories.filter(c => !c.disabled && !c.parentCid);
+	hookData.templateData.allCategories = allCategories.filter(c => c && !c.disabled && !c.parentCid);
 	hookData.templateData.bootswatchSkinOptions = await meta.css.getSkinSwitcherOptions(hookData.req.uid);
 	return hookData;
 };

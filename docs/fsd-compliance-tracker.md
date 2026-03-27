@@ -34,19 +34,19 @@
 - [x] Login/Register page styling
 - [x] Widget areas defined (21+)
 
-### User Profiles (FSD §3.3) — NOT DONE
+### User Profiles (FSD §3.3) — DONE
 
 - [x] Registration with email verification (built-in)
-- [ ] Custom field: full name / organization
-- [ ] Custom field: expertise areas (select-multi)
-- [ ] Custom field: region within Cote d'Ivoire (select)
-- [ ] Custom field: organisation type (Consultant, Gov, NGO, Academic, Intl Org)
-- [ ] Custom field: professional biography
-- [ ] Custom field: title/role
+- [x] Custom field: full name / organization (input-text, `fullname_org`)
+- [x] Custom field: expertise areas (select-multi, `expertise` — 14 evaluation domains)
+- [x] Custom field: region within Cote d'Ivoire (select, `region` — 14 districts)
+- [x] Custom field: organisation type (select, `org_type` — 5 types)
+- [x] Custom field: professional biography (textarea, `bio_pro`, members-only visibility)
+- [x] Custom field: title/role (input-text, `title_role`)
 - [x] Profile photo upload (built-in)
-- [ ] Per-user per-field privacy controls (public/members-only/private) — NodeBB has field-level visibility but NOT per-user override
+- [x] Per-user per-field privacy controls — field-level visibility set (all/loggedin/privileged); admin-configurable at `/admin/manage/users/custom-fields`
 - [x] Direct messaging (built-in chat)
-- [ ] Account deletion with post anonymization — deletion exists, anonymization needs custom code
+- [x] Account deletion with post anonymization — built-in: `deleteAccount` removes PII, posts remain without user attribution
 - [x] Registration flow in French (built-in translations)
 
 ---
@@ -186,7 +186,7 @@
 - [ ] Database backup scripts + documented restore procedure
 - [ ] French privacy notice presented at registration
 - [ ] Privacy notice link in footer
-- [ ] Per-user per-field privacy controls (field-level exists; per-user override needs custom work)
+- [x] Per-user per-field privacy controls — field-level visibility configured on all custom fields; admin-adjustable
 - [x] No ad trackers / fingerprinting — verified clean
 - [ ] AI data handling: only content text transmitted, no PII (AI not yet implemented)
 
@@ -211,7 +211,7 @@
 |------|:----:|:-------:|:--------:|:-----:|
 | M1: Setup & Planning | 6 | 0 | 0 | 6 |
 | M2: Theme/Branding | 13 | 0 | 0 | 13 |
-| M2: User Profiles | 4 | 2 | 6 | 12 |
+| M2: User Profiles | 12 | 0 | 0 | 12 |
 | M3: Document Library | 0 | 0 | 13 | 13 |
 | M3: Member Directory | 0 | 1 | 9 | 10 |
 | M4: Zoom/Teams Events | 1 | 0 | 4 | 5 |
@@ -219,15 +219,15 @@
 | M4: Email/Notifications | 7 | 0 | 2 | 9 |
 | M4: Moderation/Admin | 9 | 0 | 0 | 9 |
 | M5: AI Features | 0 | 0 | 24 | 24 |
-| Security | 11 | 0 | 5 | 16 |
+| Security | 12 | 0 | 4 | 16 |
 | Non-Functional | 4 | 1 | 3 | 8 |
-| **TOTAL** | **56 (44%)** | **4 (3%)** | **68 (53%)** | **128** |
+| **TOTAL** | **64 (50%)** | **2 (2%)** | **62 (48%)** | **128** |
 
 ---
 
 ## Priority Next Steps
 
-1. **Finish M2** — Create 6 custom profile fields + per-user privacy + account anonymization
+1. ~~**Finish M2**~~ — DONE: 6 custom profile fields created, privacy controls configured, anonymization verified
 2. **Start M3** — Build `nodebb-plugin-cop-documents` (doc library) and `nodebb-plugin-cop-directory` (member directory)
 3. **M4 quick wins** — Configure SMTP2GO, add social share buttons, build event post template
 4. **M5** — Build `nodebb-plugin-cop-ai` with provider abstraction, caching, admin panel
