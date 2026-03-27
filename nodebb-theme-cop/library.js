@@ -26,21 +26,13 @@ library.init = async function (params) {
 		res.render('admin/plugins/cop-theme', { title: 'CoP Theme Settings' });
 	});
 
-	router.get('/landing', middleware.buildHeader, async (req, res) => {
-		res.render('landing', { title: '[[themes/cop:nav.home]]' });
-	});
-
 	if (nconf.get('isPrimary') && process.env.NODE_ENV === 'production') {
 		setTimeout(buildSkins, 0);
 	}
 };
 
-library.onHomepageGet = async function (hookData) {
-	if (hookData.route === 'landing') {
-		hookData.rendered = true;
-		hookData.res.render('landing', hookData.templateData);
-	}
-	return hookData;
+library.onHomepageGet = function (hookData) {
+	hookData.res.render('landing', {});
 };
 
 library.addHomepageRoute = async function (data) {
