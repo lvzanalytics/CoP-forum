@@ -70,22 +70,6 @@ $(document).ready(function () {
 			ease: 'power3.out'
 		});
 
-		// --- Stats Counter ---
-		const statNums = document.querySelectorAll('[data-target]');
-		statNums.forEach((num) => {
-			const target = parseInt(num.getAttribute('data-target'), 10);
-			gsap.to(num, {
-				scrollTrigger: {
-					trigger: '.landing-overview',
-					start: 'top 80%'
-				},
-				innerText: target,
-				duration: 2,
-				snap: { innerText: 1 },
-				ease: 'power2.inOut'
-			});
-		});
-
 		// --- Bento Grid Stagger ---
 		gsap.from('.bento-card', {
 			scrollTrigger: {

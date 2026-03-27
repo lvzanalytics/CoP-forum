@@ -57,7 +57,7 @@
 
   <!-- Section C: The 4 Pillars (Rich & Informative) -->
   <section class="landing-pillars">
-    <div class="pillar-row pillar-row--teal">
+    <div class="pillar-row pillar-row--dark">
       <div class="container-narrow">
         <div class="pillar-content">
           <div class="pillar-text">
@@ -72,11 +72,7 @@
             <a href="{relative_path}/categories" class="btn-link">Explorer les forums <i class="fa fa-chevron-right"></i></a>
           </div>
           <div class="pillar-visual">
-            <div class="visual-mockup visual-mockup--forum">
-              <div class="mock-bubble">Méthodologie d'impact...</div>
-              <div class="mock-bubble alt">Quel outil pour le secteur santé ?</div>
-              <div class="mock-bubble">Réponse : Le guide national...</div>
-            </div>
+            <img class="pillar-image" src="https://images.unsplash.com/photo-1531537571171-a707bf2683da?auto=format&fit=crop&q=80&w=800" alt="Professionnels en discussion" />
           </div>
         </div>
       </div>
@@ -99,9 +95,19 @@
           <div class="pillar-visual">
             <div class="visual-mockup visual-mockup--docs">
               <div class="mock-doc">
-                <div class="doc-header"></div>
-                <div class="doc-body"></div>
-                <div class="doc-ai-badge"><i class="fa fa-bolt"></i> IA Summary</div>
+                <div class="doc-icon"><i class="fa fa-file-pdf-o"></i></div>
+                <div class="doc-title">Rapport d'évaluation — Programme Santé Rurale 2025</div>
+                <div class="doc-meta">PDF &middot; 2.4 Mo &middot; Ministère de la Santé</div>
+                <div class="doc-lines">
+                  <div class="doc-line"></div>
+                  <div class="doc-line"></div>
+                  <div class="doc-line"></div>
+                  <div class="doc-line"></div>
+                </div>
+                <div class="doc-ai-summary">
+                  <div class="ai-badge"><i class="fa fa-bolt"></i> Résumé IA</div>
+                  <p class="ai-text">Ce rapport évalue l'impact du programme de santé rurale dans 8 régions. Les résultats montrent une amélioration de 34% de l'accès aux soins primaires...</p>
+                </div>
               </div>
             </div>
           </div>
@@ -119,34 +125,14 @@
       </div>
       
       <div class="bento-grid">
-        <!-- Stats Card -->
-        <div class="bento-card bento-stats">
-          <div class="stats-main">
-            <div class="stat-circle">
-              <span class="stat-number" data-target="345">0</span>
-              <span class="stat-text">Experts</span>
-            </div>
-            <div class="stat-details">
-              <div class="detail-item">
-                <span class="detail-num" data-target="28">0</span>
-                <span class="detail-label">Évaluations</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-num" data-target="47">0</span>
-                <span class="detail-label">Projets</span>
-              </div>
-            </div>
-          </div>
-          <div class="stats-chart-line"></div>
-        </div>
-
         <!-- Directory Preview -->
         <div class="bento-card bento-directory">
+          <img class="bento-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600" alt="Experts en collaboration" />
           <h3>Annuaire des Experts</h3>
           <p>Trouvez le bon profil par domaine d'expertise.</p>
           <div class="directory-avatars">
             <div class="avatar"><img src="https://ui-avatars.com/api/?name=Jean+K&background=2D6A4F&color=fff" alt=""></div>
-            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Marie+O&background=E8722A&color=fff" alt=""></div>
+            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Marie+O&background=F47B20&color=fff" alt=""></div>
             <div class="avatar"><img src="https://ui-avatars.com/api/?name=Paul+D&background=D32F2F&color=fff" alt=""></div>
             <div class="avatar-plus">+280</div>
           </div>
@@ -166,6 +152,7 @@
 
         <!-- Feature Highlight -->
         <div class="bento-card bento-highlight">
+          <img class="bento-image-wide" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Architecture moderne Abidjan" />
           <div class="highlight-content">
             <i class="fa fa-shield"></i>
             <h4>Souveraineté des données</h4>
