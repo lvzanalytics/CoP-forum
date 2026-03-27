@@ -156,8 +156,6 @@ controllers.handleUpload = async function (req, res) {
 
 	// Validate required fields
 	if (!title || !author || !date || !description || !category || !tags) {
-		const missing = ['title', 'author', 'date', 'description', 'category', 'tags'].filter(f => !req.body[f]);
-		console.log('[cop-documents] Upload rejected - missing fields:', missing, '| body keys:', Object.keys(req.body), '| files:', (req.files || []).map(f => f.fieldname));
 		return controllerHelpers.formatApiResponse(400, res, new Error('[[cop-documents:upload.error_required]]'));
 	}
 

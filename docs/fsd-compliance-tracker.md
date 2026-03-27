@@ -67,7 +67,7 @@
 - [x] Configurable auto-approval per category — admin settings checkboxes
 - [x] Version control (retain originals, show latest, admin history) — version upload form + version history table
 - [x] Download tracking in analytics — download counter incremented via API, sorted set index
-- [ ] Cloudflare R2 file storage integration — storage abstraction ready, R2 backend not yet wired
+- [x] Cloudflare R2 file storage integration — `@aws-sdk/client-s3` with auto-detection (R2 when credentials configured, local fallback), admin settings panel for credentials
 
 ### Evaluator Member Directory (FSD §3.4)
 
@@ -212,7 +212,7 @@
 | M1: Setup & Planning | 6 | 0 | 0 | 6 |
 | M2: Theme/Branding | 13 | 0 | 0 | 13 |
 | M2: User Profiles | 12 | 0 | 0 | 12 |
-| M3: Document Library | 12 | 0 | 1 | 13 |
+| M3: Document Library | 13 | 0 | 0 | 13 |
 | M3: Member Directory | 9 | 0 | 1 | 10 |
 | M4: Zoom/Teams Events | 1 | 0 | 4 | 5 |
 | M4: Social Sharing | 1 | 0 | 2 | 3 |
@@ -221,7 +221,7 @@
 | M5: AI Features | 0 | 0 | 24 | 24 |
 | Security | 12 | 0 | 4 | 16 |
 | Non-Functional | 4 | 1 | 3 | 8 |
-| **TOTAL** | **85 (66%)** | **1 (1%)** | **42 (33%)** | **128** |
+| **TOTAL** | **86 (67%)** | **1 (1%)** | **41 (32%)** | **128** |
 
 ---
 
@@ -232,4 +232,4 @@
 3. **M4 quick wins** — Configure SMTP2GO, add social share buttons, build event post template
 4. **M5** — Build `nodebb-plugin-cop-ai` with provider abstraction, caching, admin panel
 5. **Cross-cutting** — French privacy policy page, backup scripts, accessibility audit, load testing
-6. **Remaining M3** — Wire Cloudflare R2 storage backend, add sector focus filter to directory
+6. **Remaining M3** — Add sector focus filter to directory
