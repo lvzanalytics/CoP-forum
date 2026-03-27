@@ -12,6 +12,7 @@ Read these before starting any work:
 - `technical_considerations.md` — Hosting and infrastructure pricing
 - `docs/requirements.md` — Consolidated requirements by milestone
 - `docs/design-brief.md` — UI/UX design prompt for theme development
+- `docs/fsd-compliance-tracker.md` — **FSD v2 compliance checklist** — update this file as items are completed (check off boxes, adjust summary table counts)
 
 ## Dev Setup
 

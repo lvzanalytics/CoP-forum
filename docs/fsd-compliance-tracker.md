@@ -1,0 +1,234 @@
+# CoP Platform — FSD v2 Compliance Tracker
+
+**Last updated:** 2026-03-27
+**Reference:** `CoP FSD v2.md` (Functional Specification Document v1.0)
+
+---
+
+## Milestone 1: Setup & Planning — COMPLETE
+
+- [x] NodeBB installed on dev + staging (v4.9.1, cop-forum.onrender.com)
+- [x] PostgreSQL database provisioned (Neon serverless, SSL)
+- [x] 4 French categories created (Annonces, Discussions Générales, Méthodologie & Outils, Événements)
+- [x] Default language set to French (`defaultLang: fr`, `autoDetectLang: false`)
+- [x] 4-tier access roles verified (guests, registered-users, Global Moderators, administrators)
+- [x] Admin account configured (admin / cop@dmin1)
+
+---
+
+## Milestone 2: Branding & User Profiles — IN PROGRESS
+
+### Theme & Branding (DONE)
+
+- [x] Theme plugin extending Harmony (`nodebb-theme-cop/`)
+- [x] Ministry branding (teal-green #2D6A4F, Ministry logo, Inter font)
+- [x] Custom navbar with frosted glass scroll effect
+- [x] Homepage as professional hub (hero section + category cards grid)
+- [x] Category cards with icons/descriptions
+- [x] Topic/thread view styling
+- [x] User profile page styling (banner + avatar overlay)
+- [x] Footer with Ministry branding + LVZ attribution
+- [x] Mobile responsive 320px+ (hamburger + drawer nav)
+- [x] French UI labels in theme (11 strings)
+- [x] Admin config panel (`/admin/plugins/cop-theme`)
+- [x] Login/Register page styling
+- [x] Widget areas defined (21+)
+
+### User Profiles (FSD §3.3) — NOT DONE
+
+- [x] Registration with email verification (built-in)
+- [ ] Custom field: full name / organization
+- [ ] Custom field: expertise areas (select-multi)
+- [ ] Custom field: region within Cote d'Ivoire (select)
+- [ ] Custom field: organisation type (Consultant, Gov, NGO, Academic, Intl Org)
+- [ ] Custom field: professional biography
+- [ ] Custom field: title/role
+- [x] Profile photo upload (built-in)
+- [ ] Per-user per-field privacy controls (public/members-only/private) — NodeBB has field-level visibility but NOT per-user override
+- [x] Direct messaging (built-in chat)
+- [ ] Account deletion with post anonymization — deletion exists, anonymization needs custom code
+- [x] Registration flow in French (built-in translations)
+
+---
+
+## Milestone 3: Document Library & Directory — NOT STARTED
+
+### Documentation Repository (FSD §3.2)
+
+- [ ] File upload support (PDF, DOCX, XLSX, PPTX, JPG, PNG)
+- [ ] Configurable max file size (default 20MB)
+- [ ] Mandatory metadata form (title, author, date, description 50+ chars, category, tag)
+- [ ] Optional metadata (region, sector, source org, publication date, language)
+- [ ] Document categories (5 initial: Reports, Tools, Policy, Cases, Training)
+- [ ] Full-text search across titles, descriptions, tags, AI summaries
+- [ ] Filter by category, region, sector, tag
+- [ ] Access control: Public vs Members Only per document
+- [ ] Upload moderation queue (pending until approved)
+- [ ] Configurable auto-approval per category
+- [ ] Version control (retain originals, show latest, admin history)
+- [ ] Download tracking in analytics
+- [ ] Cloudflare R2 file storage integration
+
+### Evaluator Member Directory (FSD §3.4)
+
+- [ ] Directory page showing members with completed profiles
+- [ ] Opt-out capability
+- [ ] Free-text search (names, orgs, bio)
+- [ ] Filter: Expertise area
+- [ ] Filter: Region
+- [ ] Filter: Organisation type
+- [ ] Filter: Sector focus
+- [ ] Profile view with privacy-respecting display
+- [ ] "Send Message" button on profiles (chat button exists; directory integration needed)
+- [ ] Admin-configurable expertise tags, sectors, org types
+
+---
+
+## Milestone 4: Integration & Admin Tools — NOT STARTED
+
+### Videoconferencing — Zoom/Teams (FSD §4.1)
+
+- [ ] Event post type in Evenements category
+- [ ] Fields: Event Title, Date/Time (WAT), Meeting Link, Description, Registration Link
+- [ ] Meeting link as prominent CTA button
+- [ ] WAT timezone formatting
+- [x] Standard follow notifications for Evenements (built-in category follow)
+
+### Social Media Sharing (FSD §4.2)
+
+- [ ] Share buttons (Facebook, LinkedIn, Twitter) in theme
+- [ ] Open Graph metadata on topics and documents
+- [x] Access-gated shared links for members-only content (built-in)
+
+### Email Notification System (FSD §4.3)
+
+- [ ] SMTP2GO credentials configured in admin panel
+- [x] Email verification on registration (built-in)
+- [x] Password reset emails (built-in, 2-hour token)
+- [x] Topic reply notifications (built-in)
+- [x] @mention notifications (built-in via mentions plugin)
+- [x] Reaction notifications (built-in)
+- [ ] Document pending approval notification (requires doc library)
+- [x] Per-type preference: immediate/daily/weekly/disabled (built-in)
+- [x] In-platform notifications always delivered (built-in)
+
+### Moderation & Admin (FSD §3.1, §7)
+
+- [x] Edit any post (moderator) — built-in
+- [x] Move topics between categories — built-in
+- [x] Lock/unlock topics — built-in
+- [x] Pin/unpin topics (with expiry) — built-in
+- [x] Delete posts and topics (with restore) — built-in
+- [x] Flag queue for moderator review — built-in
+- [x] All mod actions logged (40+ event types) — built-in
+- [x] Admin user management — built-in
+- [x] Admin category management — built-in
+
+---
+
+## Milestone 5: AI Features & Final Testing — NOT STARTED
+
+### AI Provider Architecture (FSD §2.1)
+
+- [ ] Provider abstraction layer (Gemini, OpenAI, Anthropic)
+- [ ] Switch providers via config change (no code change)
+
+### Document Summarisation (FSD §5.2)
+
+- [ ] Auto-generate on upload/approval
+- [ ] Permanent caching in DB
+- [ ] 3-5 sentence summary in French
+- [ ] Admin-configurable visibility (all/members/disabled)
+- [ ] "Generate Summary" button for legacy docs
+- [ ] Cache invalidation on new version upload
+
+### Discussion Thread Summarisation (FSD §5.3)
+
+- [ ] "Summarise this discussion" button
+- [ ] Configurable min reply threshold (default 15)
+- [ ] Cache window (default 12h)
+- [ ] Cache invalidation on N new replies (default 10)
+- [ ] Per-member daily limit (default 5)
+- [ ] Admin-configurable access level
+- [ ] Max 200 words, in French
+
+### Catch-Up Digest (FSD §5.4)
+
+- [ ] "Catch me up" button after absence (default 14 days)
+- [ ] Topics grouped by category with summaries
+- [ ] Reuse discussion summary cache
+- [ ] Digest cache window (default 6h)
+- [ ] Admin toggle and threshold config
+
+### AI Admin Panel (FSD §5.5)
+
+- [ ] Per-feature enable/disable toggles
+- [ ] Access level rules per feature
+- [ ] Threshold configuration
+- [ ] Cache duration settings
+- [ ] Per-member daily limits config
+- [ ] Usage dashboard (API calls by feature/billing period)
+
+---
+
+## Security & Data Protection (FSD §6) — Cross-Cutting
+
+- [x] bcrypt password hashing (12 rounds, bcryptjs) — built-in
+- [x] HTTPS/TLS with HTTP redirect (Helmet + HSTS) — built-in
+- [x] Server-side session tokens, configurable expiry (PG session store) — built-in
+- [x] Password reset: single-use token with expiry — built-in
+- [x] Brute-force IP lockout (5 attempts, 60-min lockout) — built-in
+- [x] Role enforcement, no self-escalation — built-in
+- [x] Admin action audit log (40+ event types) — built-in
+- [x] Input sanitization / XSS prevention (sanitize-html) — built-in
+- [x] File upload allowlist validation — built-in
+- [x] CSRF protection (double-submit cookie) — built-in
+- [ ] Database backup scripts + documented restore procedure
+- [ ] French privacy notice presented at registration
+- [ ] Privacy notice link in footer
+- [ ] Per-user per-field privacy controls (field-level exists; per-user override needs custom work)
+- [x] No ad trackers / fingerprinting — verified clean
+- [ ] AI data handling: only content text transmitted, no PII (AI not yet implemented)
+
+---
+
+## Non-Functional Requirements (FSD §7)
+
+- [x] All UI text in French
+- [x] Mobile 320px+ (iOS Safari, Android Chrome)
+- [x] Browser support (Chrome, Firefox, Safari, Edge)
+- [ ] Page load <=4s on 4G — needs performance testing
+- [ ] AI generation <=10s with loading indicator — AI not implemented
+- [ ] WCAG 2.1 AA (primary screens) — partial (Bootstrap 5 base, skip-to-content link; needs audit)
+- [ ] 200 concurrent users stable — needs load testing
+- [x] Append-only audit log — built-in
+
+---
+
+## Summary
+
+| Area | Done | Partial | Not Done | Total |
+|------|:----:|:-------:|:--------:|:-----:|
+| M1: Setup & Planning | 6 | 0 | 0 | 6 |
+| M2: Theme/Branding | 13 | 0 | 0 | 13 |
+| M2: User Profiles | 4 | 2 | 6 | 12 |
+| M3: Document Library | 0 | 0 | 13 | 13 |
+| M3: Member Directory | 0 | 1 | 9 | 10 |
+| M4: Zoom/Teams Events | 1 | 0 | 4 | 5 |
+| M4: Social Sharing | 1 | 0 | 2 | 3 |
+| M4: Email/Notifications | 7 | 0 | 2 | 9 |
+| M4: Moderation/Admin | 9 | 0 | 0 | 9 |
+| M5: AI Features | 0 | 0 | 24 | 24 |
+| Security | 11 | 0 | 5 | 16 |
+| Non-Functional | 4 | 1 | 3 | 8 |
+| **TOTAL** | **56 (44%)** | **4 (3%)** | **68 (53%)** | **128** |
+
+---
+
+## Priority Next Steps
+
+1. **Finish M2** — Create 6 custom profile fields + per-user privacy + account anonymization
+2. **Start M3** — Build `nodebb-plugin-cop-documents` (doc library) and `nodebb-plugin-cop-directory` (member directory)
+3. **M4 quick wins** — Configure SMTP2GO, add social share buttons, build event post template
+4. **M5** — Build `nodebb-plugin-cop-ai` with provider abstraction, caching, admin panel
+5. **Cross-cutting** — French privacy policy page, backup scripts, accessibility audit, load testing
