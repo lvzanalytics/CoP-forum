@@ -151,6 +151,7 @@
               <h4>Webinaire : Systèmes de données en évaluation</h4>
             </div>
           </div>
+          <img class="event-image" src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&q=80&w=600" alt="Webinaire professionnel" />
           <div class="event-details">
             <span><i class="fa fa-clock-o"></i> 10:00 — 12:00 WAT</span>
             <span><i class="fa fa-video-camera"></i> Zoom</span>
