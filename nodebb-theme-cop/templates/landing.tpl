@@ -15,47 +15,67 @@
     </div>
   </section>
 
-  <!-- Section B: Role Selection (Interactive & Personal) -->
-  <section class="landing-roles" id="pillars">
+  <!-- Section B: Overview Grid (Bento Style) -->
+  <section class="landing-overview" id="pillars">
     <div class="container-narrow">
-      <div class="section-header">
-        <span class="section-subtitle">Votre Parcours</span>
-        <h2 class="section-title">Quel est votre rôle dans l'écosystème ?</h2>
+      <div class="section-header-left">
+        <h2 class="section-title">Aperçu de l'activité</h2>
+        <p>Rejoignez plus de 300 experts qui collaborent quotidiennement.</p>
       </div>
-      <div class="role-grid">
-        <div class="role-card" data-role="decideur">
-          <div class="role-icon role-icon--teal"><i class="fa fa-university"></i></div>
-          <div class="role-info">
-            <h3>Décideur Politique</h3>
-            <p>Accédez aux preuves pour orienter vos décisions stratégiques.</p>
+
+      <div class="bento-grid">
+        <!-- Directory Preview -->
+        <div class="bento-card bento-directory">
+          <img class="bento-image" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600" alt="Experts africains en collaboration" />
+          <h3>Annuaire des Experts</h3>
+          <p>Trouvez le bon profil par domaine d'expertise.</p>
+          <div class="directory-avatars">
+            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Jean+K&background=2D6A4F&color=fff" alt=""></div>
+            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Marie+O&background=F47B20&color=fff" alt=""></div>
+            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Paul+D&background=D32F2F&color=fff" alt=""></div>
+            <div class="avatar-plus">+280</div>
           </div>
+          <a href="{relative_path}/users" class="btn-ghost-sm">Consulter l'annuaire</a>
         </div>
-        <div class="role-card" data-role="chercheur">
-          <div class="role-icon role-icon--orange"><i class="fa fa-flask"></i></div>
-          <div class="role-info">
-            <h3>Chercheur</h3>
-            <p>Contribuez aux méthodologies et partagez vos travaux académiques.</p>
+
+        <!-- Latest Event -->
+        <div class="bento-card bento-event">
+          <div class="event-top">
+            <div class="event-date-block">
+              <span class="event-month">AVR</span>
+              <span class="event-day">12</span>
+            </div>
+            <div class="event-info">
+              <div class="event-tag">Prochainement</div>
+              <h4>Webinaire : Systèmes de données en évaluation</h4>
+            </div>
           </div>
-        </div>
-        <div class="role-card" data-role="evaluateur">
-          <div class="role-icon role-icon--green"><i class="fa fa-check-circle"></i></div>
-          <div class="role-info">
-            <h3>Évaluateur</h3>
-            <p>Échangez sur les bonnes pratiques et développez vos compétences.</p>
+          <img class="event-image" src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&q=80&w=600" alt="Webinaire professionnel" />
+          <div class="event-details">
+            <span><i class="fa fa-clock-o"></i> 10:00 — 12:00 WAT</span>
+            <span><i class="fa fa-video-camera"></i> Zoom</span>
           </div>
+          <a href="{relative_path}/categories" class="btn-glass">S'inscrire <i class="fa fa-external-link"></i></a>
         </div>
-        <div class="role-card" data-role="etudiant">
-          <div class="role-icon role-icon--red"><i class="fa fa-graduation-cap"></i></div>
-          <div class="role-info">
-            <h3>Étudiant</h3>
-            <p>Apprenez des experts et accédez à une base documentaire riche.</p>
+
+        <!-- Feature Highlight -->
+        <div class="bento-card bento-highlight">
+          <div class="highlight-inner">
+            <div class="highlight-icon-wrap">
+              <i class="fa fa-shield"></i>
+            </div>
+            <div class="highlight-text">
+              <h4>Souveraineté des données</h4>
+              <p>Une plateforme opérée par le Ministère, garantissant la confidentialité et la sécurité de vos échanges professionnels. Aucune donnée partagée avec des tiers.</p>
+            </div>
+            <img class="highlight-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=600" alt="Professionnelle africaine" />
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section C: The 4 Pillars (Rich & Informative) -->
+  <!-- Section C: The Pillars (Rich & Informative) -->
   <section class="landing-pillars">
     <div class="pillar-row pillar-row--dark">
       <div class="container-narrow">
@@ -72,7 +92,7 @@
             <a href="{relative_path}/categories" class="btn-link">Explorer les forums <i class="fa fa-chevron-right"></i></a>
           </div>
           <div class="pillar-visual">
-            <img class="pillar-image" src="https://images.unsplash.com/photo-1531537571171-a707bf2683da?auto=format&fit=crop&q=80&w=800" alt="Professionnels en discussion" />
+            <img class="pillar-image" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800" alt="Professionnels africains en discussion" />
           </div>
         </div>
       </div>
@@ -116,60 +136,40 @@
     </div>
   </section>
 
-  <!-- Section D: Overview Grid (Bento Style) -->
-  <section class="landing-overview">
+  <!-- Section D: Role Selection (Interactive & Personal) -->
+  <section class="landing-roles">
     <div class="container-narrow">
-      <div class="section-header-left">
-        <h2 class="section-title">Aperçu de l'activité</h2>
-        <p>Rejoignez plus de 300 experts qui collaborent quotidiennement.</p>
+      <div class="section-header">
+        <span class="section-subtitle">Votre Parcours</span>
+        <h2 class="section-title">Quel est votre rôle dans l'écosystème ?</h2>
       </div>
-      
-      <div class="bento-grid">
-        <!-- Directory Preview -->
-        <div class="bento-card bento-directory">
-          <img class="bento-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600" alt="Experts en collaboration" />
-          <h3>Annuaire des Experts</h3>
-          <p>Trouvez le bon profil par domaine d'expertise.</p>
-          <div class="directory-avatars">
-            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Jean+K&background=2D6A4F&color=fff" alt=""></div>
-            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Marie+O&background=F47B20&color=fff" alt=""></div>
-            <div class="avatar"><img src="https://ui-avatars.com/api/?name=Paul+D&background=D32F2F&color=fff" alt=""></div>
-            <div class="avatar-plus">+280</div>
+      <div class="role-grid">
+        <div class="role-card" data-role="decideur">
+          <div class="role-icon role-icon--teal"><i class="fa fa-university"></i></div>
+          <div class="role-info">
+            <h3>Décideur Politique</h3>
+            <p>Accédez aux preuves pour orienter vos décisions stratégiques.</p>
           </div>
-          <a href="{relative_path}/users" class="btn-ghost-sm">Consulter l'annuaire</a>
         </div>
-
-        <!-- Latest Event -->
-        <div class="bento-card bento-event">
-          <div class="event-top">
-            <div class="event-date-block">
-              <span class="event-month">AVR</span>
-              <span class="event-day">12</span>
-            </div>
-            <div class="event-info">
-              <div class="event-tag">Prochainement</div>
-              <h4>Webinaire : Systèmes de données en évaluation</h4>
-            </div>
+        <div class="role-card" data-role="chercheur">
+          <div class="role-icon role-icon--orange"><i class="fa fa-flask"></i></div>
+          <div class="role-info">
+            <h3>Chercheur</h3>
+            <p>Contribuez aux méthodologies et partagez vos travaux académiques.</p>
           </div>
-          <img class="event-image" src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&q=80&w=600" alt="Webinaire professionnel" />
-          <div class="event-details">
-            <span><i class="fa fa-clock-o"></i> 10:00 — 12:00 WAT</span>
-            <span><i class="fa fa-video-camera"></i> Zoom</span>
-          </div>
-          <a href="{relative_path}/categories" class="btn-glass">S'inscrire <i class="fa fa-external-link"></i></a>
         </div>
-
-        <!-- Feature Highlight -->
-        <div class="bento-card bento-highlight">
-          <div class="highlight-inner">
-            <div class="highlight-icon-wrap">
-              <i class="fa fa-shield"></i>
-            </div>
-            <div class="highlight-text">
-              <h4>Souveraineté des données</h4>
-              <p>Une plateforme opérée par le Ministère, garantissant la confidentialité et la sécurité de vos échanges professionnels. Aucune donnée partagée avec des tiers.</p>
-            </div>
-            <img class="highlight-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="Architecture moderne" />
+        <div class="role-card" data-role="evaluateur">
+          <div class="role-icon role-icon--green"><i class="fa fa-check-circle"></i></div>
+          <div class="role-info">
+            <h3>Évaluateur</h3>
+            <p>Échangez sur les bonnes pratiques et développez vos compétences.</p>
+          </div>
+        </div>
+        <div class="role-card" data-role="etudiant">
+          <div class="role-icon role-icon--red"><i class="fa fa-graduation-cap"></i></div>
+          <div class="role-info">
+            <h3>Étudiant</h3>
+            <p>Apprenez des experts et accédez à une base documentaire riche.</p>
           </div>
         </div>
       </div>
@@ -195,7 +195,12 @@
     <div class="container-narrow">
       <div class="prefooter-grid">
         <div class="prefooter-brand">
-          <img src="{relative_path}/assets/cop/logo.JPG" alt="Ministry Logo" class="footer-logo">
+          {{{ if brand:logo }}}
+          <img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="footer-logo">
+          {{{ end }}}
+          {{{ if !brand:logo }}}
+          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="footer-logo">
+          {{{ end }}}
           <p>Ministère du Plan et du Développement<br>République de Côte d'Ivoire</p>
           <div class="status-indicator">
             <span class="pulse-dot"></span>

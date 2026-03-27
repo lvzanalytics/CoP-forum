@@ -43,12 +43,12 @@ library.onHomepageGet = async function (hookData) {
 	return hookData;
 };
 
-library.addHomepageRoute = async function (routes) {
-	routes.push({
+library.addHomepageRoute = async function (data) {
+	data.routes.push({
 		route: 'landing',
 		name: 'Landing Page',
 	});
-	return routes;
+	return data;
 };
 
 async function buildSkins() {
