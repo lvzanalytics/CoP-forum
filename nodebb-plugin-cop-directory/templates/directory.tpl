@@ -10,8 +10,8 @@
 		<div class="directory-filters card mb-4">
 			<div class="card-body">
 				<form id="directory-search-form" method="get" action="{config.relative_path}/directory">
-					<div class="row g-3">
-						<div class="col-12 col-md-6 col-lg-4">
+					<div class="row g-2 mb-2">
+						<div class="col-12">
 							<div class="input-group">
 								<input type="text" class="form-control" name="q" value="{filters.q}" placeholder="[[cop-directory:directory.search_placeholder]]" />
 								<button class="btn btn-primary" type="submit">
@@ -19,8 +19,9 @@
 								</button>
 							</div>
 						</div>
-
-						<div class="col-12 col-md-6 col-lg-2">
+					</div>
+					<div class="row g-2">
+						<div class="col-6 col-lg-3">
 							<select class="form-select" name="expertise" id="filter-expertise">
 								<option value="">[[cop-directory:directory.filter_expertise]]</option>
 								{{{ each expertiseOptions }}}
@@ -31,7 +32,7 @@
 							</select>
 						</div>
 
-						<div class="col-12 col-md-6 col-lg-2">
+						<div class="col-6 col-lg-3">
 							<select class="form-select" name="region" id="filter-region">
 								<option value="">[[cop-directory:directory.filter_region]]</option>
 								{{{ each regionOptions }}}
@@ -42,7 +43,7 @@
 							</select>
 						</div>
 
-						<div class="col-12 col-md-6 col-lg-2">
+						<div class="col-6 col-lg-3">
 							<select class="form-select" name="org_type" id="filter-org-type">
 								<option value="">[[cop-directory:directory.filter_org_type]]</option>
 								{{{ each orgTypeOptions }}}
@@ -53,7 +54,7 @@
 							</select>
 						</div>
 
-						<div class="col-12 col-md-6 col-lg-2">
+						<div class="col-6 col-lg-3">
 							<select class="form-select" name="sort" id="filter-sort">
 								<option value="name" {{{ if (filters.sort == "name") }}}selected{{{ end }}}>[[cop-directory:directory.sort_name]]</option>
 								<option value="newest" {{{ if (filters.sort == "newest") }}}selected{{{ end }}}>[[cop-directory:directory.sort_newest]]</option>

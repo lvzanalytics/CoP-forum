@@ -10,21 +10,21 @@ library.init = async function (params) {
 
 	// Page routes
 	routeHelpers.setupPageRoute(router, '/documents', [], controllers.list);
-	routeHelpers.setupPageRoute(router, '/documents/upload', [middleware.authenticate], controllers.upload);
-	routeHelpers.setupPageRoute(router, '/documents/pending', [middleware.authenticate], controllers.pending);
-	routeHelpers.setupPageRoute(router, '/documents/:docId/:slug?', [], controllers.view);
+	routeHelpers.setupPageRoute(router, '/documents/upload', [middleware.ensureLoggedIn], controllers.upload);
+	routeHelpers.setupPageRoute(router, '/documents/pending', [middleware.ensureLoggedIn], controllers.pending);
+	routeHelpers.setupPageRoute(router, '/documents/:docId(\\d+)/:slug?', [], controllers.view);
 
 	// API routes
-	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/upload', [middleware.authenticate], controllers.handleUpload);
+	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/upload', [middleware.ensureLoggedIn], controllers.handleUpload);
 	routeHelpers.setupApiRoute(router, 'get', '/api/v3/plugins/cop-documents/:docId/download', [], controllers.handleDownload);
-	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/approve', [middleware.authenticate], controllers.handleApprove);
-	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/reject', [middleware.authenticate], controllers.handleReject);
-	routeHelpers.setupApiRoute(router, 'delete', '/api/v3/plugins/cop-documents/:docId', [middleware.authenticate], controllers.handleDelete);
-	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/version', [middleware.authenticate], controllers.handleVersionUpload);
+	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/approve', [middleware.ensureLoggedIn], controllers.handleApprove);
+	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/reject', [middleware.ensureLoggedIn], controllers.handleReject);
+	routeHelpers.setupApiRoute(router, 'delete', '/api/v3/plugins/cop-documents/:docId', [middleware.ensureLoggedIn], controllers.handleDelete);
+	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/version', [middleware.ensureLoggedIn], controllers.handleVersionUpload);
 
 	// Admin routes
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/cop-documents', [], controllers.admin);
-	routeHelpers.setupApiRoute(router, 'put', '/api/admin/plugins/cop-documents', [middleware.authenticate], controllers.saveSettings);
+	routeHelpers.setupApiRoute(router, 'put', '/api/admin/plugins/cop-documents', [middleware.ensureLoggedIn], controllers.saveSettings);
 };
 
 library.addAdminNavigation = async function (header) {

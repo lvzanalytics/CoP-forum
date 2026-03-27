@@ -13,11 +13,11 @@ library.init = async function (params) {
 
 	// API routes
 	routeHelpers.setupApiRoute(router, 'get', '/api/v3/plugins/cop-directory/search', [], controllers.search);
-	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-directory/opt-out', [middleware.authenticate], controllers.optOut);
+	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-directory/opt-out', [middleware.ensureLoggedIn], controllers.optOut);
 
 	// Admin routes
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/cop-directory', [], controllers.admin);
-	routeHelpers.setupApiRoute(router, 'put', '/api/admin/plugins/cop-directory/settings', [middleware.authenticate], controllers.saveSettings);
+	routeHelpers.setupApiRoute(router, 'put', '/api/admin/plugins/cop-directory/settings', [middleware.ensureLoggedIn], controllers.saveSettings);
 };
 
 library.addAdminNavigation = async function (header) {
