@@ -3,6 +3,7 @@
 	"directory.search_placeholder": "Rechercher un membre...",
 	"directory.filter_expertise": "Domaine d'expertise",
 	"directory.filter_region": "R\u00e9gion",
+	"directory.filter_sector": "Secteur d'intervention",
 	"directory.filter_org_type": "Type d'organisation",
 	"directory.filter_all": "Tous",
 	"directory.sort": "Trier par",

@@ -44,6 +44,17 @@
 						</div>
 
 						<div class="col-6 col-lg-3">
+							<select class="form-select" name="sector" id="filter-sector">
+								<option value="">[[cop-directory:directory.filter_sector]]</option>
+								{{{ each sectorOptions }}}
+								<option value="{./value}" {{{ if ./selected }}}selected{{{ end }}}>
+									{./value}
+								</option>
+								{{{ end }}}
+							</select>
+						</div>
+
+						<div class="col-6 col-lg-3">
 							<select class="form-select" name="org_type" id="filter-org-type">
 								<option value="">[[cop-directory:directory.filter_org_type]]</option>
 								{{{ each orgTypeOptions }}}
@@ -53,9 +64,11 @@
 								{{{ end }}}
 							</select>
 						</div>
-
+					</div>
+					<div class="row g-2 mt-1">
 						<div class="col-6 col-lg-3">
 							<select class="form-select" name="sort" id="filter-sort">
+								<option value="">[[cop-directory:directory.sort]]</option>
 								<option value="name" {{{ if (filters.sort == "name") }}}selected{{{ end }}}>[[cop-directory:directory.sort_name]]</option>
 								<option value="newest" {{{ if (filters.sort == "newest") }}}selected{{{ end }}}>[[cop-directory:directory.sort_newest]]</option>
 							</select>
@@ -136,6 +149,10 @@
 
 						{{{ if members.region }}}
 						<p class="mb-2 small"><i class="fa fa-map-marker me-1 text-muted"></i> {members.region}</p>
+						{{{ end }}}
+
+						{{{ if members.sector }}}
+						<p class="mb-2 small"><i class="fa fa-industry me-1 text-muted"></i> {members.sector}</p>
 						{{{ end }}}
 
 						{{{ if members.expertiseList.length }}}

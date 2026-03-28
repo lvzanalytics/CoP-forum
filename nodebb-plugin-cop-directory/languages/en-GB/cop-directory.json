@@ -3,6 +3,7 @@
 	"directory.search_placeholder": "Search for a member...",
 	"directory.filter_expertise": "Area of expertise",
 	"directory.filter_region": "Region",
+	"directory.filter_sector": "Sector focus",
 	"directory.filter_org_type": "Organisation type",
 	"directory.filter_all": "All",
 	"directory.sort": "Sort by",

@@ -4,6 +4,7 @@
 	"profile.org_type": "Organisation Type",
 	"profile.expertise": "Expertise Areas",
 	"profile.region": "Region",
+	"profile.sector": "Sector Focus",
 	"profile.bio_pro": "Professional Biography",
 
 	"org_type.consultant": "Independent Consultant",
@@ -26,6 +27,18 @@
 	"expertise.employment": "Employment & Vocational Training",
 	"expertise.water": "Water & Sanitation",
 	"expertise.other": "Other",
+
+	"sector.health": "Health",
+	"sector.education": "Education",
+	"sector.environment": "Environment & Climate",
+	"sector.agriculture": "Agriculture & Food Security",
+	"sector.governance": "Governance & Institutions",
+	"sector.social_protection": "Social Protection",
+	"sector.infrastructure": "Infrastructure & Transport",
+	"sector.economy": "Economy & Public Finance",
+	"sector.energy": "Energy & Natural Resources",
+	"sector.employment": "Employment & Vocational Training",
+	"sector.water": "Water & Sanitation",
 
 	"region.abidjan": "Autonomous District of Abidjan",
 	"region.yamoussoukro": "Autonomous District of Yamoussoukro",

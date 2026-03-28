@@ -9,13 +9,14 @@ const controllers = module.exports;
 controllers.directory = async function (req, res) {
 	const settings = await directory.getSettings();
 	const page = parseInt(req.query.page, 10) || 1;
-	const sort = req.query.sort || settings.defaultSort;
+	const sort = req.query.sort || '';
 	const callerUid = req.uid || 0;
 
 	const searchParams = {
 		callerUid,
 		expertise: req.query.expertise || '',
 		region: req.query.region || '',
+		sector: req.query.sector || '',
 		org_type: req.query.org_type || '',
 		q: req.query.q || '',
 		sort,
@@ -41,11 +42,13 @@ controllers.directory = async function (req, res) {
 		pagination: results.pagination,
 		expertiseOptions: makeOptions(filterOptions.expertiseOptions, searchParams.expertise),
 		regionOptions: makeOptions(filterOptions.regionOptions, searchParams.region),
+		sectorOptions: makeOptions(filterOptions.sectorOptions, searchParams.sector),
 		orgTypeOptions: makeOptions(filterOptions.orgTypeOptions, searchParams.org_type),
 		filters: {
 			q: searchParams.q,
 			expertise: searchParams.expertise,
 			region: searchParams.region,
+			sector: searchParams.sector,
 			org_type: searchParams.org_type,
 			sort,
 		},
@@ -66,6 +69,7 @@ controllers.search = async function (req, res) {
 		callerUid,
 		expertise: req.query.expertise || '',
 		region: req.query.region || '',
+		sector: req.query.sector || '',
 		org_type: req.query.org_type || '',
 		q: req.query.q || '',
 		sort: req.query.sort || settings.defaultSort,

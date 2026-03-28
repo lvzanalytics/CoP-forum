@@ -12,7 +12,7 @@ const USER_FIELDS = [
 	'uid', 'username', 'userslug', 'fullname', 'picture',
 	'icon:text', 'icon:bgColor', 'status', 'banned', 'joindate',
 	'fullname_org', 'title_role', 'org_type', 'expertise',
-	'region', 'bio_pro', 'reputation',
+	'region', 'sector', 'bio_pro', 'reputation',
 ];
 
 directory.search = async function (params) {
@@ -20,6 +20,7 @@ directory.search = async function (params) {
 		callerUid,
 		expertise,
 		region,
+		sector,
 		org_type: orgType,
 		q,
 		sort,
@@ -69,6 +70,10 @@ directory.search = async function (params) {
 		users = users.filter(u => u.region === region);
 	}
 
+	if (sector) {
+		users = users.filter(u => u.sector === sector);
+	}
+
 	if (orgType) {
 		users = users.filter(u => u.org_type === orgType);
 	}
@@ -103,6 +108,7 @@ directory.search = async function (params) {
 	if (q) { queryObj.q = q; }
 	if (expertise) { queryObj.expertise = expertise; }
 	if (region) { queryObj.region = region; }
+	if (sector) { queryObj.sector = sector; }
 	if (orgType) { queryObj.org_type = orgType; }
 	if (sort) { queryObj.sort = sort; }
 
@@ -136,13 +142,14 @@ directory.search = async function (params) {
 directory.getFilterOptions = async function () {
 	const keys = await db.getSortedSetRange('user-custom-fields', 0, -1);
 	if (!keys.length) {
-		return { expertiseOptions: [], regionOptions: [], orgTypeOptions: [] };
+		return { expertiseOptions: [], regionOptions: [], sectorOptions: [], orgTypeOptions: [] };
 	}
 
 	const fields = (await db.getObjects(keys.map(k => `user-custom-field:${k}`))).filter(Boolean);
 
 	const expertiseField = fields.find(f => f.key === 'expertise');
 	const regionField = fields.find(f => f.key === 'region');
+	const sectorField = fields.find(f => f.key === 'sector');
 	const orgTypeField = fields.find(f => f.key === 'org_type');
 
 	const parseOptions = (field) => {
@@ -155,6 +162,7 @@ directory.getFilterOptions = async function () {
 	return {
 		expertiseOptions: parseOptions(expertiseField),
 		regionOptions: parseOptions(regionField),
+		sectorOptions: parseOptions(sectorField),
 		orgTypeOptions: parseOptions(orgTypeField),
 	};
 };
