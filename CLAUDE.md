@@ -13,6 +13,7 @@ Read these before starting any work:
 - `docs/requirements.md` — Consolidated requirements by milestone
 - `docs/design-brief.md` — UI/UX design prompt for theme development
 - `docs/fsd-compliance-tracker.md` — **FSD v2 compliance checklist** — update this file as items are completed (check off boxes, adjust summary table counts)
+- `docs/generate-m3-report.js` — Milestone report generator (docx). After a milestone's checklist items are all marked complete in `fsd-compliance-tracker.md`, prompt the user: *"This milestone is complete — would you like to generate the client-facing report?"* Then duplicate this script for the new milestone, update content/screenshots, and run: `NODE_PATH=$(npm root -g) node docs/generate-mN-report.js`
 
 ## Dev Setup
 
