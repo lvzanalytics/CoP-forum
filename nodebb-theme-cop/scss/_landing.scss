@@ -503,4 +503,62 @@
     h4 { font-size: 0.85rem; text-transform: uppercase; color: #1D1D1F; margin-bottom: 1.5rem; }
     ul { list-style: none; padding: 0; li { margin-bottom: 0.75rem; a { color: #6E6E73; text-decoration: none; font-size: 0.9rem; &:hover { color: #2D6A4F; } } } }
   }
+
+  // ---- SCROLL ANIMATIONS ----
+  .cop-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &.cop-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .cop-reveal--stagger {
+    transform: translateY(30px);
+
+    &.cop-visible {
+      transform: translateY(0);
+    }
+  }
+
+  .cop-reveal--slide-left {
+    transform: translateX(-40px);
+
+    &.cop-visible {
+      transform: translateX(0);
+    }
+  }
+
+  .cop-reveal--slide-right {
+    transform: translateX(40px);
+
+    &.cop-visible {
+      transform: translateX(0);
+    }
+  }
+
+  .cop-reveal--scale {
+    transform: scale(0.9);
+
+    &.cop-visible {
+      transform: scale(1);
+    }
+  }
+
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+    .cop-reveal,
+    .cop-reveal--stagger,
+    .cop-reveal--slide-left,
+    .cop-reveal--slide-right,
+    .cop-reveal--scale {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 }

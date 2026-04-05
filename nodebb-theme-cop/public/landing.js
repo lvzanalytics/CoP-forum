@@ -1,98 +1,102 @@
 'use strict';
 
-/* globals document, window, gsap, ScrollTrigger, $ */
+/* globals document, window, $ */
 
 $(document).ready(function () {
 	function initLandingAnimations() {
 		const landing = document.querySelector('#landing-page');
-		if (!landing || !window.gsap || !window.ScrollTrigger) return;
+		if (!landing) return;
 
-		gsap.registerPlugin(ScrollTrigger);
-
-		// --- Hero Parallax & Entrance ---
-		gsap.from('.landing-hero .hero-content > *', {
-			y: 30,
-			opacity: 0,
-			duration: 1,
-			stagger: 0.2,
-			ease: 'power3.out'
-		});
-
-		gsap.to('.landing-hero::before', {
-			scrollTrigger: {
-				trigger: '.landing-hero',
-				start: 'top top',
-				end: 'bottom top',
-				scrub: true
-			},
-			y: 100,
-			ease: 'none'
-		});
-
-		// --- Section Entrance Reveal ---
-		const revealSections = gsap.utils.toArray('section');
-		revealSections.forEach((section) => {
-			gsap.from(section, {
-				scrollTrigger: {
-					trigger: section,
-					start: 'top 85%',
-					toggleActions: 'play none none none'
-				},
-				opacity: 0,
-				y: 30,
-				duration: 1,
-				ease: 'power2.out'
+		// --- Hero entrance (immediate, no scroll needed) ---
+		const heroEls = landing.querySelectorAll('.landing-hero .hero-content > *');
+		heroEls.forEach(function (el, i) {
+			el.style.opacity = '0';
+			el.style.transform = 'translateY(30px)';
+			el.style.transition = 'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)';
+			el.style.transitionDelay = (i * 0.15) + 's';
+			requestAnimationFrame(function () {
+				requestAnimationFrame(function () {
+					el.style.opacity = '1';
+					el.style.transform = 'translateY(0)';
+				});
 			});
 		});
 
-		// --- Role Cards Stagger ---
-		gsap.from('.role-card', {
-			scrollTrigger: {
-				trigger: '.landing-roles',
-				start: 'top 75%'
-			},
-			y: 40,
-			opacity: 0,
-			stagger: 0.15,
-			duration: 0.8,
-			ease: 'back.out(1.7)'
+		// --- Scroll-triggered reveals via IntersectionObserver ---
+		var observer = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('cop-visible');
+					observer.unobserve(entry.target);
+				}
+			});
+		}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+		// Fade-up for sections
+		var sections = landing.querySelectorAll('.landing-overview, .landing-pillars, .landing-roles, .landing-cta, .landing-partners, .landing-prefooter');
+		sections.forEach(function (section) {
+			section.classList.add('cop-reveal');
+			observer.observe(section);
 		});
 
-		// --- Pillar Visual Mockups ---
-		gsap.from('.visual-mockup', {
-			scrollTrigger: {
-				trigger: '.landing-pillars',
-				start: 'top 70%'
-			},
-			scale: 0.8,
-			opacity: 0,
-			duration: 1,
-			ease: 'power3.out'
+		// Stagger children: bento cards
+		var bentoCards = landing.querySelectorAll('.bento-card');
+		bentoCards.forEach(function (card, i) {
+			card.classList.add('cop-reveal', 'cop-reveal--stagger');
+			card.style.transitionDelay = (i * 0.12) + 's';
+			observer.observe(card);
 		});
 
-		// --- Bento Grid Stagger ---
-		gsap.from('.bento-card', {
-			scrollTrigger: {
-				trigger: '.bento-grid',
-				start: 'top 80%'
-			},
-			y: 50,
-			opacity: 0,
-			stagger: 0.2,
-			duration: 1,
-			ease: 'power3.out'
+		// Stagger children: role cards
+		var roleCards = landing.querySelectorAll('.role-card');
+		roleCards.forEach(function (card, i) {
+			card.classList.add('cop-reveal', 'cop-reveal--stagger');
+			card.style.transitionDelay = (i * 0.1) + 's';
+			observer.observe(card);
 		});
 
-		// --- CTA Box Reveal ---
-		gsap.from('.cta-box', {
-			scrollTrigger: {
-				trigger: '.landing-cta',
-				start: 'top 80%'
-			},
-			scale: 0.9,
-			opacity: 0,
-			duration: 1.2,
-			ease: 'power4.out'
+		// Stagger children: partner cards
+		var partnerCards = landing.querySelectorAll('.partner-card');
+		partnerCards.forEach(function (card, i) {
+			card.classList.add('cop-reveal', 'cop-reveal--stagger');
+			card.style.transitionDelay = (i * 0.1) + 's';
+			observer.observe(card);
+		});
+
+		// Pillar rows — slide in from sides
+		var pillarRows = landing.querySelectorAll('.pillar-row');
+		pillarRows.forEach(function (row) {
+			var content = row.querySelector('.pillar-text');
+			var visual = row.querySelector('.pillar-visual');
+			if (content) {
+				content.classList.add('cop-reveal', 'cop-reveal--slide-left');
+				observer.observe(content);
+			}
+			if (visual) {
+				visual.classList.add('cop-reveal', 'cop-reveal--slide-right');
+				observer.observe(visual);
+			}
+		});
+
+		// CTA box — scale up
+		var ctaBox = landing.querySelector('.cta-box');
+		if (ctaBox) {
+			ctaBox.classList.add('cop-reveal', 'cop-reveal--scale');
+			observer.observe(ctaBox);
+		}
+
+		// Pillar images
+		var pillarImages = landing.querySelectorAll('.pillar-image');
+		pillarImages.forEach(function (img) {
+			img.classList.add('cop-reveal', 'cop-reveal--scale');
+			observer.observe(img);
+		});
+
+		// Visual mockups
+		var mockups = landing.querySelectorAll('.visual-mockup');
+		mockups.forEach(function (m) {
+			m.classList.add('cop-reveal', 'cop-reveal--scale');
+			observer.observe(m);
 		});
 	}
 
@@ -101,9 +105,6 @@ $(document).ready(function () {
 
 	// Handle Ajaxify Navigation
 	$(window).on('action:ajaxify.end', function () {
-		if (window.ScrollTrigger) {
-			ScrollTrigger.getAll().forEach(t => t.kill());
-		}
 		initLandingAnimations();
 	});
 });
