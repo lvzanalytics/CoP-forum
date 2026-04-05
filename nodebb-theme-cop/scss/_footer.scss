@@ -4,6 +4,7 @@
 
 .cop-site-footer {
   margin-top: auto;
+  flex-shrink: 0;
   padding: 40px 0 24px;
   border-top: 1px solid $border-subtle;
   text-align: center;

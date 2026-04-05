@@ -3,17 +3,6 @@
 
 			<!-- Site Footer -->
 			<footer class="cop-site-footer">
-				<div class="cop-footer__brand">
-					<div class="cop-footer__logo-wrap">
-						{{{ if brand:logo }}}
-						<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" />
-						{{{ end }}}
-						{{{ if !brand:logo }}}
-						<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" />
-						{{{ end }}}
-					</div>
-					<span>[[themes/cop:landing.prefooter_ministry]]</span>
-				</div>
 				<div class="cop-footer__links">
 					<a href="{relative_path}/">[[themes/cop:nav.home]]</a>
 					<a href="{relative_path}/documents">[[themes/cop:nav.documents]]</a>

@@ -2,7 +2,7 @@
 // Layout — Full-width, horizontal navbar, centered content
 // ============================================
 
-// Page wrapper — centers content below navbar
+// Page wrapper — centers content below navbar, pushes footer to bottom
 .cop-page-wrapper {
   max-width: $content-max-width;
   width: 100%;
@@ -10,6 +10,8 @@
   padding: 0 24px;
   min-height: calc(100vh - #{$navbar-height});
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 // Main panel
@@ -19,11 +21,12 @@
   padding-top: $navbar-height; // space for fixed navbar
 }
 
-// Content area
+// Content area — flex-grow pushes footer to bottom
 #content {
   padding: 0 !important;
   margin: 0 !important;
   max-width: 100%;
+  flex: 1 0 auto;
 }
 
 // Widget sidebar — hide (content is full-width)
