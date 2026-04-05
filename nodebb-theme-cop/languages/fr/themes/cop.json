@@ -6,10 +6,13 @@
 	"nav.documents": "Documents",
 	"nav.directory": "Annuaire",
 	"nav.more": "Plus",
+	"nav.ressources": "Ressources",
+	"nav.short_title": "CoP Évaluation",
 	"hero.tagline": "Partagez vos expériences, accédez aux ressources et collaborez avec les professionnels de l'évaluation des politiques publiques en Côte d'Ivoire.",
 	"footer.tagline": "Plateforme de la Communauté de Pratique en Évaluation des Politiques Publiques — République de Côte d'Ivoire",
 	"footer.copyright": "© 2026 Ministère — Tous droits réservés",
-	"footer.built-by": "Conçu par",
+	"footer.built-by": "Conçu par <a href=\"https://lvzanalytics.com\" target=\"_blank\" rel=\"noopener\">LVZ Analytics Corp</a> avec l'appui du <a href=\"https://clear-fa.org\" target=\"_blank\" rel=\"noopener\">CLEAR FA</a>.",
+	"brandbar.subtitle": "Ministère du Plan et du Développement — République de Côte d'Ivoire",
 
 	"landing.hero_badge": "Ministère du Plan et du Développement",
 	"landing.hero_title": "Communauté de Pratique en Évaluation des Politiques Publiques",
@@ -63,6 +66,9 @@
 	"landing.cta_desc": "L'inscription est gratuite pour tous les professionnels du secteur public, privé et de la société civile en Côte d'Ivoire.",
 	"landing.cta_register": "Créer mon compte professionnel",
 	"landing.cta_login": "Déjà membre ? Se connecter",
+
+	"landing.partners_subtitle": "Nos Partenaires",
+	"landing.partners_title": "Porteurs et soutiens du projet",
 
 	"landing.prefooter_ministry": "Ministère du Plan et du Développement",
 	"landing.prefooter_country": "République de Côte d'Ivoire",

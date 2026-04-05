@@ -6,10 +6,13 @@
 	"nav.documents": "Documents",
 	"nav.directory": "Directory",
 	"nav.more": "More",
+	"nav.ressources": "Resources",
+	"nav.short_title": "CoP Evaluation",
 	"hero.tagline": "Share your experiences, access resources, and collaborate with public policy evaluation professionals in Côte d'Ivoire.",
 	"footer.tagline": "Community of Practice in Public Policy Evaluation Platform — Republic of Côte d'Ivoire",
 	"footer.copyright": "© 2026 Ministry — All rights reserved",
-	"footer.built-by": "Built by",
+	"footer.built-by": "Built by <a href=\"https://lvzanalytics.com\" target=\"_blank\" rel=\"noopener\">LVZ Analytics Corp</a> with support from <a href=\"https://clear-fa.org\" target=\"_blank\" rel=\"noopener\">CLEAR FA</a>.",
+	"brandbar.subtitle": "Ministry of Planning and Development — Republic of Côte d'Ivoire",
 
 	"landing.hero_badge": "Ministry of Planning and Development",
 	"landing.hero_title": "Community of Practice in Public Policy Evaluation",
@@ -63,6 +66,9 @@
 	"landing.cta_desc": "Registration is free for all public, private, and civil society professionals in Côte d'Ivoire.",
 	"landing.cta_register": "Create my professional account",
 	"landing.cta_login": "Already a member? Sign in",
+
+	"landing.partners_subtitle": "Our Partners",
+	"landing.partners_title": "Project partners and supporters",
 
 	"landing.prefooter_ministry": "Ministry of Planning and Development",
 	"landing.prefooter_country": "Republic of Côte d'Ivoire",

@@ -1,16 +1,18 @@
 <header class="cop-navbar" id="cop-navbar">
-	<!-- Left: Logo + Title -->
+	<!-- Left: Logo + Short Title -->
 	<a href="{relative_path}/" class="cop-navbar__brand">
-		{{{ if brand:logo }}}
-		<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="cop-navbar__logo" />
-		{{{ end }}}
-		{{{ if !brand:logo }}}
-		<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="cop-navbar__logo" />
-		{{{ end }}}
-		<span class="cop-navbar__title">{config.siteTitle}</span>
+		<div class="cop-navbar__logo-wrap">
+			{{{ if brand:logo }}}
+			<img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="cop-navbar__logo" />
+			{{{ end }}}
+			{{{ if !brand:logo }}}
+			<img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="cop-navbar__logo" />
+			{{{ end }}}
+		</div>
+		<span class="cop-navbar__title">[[themes/cop:nav.short_title]]</span>
 	</a>
 
-	<!-- Center: Nav links -->
+	<!-- Center: Nav links (condensed) -->
 	<ul class="cop-navbar__nav">
 		<li><a href="{relative_path}/" class="cop-nav-link" data-path="/">[[themes/cop:nav.home]]</a></li>
 		<li class="cop-espaces-dropdown dropdown">
@@ -33,9 +35,25 @@
 				{{{ end }}}
 			</div>
 		</li>
-		<li><a href="{relative_path}/documents" class="cop-nav-link" data-path="/documents">[[themes/cop:nav.documents]]</a></li>
-		<li><a href="{relative_path}/directory" class="cop-nav-link" data-path="/directory">[[themes/cop:nav.directory]]</a></li>
-		<li><a href="{relative_path}/recent" class="cop-nav-link" data-path="/recent">[[themes/cop:nav.recent]]</a></li>
+		<li class="cop-ressources-dropdown dropdown">
+			<a href="#" class="cop-nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				[[themes/cop:nav.ressources]] <i class="fa fa-chevron-down"></i>
+			</a>
+			<div class="dropdown-menu dropdown-menu-end p-1">
+				<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" href="{relative_path}/documents">
+					<i class="fa fa-fw fa-file-text-o text-secondary"></i>
+					<span>[[themes/cop:nav.documents]]</span>
+				</a>
+				<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" href="{relative_path}/directory">
+					<i class="fa fa-fw fa-address-book-o text-secondary"></i>
+					<span>[[themes/cop:nav.directory]]</span>
+				</a>
+				<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" href="{relative_path}/recent">
+					<i class="fa fa-fw fa-clock-o text-secondary"></i>
+					<span>[[themes/cop:nav.recent]]</span>
+				</a>
+			</div>
+		</li>
 		{{{ if navigation.length }}}
 		<li class="cop-more-dropdown dropdown">
 			<a href="#" class="cop-nav-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,5 +1,5 @@
 // ============================================
-// Navbar — 64px, frosted glass on scroll
+// Navbar — 64px, frosted glass on scroll, overlapping logo
 // ============================================
 
 .cop-navbar {
@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   padding: 0 24px;
+  overflow: visible; // allow logo to overflow
   transition: background-color $transition-normal, backdrop-filter $transition-normal, box-shadow $transition-normal;
 
   // Frosted glass on scroll
@@ -24,27 +25,38 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   }
 
-  // ---- Left: Logo + Title ----
+  // ---- Left: Logo + Short Title ----
   .cop-navbar__brand {
     display: flex;
     align-items: center;
     gap: 12px;
     flex-shrink: 0;
     text-decoration: none;
+  }
 
-    .cop-navbar__logo {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
+  .cop-navbar__logo-wrap {
+    position: relative;
+    flex-shrink: 0;
+    z-index: $z-navbar + 1;
+    align-self: flex-start;
+  }
 
-    .cop-navbar__title {
-      font-size: $type-body;
-      font-weight: 700;
-      color: $text-primary;
-      white-space: nowrap;
-      letter-spacing: -0.01em;
-    }
+  .cop-navbar__logo {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-top: 30px; // push logo down so navbar bar sits across its upper portion
+    border-radius: $radius-lg;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+  }
+
+  .cop-navbar__title {
+    font-size: $type-body;
+    font-weight: 700;
+    color: $text-primary;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
   }
 
   // ---- Center: Nav links ----
@@ -83,6 +95,13 @@
         font-size: 10px;
         margin-left: 2px;
       }
+    }
+  }
+
+  // ---- Ressources dropdown ----
+  .cop-ressources-dropdown {
+    .dropdown-menu {
+      min-width: 240px;
     }
   }
 

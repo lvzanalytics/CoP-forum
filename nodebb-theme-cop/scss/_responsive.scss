@@ -70,6 +70,10 @@
   .cop-navbar {
     padding: 0 12px;
 
+    .cop-navbar__logo {
+      height: 60px;
+    }
+
     .cop-navbar__title {
       display: none;
     }

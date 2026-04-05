@@ -403,6 +403,68 @@
     &:hover { color: #FFFFFF; }
   }
 
+  // ---- SECTION F: PARTNERS ----
+  .landing-partners {
+    padding: 6rem 0;
+    background: #FFFFFF;
+
+    .partners-grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .partner-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 2rem;
+      background: #FAFAF8;
+      border: 1px solid $border-subtle;
+      border-radius: $radius-xl;
+      transition: all $transition-normal;
+      min-width: 160px;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: $shadow-md;
+        border-color: $border-medium;
+      }
+    }
+
+    .partner-logo {
+      height: 60px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      filter: grayscale(30%);
+      opacity: 0.85;
+      transition: all $transition-normal;
+
+      .partner-card:hover & {
+        filter: grayscale(0%);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .partners-grid {
+        gap: 1.5rem;
+      }
+
+      .partner-card {
+        padding: 1rem 1.25rem;
+        min-width: 140px;
+      }
+
+      .partner-logo {
+        height: 44px;
+      }
+    }
+  }
+
   // ---- PRE-FOOTER ----
   .landing-prefooter {
     padding: 6rem 0; background: #FAFAF8; border-top: 1px solid #EBEBEA;

@@ -10,7 +10,7 @@
 					<a href="{relative_path}/recent">[[themes/cop:nav.recent]]</a>
 				</div>
 				<p class="cop-footer__copyright">[[themes/cop:footer.copyright]]</p>
-				<p class="cop-footer__built-by">[[themes/cop:footer.built-by]] <a href="https://lvzanalytics.com" target="_blank" rel="noopener">LVZ Analytics Corp</a></p>
+				<p class="cop-footer__built-by">[[themes/cop:footer.built-by]]</p>
 			</footer>
 		</div><!-- /.cop-page-wrapper -->
 	</main>

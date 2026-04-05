@@ -190,6 +190,30 @@
     </div>
   </section>
 
+  <!-- Section F: Partners -->
+  <section class="landing-partners">
+    <div class="container-narrow">
+      <div class="section-header">
+        <span class="section-subtitle">[[themes/cop:landing.partners_subtitle]]</span>
+        <h2 class="section-title">[[themes/cop:landing.partners_title]]</h2>
+      </div>
+      <div class="partners-grid">
+        <div class="partner-card">
+          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/partner-clear-fa.png" alt="CLEAR FA" class="partner-logo" />
+        </div>
+        <div class="partner-card">
+          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/partner-afd.png" alt="AFD" class="partner-logo" />
+        </div>
+        <div class="partner-card">
+          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/partner-cesag.png" alt="CESAG" class="partner-logo" />
+        </div>
+        <div class="partner-card">
+          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/partner-gei.jpeg" alt="GEI" class="partner-logo" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Pre-footer -->
   <div class="landing-prefooter">
     <div class="container-narrow">
