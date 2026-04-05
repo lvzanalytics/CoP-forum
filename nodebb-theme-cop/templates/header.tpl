@@ -8,7 +8,6 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 	{{{each linkTags}}}{function.buildLinkTag}{{{end}}}
-
 	<script>
 		var config = JSON.parse('{{configJSON}}');
 		var app = {
