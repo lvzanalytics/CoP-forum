@@ -26,7 +26,7 @@
       <div class="bento-grid">
         <!-- Directory Preview -->
         <div class="bento-card bento-directory">
-          <img class="bento-image" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600" alt="[[themes/cop:landing.directory_title]]" />
+          <img class="bento-image" src="{relative_path}/plugins/nodebb-theme-cop/cop/landing/directory.jpg" alt="[[themes/cop:landing.directory_title]]" />
           <h3>[[themes/cop:landing.directory_title]]</h3>
           <p>[[themes/cop:landing.directory_desc]]</p>
           <div class="directory-avatars">
@@ -50,7 +50,7 @@
               <h4>[[themes/cop:landing.event_title]]</h4>
             </div>
           </div>
-          <img class="event-image" src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&q=80&w=600" alt="[[themes/cop:landing.event_title]]" />
+          <img class="event-image" src="{relative_path}/plugins/nodebb-theme-cop/cop/landing/event.jpg" alt="[[themes/cop:landing.event_title]]" />
           <div class="event-details">
             <span><i class="fa fa-clock-o"></i> 10:00 — 12:00 WAT</span>
             <span><i class="fa fa-video-camera"></i> Zoom</span>
@@ -68,7 +68,7 @@
               <h4>[[themes/cop:landing.highlight_title]]</h4>
               <p>[[themes/cop:landing.highlight_desc]]</p>
             </div>
-            <img class="highlight-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=600" alt="[[themes/cop:landing.highlight_title]]" />
+            <img class="highlight-img" src="{relative_path}/plugins/nodebb-theme-cop/cop/landing/highlight.jpg" alt="[[themes/cop:landing.highlight_title]]" />
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@
             <a href="{relative_path}/categories" class="btn-link">[[themes/cop:landing.pillar1_link]] <i class="fa fa-chevron-right"></i></a>
           </div>
           <div class="pillar-visual">
-            <img class="pillar-image" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800" alt="[[themes/cop:landing.pillar1_title]]" />
+            <img class="pillar-image" src="{relative_path}/plugins/nodebb-theme-cop/cop/landing/pillar-dialogue.jpg" alt="[[themes/cop:landing.pillar1_title]]" />
           </div>
         </div>
       </div>
@@ -219,16 +219,22 @@
     <div class="container-narrow">
       <div class="prefooter-grid">
         <div class="prefooter-brand">
-          {{{ if brand:logo }}}
-          <img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="footer-logo">
-          {{{ end }}}
-          {{{ if !brand:logo }}}
-          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="footer-logo">
-          {{{ end }}}
-          <p>[[themes/cop:landing.prefooter_ministry]]<br>[[themes/cop:landing.prefooter_country]]</p>
-          <div class="status-indicator">
-            <span class="pulse-dot"></span>
-            <span>[[themes/cop:landing.prefooter_status]]</span>
+          <div class="prefooter-brand__row">
+            <div class="prefooter-brand__logo-wrap">
+              {{{ if brand:logo }}}
+              <img src="{brand:logo}?{config.cache-buster}" alt="{config.siteTitle}" class="footer-logo">
+              {{{ end }}}
+              {{{ if !brand:logo }}}
+              <img src="{relative_path}/plugins/nodebb-theme-cop/cop/logo.JPG" alt="{config.siteTitle}" class="footer-logo">
+              {{{ end }}}
+            </div>
+            <div class="prefooter-brand__text">
+              <p>[[themes/cop:landing.prefooter_ministry]]<br>[[themes/cop:landing.prefooter_country]]</p>
+              <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span>[[themes/cop:landing.prefooter_status]]</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="prefooter-nav">

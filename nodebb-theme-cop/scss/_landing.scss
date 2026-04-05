@@ -55,7 +55,7 @@
       content: "";
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url('https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80&w=2000');
+      background-image: url('/plugins/nodebb-theme-cop/cop/landing/hero-bg.jpg');
       background-size: cover;
       background-position: center;
       opacity: 0.35;
@@ -371,7 +371,7 @@
   // ---- SECTION E: FINAL CTA ----
   .landing-cta {
     padding: 8rem 0;
-    background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=2000');
+    background-image: url('/plugins/nodebb-theme-cop/cop/landing/cta-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -469,10 +469,36 @@
   .landing-prefooter {
     padding: 6rem 0; background: #FAFAF8; border-top: 1px solid #EBEBEA;
     .prefooter-grid { display: grid; grid-template-columns: 2fr 2fr; gap: 4rem; @media (max-width: 768px) { grid-template-columns: 1fr; } }
-    .footer-logo { height: 60px; margin-bottom: 1.5rem; }
+
+    .prefooter-brand__row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .prefooter-brand__logo-wrap {
+      flex-shrink: 0;
+    }
+
+    .footer-logo {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+      border-radius: $radius-lg;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+    }
+
+    .prefooter-brand__text p {
+      margin: 0 0 0.5rem;
+      font-weight: 600;
+      color: #1D1D1F;
+      line-height: 1.4;
+    }
+
     .status-indicator { display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #AEAEB2; }
     .pulse-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 10px #4ade80; }
-    
+
     .prefooter-nav { display: flex; gap: 4rem; }
     h4 { font-size: 0.85rem; text-transform: uppercase; color: #1D1D1F; margin-bottom: 1.5rem; }
     ul { list-style: none; padding: 0; li { margin-bottom: 0.75rem; a { color: #6E6E73; text-decoration: none; font-size: 0.9rem; &:hover { color: #2D6A4F; } } } }

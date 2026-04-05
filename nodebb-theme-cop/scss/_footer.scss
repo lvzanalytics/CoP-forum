@@ -12,13 +12,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    .cop-footer__logo-wrap {
+      flex-shrink: 0;
+    }
 
     img {
-      height: 32px;
+      height: 48px;
       width: auto;
       object-fit: contain;
+      border-radius: $radius-lg;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
     }
 
     span {
@@ -26,13 +32,6 @@
       font-weight: 600;
       color: $text-primary;
     }
-  }
-
-  .cop-footer__tagline {
-    font-size: $type-caption;
-    color: $text-secondary;
-    margin-bottom: 16px;
-    line-height: 1.5;
   }
 
   .cop-footer__links {
