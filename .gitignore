@@ -73,3 +73,10 @@ test.sh
 
 .docker/**
 !**/.gitkeep
+
+# Source image assets (compressed copies live in nodebb-theme-cop/public/)
+african-business/
+AFD_logo.png
+CMJN_CLEAR-FA_Horizontal_Couleur*.png
+Nouveau Logo GEI.jpeg
+logo_CESAG_remis*.png
