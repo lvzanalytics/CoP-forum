@@ -30,35 +30,7 @@
 					</div>
 
 					<hr />
-
-					<!-- Cloudflare R2 -->
-					<h4>[[cop-documents:admin.r2_section]]</h4>
-					<p class="text-muted">[[cop-documents:admin.r2_help]]</p>
-
-					<div class="mb-3">
-						<label class="form-label" for="r2AccountId">[[cop-documents:admin.r2_account_id]]</label>
-						<input type="text" class="form-control" id="r2AccountId" name="r2AccountId" value="{settings.r2AccountId}">
-					</div>
-
-					<div class="mb-3">
-						<label class="form-label" for="r2AccessKeyId">[[cop-documents:admin.r2_access_key]]</label>
-						<input type="text" class="form-control" id="r2AccessKeyId" name="r2AccessKeyId" value="{settings.r2AccessKeyId}">
-					</div>
-
-					<div class="mb-3">
-						<label class="form-label" for="r2SecretAccessKey">[[cop-documents:admin.r2_secret_key]]</label>
-						<input type="password" class="form-control" id="r2SecretAccessKey" name="r2SecretAccessKey" value="{settings.r2SecretAccessKey}">
-					</div>
-
-					<div class="mb-3">
-						<label class="form-label" for="r2Bucket">[[cop-documents:admin.r2_bucket]]</label>
-						<input type="text" class="form-control" id="r2Bucket" name="r2Bucket" value="{settings.r2Bucket}">
-					</div>
-
-					<div class="mb-3">
-						<label class="form-label" for="r2PublicUrl">[[cop-documents:admin.r2_public_url]]</label>
-						<input type="text" class="form-control" id="r2PublicUrl" name="r2PublicUrl" value="{settings.r2PublicUrl}" placeholder="https://files.example.com">
-					</div>
+					<p class="text-muted"><i class="fa fa-info-circle"></i> [[cop-documents:admin.r2_shared_note]]</p>
 
 					<button type="button" class="btn btn-primary" id="save-cop-docs-settings">
 						<i class="fa fa-save"></i> [[cop-documents:admin.save]]

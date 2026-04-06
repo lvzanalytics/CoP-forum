@@ -168,6 +168,7 @@ image.sizeFromBase64 = function (imageData) {
 
 image.uploadImage = async function (filename, folder, imageData) {
 	if (plugins.hooks.hasListeners('filter:uploadImage')) {
+		imageData.name = filename;
 		return await plugins.hooks.fire('filter:uploadImage', {
 			image: imageData,
 			uid: imageData.uid,
