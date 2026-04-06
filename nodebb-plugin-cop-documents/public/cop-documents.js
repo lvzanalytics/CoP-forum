@@ -75,6 +75,7 @@ function initUpload() {
 function initView() {
 	var relativePath = config.relative_path;
 
+	// Version upload form
 	$('#version-upload-form').off('submit').on('submit', function (e) {
 		e.preventDefault();
 		var form = this;
@@ -101,6 +102,107 @@ function initView() {
 			.catch(function () {
 				require(['alerts'], function (alerts) { alerts.error('Error'); });
 			});
+	});
+
+	// Edit document form
+	initEditForm();
+
+	// Image lightbox
+	initLightbox();
+
+	// PDF fallback: if <object> fails, the iframe inside handles it
+	// No additional JS needed — browser handles this natively
+}
+
+function initEditForm() {
+	var relativePath = config.relative_path;
+
+	$('#edit-document-save').off('click').on('click', function () {
+		var form = $('#edit-document-form');
+		var docId = form.attr('data-doc-id');
+		var saveBtn = $(this);
+
+		var payload = {
+			title: form.find('#edit-title').val(),
+			author: form.find('#edit-author').val(),
+			date: form.find('#edit-date').val(),
+			description: form.find('#edit-description').val(),
+			category: form.find('#edit-category').val(),
+			tags: form.find('#edit-tags').val(),
+			region: form.find('#edit-region').val(),
+			sector: form.find('#edit-sector').val(),
+			sourceOrg: form.find('#edit-sourceOrg').val(),
+			pubDate: form.find('#edit-pubDate').val(),
+			language: form.find('#edit-language').val(),
+			access: form.find('#edit-access').val(),
+		};
+
+		saveBtn.prop('disabled', true);
+
+		fetch(relativePath + '/api/v3/plugins/cop-documents/' + docId, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				'x-csrf-token': config.csrf_token,
+			},
+			body: JSON.stringify(payload),
+		})
+			.then(function (res) { return res.json(); })
+			.then(function (data) {
+				saveBtn.prop('disabled', false);
+				if (data.status && data.status.code === 'ok' && data.response) {
+					require(['alerts', 'bootstrap'], function (alerts, bootstrap) {
+						alerts.success('[[cop-documents:view.edit_success]]');
+						var modalEl = document.getElementById('editDocumentModal');
+						var modal = modalEl ? bootstrap.Modal.getInstance(modalEl) : null;
+						if (modal) modal.hide();
+						// Navigate to updated URL (slug may have changed)
+						if (data.response.redirectUrl) {
+							ajaxify.go(data.response.redirectUrl.replace(relativePath + '/', ''));
+						} else {
+							ajaxify.refresh();
+						}
+					});
+				} else {
+					var msg = (data.status && data.status.message) || 'Error';
+					require(['alerts'], function (alerts) { alerts.error(msg); });
+				}
+			})
+			.catch(function (err) {
+				saveBtn.prop('disabled', false);
+				require(['alerts'], function (alerts) { alerts.error(err.message || 'Error'); });
+			});
+	});
+}
+
+function initLightbox() {
+	var lightbox = document.getElementById('docLightbox');
+	if (!lightbox) return;
+
+	var lightboxImg = lightbox.querySelector('.doc-lightbox-img');
+	var closeBtn = lightbox.querySelector('.doc-lightbox-close');
+	var backdrop = lightbox.querySelector('.doc-lightbox-backdrop');
+
+	// Open lightbox on image click
+	$(document).on('click', '[data-action="lightbox"]', function () {
+		lightboxImg.src = this.src;
+		lightboxImg.alt = this.alt;
+		lightbox.classList.add('active');
+		document.body.style.overflow = 'hidden';
+	});
+
+	function closeLightbox() {
+		lightbox.classList.remove('active');
+		document.body.style.overflow = '';
+	}
+
+	if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+	if (backdrop) backdrop.addEventListener('click', closeLightbox);
+
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+			closeLightbox();
+		}
 	});
 }
 
@@ -140,31 +242,12 @@ function initAdmin() {
 	});
 }
 
-function handleDownload(e) {
-	e.preventDefault();
-	var relativePath = config.relative_path;
+function handleDownload() {
+	// Let the browser follow the <a href> natively — just fire-and-forget the counter increment
 	var docId = $(this).attr('data-doc-id');
-	var fileUrl = $(this).attr('data-file-url');
-
-	fetch(relativePath + '/api/v3/plugins/cop-documents/' + docId + '/download', {
-		headers: {
-			'x-csrf-token': config.csrf_token,
-		},
-	})
-		.then(function (res) { return res.json(); })
-		.then(function (data) {
-			if (data.status && data.status.code === 'ok' && data.response && data.response.url) {
-				var url = data.response.url;
-				window.open(url.startsWith('http') ? url : relativePath + url, '_blank');
-			} else if (fileUrl) {
-				window.open(fileUrl.startsWith('http') ? fileUrl : relativePath + fileUrl, '_blank');
-			}
-		})
-		.catch(function () {
-			if (fileUrl) {
-				window.open(fileUrl.startsWith('http') ? fileUrl : relativePath + fileUrl, '_blank');
-			}
-		});
+	fetch(config.relative_path + '/api/v3/plugins/cop-documents/' + docId + '/download', {
+		headers: { 'x-csrf-token': config.csrf_token },
+	}).catch(function () {});
 }
 
 function handleApprove() {

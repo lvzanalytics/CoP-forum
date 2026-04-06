@@ -115,6 +115,25 @@ controllers.view = async function (req, res) {
 		tags = typeof doc.tags === 'string' ? doc.tags.split(',').map(t => t.trim()).filter(Boolean) : doc.tags;
 	}
 
+	// Determine preview type from file extension
+	const ext = (doc.fileExt || '').toLowerCase();
+	let previewType = 'none';
+	if (ext === 'pdf') {
+		previewType = 'pdf';
+	} else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+		previewType = 'image';
+	}
+
+	// Can edit: uploader or moderator
+	const isUploader = req.uid && String(req.uid) === String(doc.uid);
+	const canEdit = canMod || isUploader;
+
+	const categoryOptions = DOC_CATEGORIES.map(c => ({
+		value: c,
+		label: `[[cop-documents:doc_category.${c}]]`,
+		selected: c === doc.category,
+	}));
+
 	res.render('documents/view', {
 		title: doc.title,
 		document: {
@@ -125,6 +144,9 @@ controllers.view = async function (req, res) {
 		},
 		versions: versions,
 		canModerate: canMod,
+		canEdit: canEdit,
+		previewType: previewType,
+		categoryOptions: categoryOptions,
 		loggedIn: req.loggedIn,
 	});
 };
@@ -217,6 +239,51 @@ controllers.handleUpload = async function (req, res) {
 		docId: doc.docId,
 		status: doc.status,
 		redirectUrl: `${nconf.get('relative_path')}/documents/${doc.docId}/${encodeURIComponent(doc.slug)}`,
+	});
+};
+
+controllers.handleUpdate = async function (req, res) {
+	if (!req.uid) {
+		return controllerHelpers.formatApiResponse(401, res, new Error('[[error:not-logged-in]]'));
+	}
+
+	const doc = await documents.getByDocId(req.params.docId);
+	if (!doc || !doc.docId) {
+		return controllerHelpers.formatApiResponse(404, res, new Error('[[error:not-found]]'));
+	}
+
+	// Permission: uploader or moderator
+	const canMod = await moderation.canModerate(req.uid);
+	const isUploader = String(req.uid) === String(doc.uid);
+	if (!canMod && !isUploader) {
+		return controllerHelpers.formatApiResponse(403, res, new Error('[[cop-documents:view.edit_error_permission]]'));
+	}
+
+	const { title, author, date, description, category, tags, region, sector, sourceOrg, pubDate, language, access } = req.body;
+
+	// Validate required fields
+	if (!title || !author || !date || !description || !category || !tags) {
+		return controllerHelpers.formatApiResponse(400, res, new Error('[[cop-documents:upload.error_required]]'));
+	}
+
+	if (description.length < 50) {
+		return controllerHelpers.formatApiResponse(400, res, new Error('[[cop-documents:upload.error_description]]'));
+	}
+
+	const updated = await documents.update(req.params.docId, {
+		title, author, date, description, category, tags,
+		region: region || '',
+		sector: sector || '',
+		sourceOrg: sourceOrg || '',
+		pubDate: pubDate || '',
+		language: language || 'fr',
+		access: access || 'public',
+	});
+
+	return controllerHelpers.formatApiResponse(200, res, {
+		docId: updated.docId,
+		slug: updated.slug,
+		redirectUrl: `${nconf.get('relative_path')}/documents/${updated.docId}/${encodeURIComponent(updated.slug)}`,
 	});
 };
 

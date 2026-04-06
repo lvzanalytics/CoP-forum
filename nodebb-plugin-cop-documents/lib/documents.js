@@ -228,6 +228,62 @@ documents.remove = async function (docId) {
 	await db.delete(`document:${docId}`);
 };
 
+documents.update = async function (docId, data) {
+	const doc = await db.getObject(`document:${docId}`);
+	if (!doc) return null;
+
+	const now = Date.now();
+	const newSlug = slugify(data.title) || 'document';
+
+	const updates = {
+		title: data.title,
+		slug: newSlug,
+		author: data.author,
+		date: data.date,
+		description: data.description,
+		category: data.category,
+		tags: data.tags,
+		region: data.region || '',
+		sector: data.sector || '',
+		sourceOrg: data.sourceOrg || '',
+		pubDate: data.pubDate || '',
+		language: data.language || 'fr',
+		access: data.access || 'public',
+		updatedAt: now,
+	};
+
+	await db.setObject(`document:${docId}`, updates);
+
+	// Re-index category if changed
+	if (doc.category !== data.category) {
+		await db.sortedSetRemove(`documents:category:${doc.category}`, docId);
+		const score = doc.createdAt || now;
+		await db.sortedSetAdd(`documents:category:${data.category}`, score, docId);
+	}
+
+	// Re-index tags if changed
+	if (doc.tags !== data.tags) {
+		// Remove old tags
+		if (doc.tags) {
+			const oldTags = doc.tags.split(',').map(t => t.trim()).filter(Boolean);
+			for (const tag of oldTags) {
+				await db.sortedSetRemove(`documents:tag:${tag.toLowerCase()}`, docId);
+			}
+		}
+		// Add new tags
+		if (data.tags) {
+			const newTags = data.tags.split(',').map(t => t.trim()).filter(Boolean);
+			const score = doc.createdAt || now;
+			for (const tag of newTags) {
+				await db.sortedSetAdd('documents:tags', 0, tag.toLowerCase());
+				await db.sortedSetAdd(`documents:tag:${tag.toLowerCase()}`, score, docId);
+			}
+		}
+	}
+
+	return { ...doc, ...updates };
+};
+
 documents.incrementDownloads = async function (docId) {
 	const newCount = await db.incrObjectField(`document:${docId}`, 'downloads');
 	await db.sortedSetAdd('documents:downloads', newCount, docId);

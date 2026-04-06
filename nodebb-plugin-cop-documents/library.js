@@ -19,6 +19,7 @@ library.init = async function (params) {
 	routeHelpers.setupApiRoute(router, 'get', '/api/v3/plugins/cop-documents/:docId/download', [], controllers.handleDownload);
 	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/approve', [middleware.ensureLoggedIn], controllers.handleApprove);
 	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/reject', [middleware.ensureLoggedIn], controllers.handleReject);
+	routeHelpers.setupApiRoute(router, 'put', '/api/v3/plugins/cop-documents/:docId', [middleware.ensureLoggedIn], controllers.handleUpdate);
 	routeHelpers.setupApiRoute(router, 'delete', '/api/v3/plugins/cop-documents/:docId', [middleware.ensureLoggedIn], controllers.handleDelete);
 	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/version', [middleware.ensureLoggedIn], controllers.handleVersionUpload);
 
