@@ -109,6 +109,7 @@
         "nodebb-rewards-essentials": "1.0.2",
         "nodebb-plugin-cop-directory": "file:nodebb-plugin-cop-directory",
         "nodebb-plugin-cop-documents": "file:nodebb-plugin-cop-documents",
+        "@nodebb/nodebb-plugin-s3-uploads": "3.1.0",
         "nodebb-theme-cop": "file:nodebb-theme-cop",
         "nodebb-theme-harmony": "2.2.43",
         "nodebb-theme-lavender": "7.1.21",
