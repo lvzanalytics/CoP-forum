@@ -110,8 +110,8 @@ function initView() {
 	// Image lightbox
 	initLightbox();
 
-	// PDF fallback: if <object> fails, the iframe inside handles it
-	// No additional JS needed — browser handles this natively
+	// PDF fullscreen toggle
+	initPdfFullscreen();
 }
 
 function initEditForm() {
@@ -202,6 +202,42 @@ function initLightbox() {
 	document.addEventListener('keydown', function (e) {
 		if (e.key === 'Escape' && lightbox.classList.contains('active')) {
 			closeLightbox();
+		}
+	});
+}
+
+function initPdfFullscreen() {
+	var frame = document.getElementById('doc-preview-frame');
+	var btn = document.getElementById('doc-fullscreen-btn');
+	if (!frame || !btn) return;
+
+	btn.addEventListener('click', function () {
+		if (document.fullscreenElement) {
+			document.exitFullscreen();
+		} else if (frame.requestFullscreen) {
+			frame.requestFullscreen();
+		} else if (frame.webkitRequestFullscreen) {
+			frame.webkitRequestFullscreen();
+		}
+	});
+
+	document.addEventListener('fullscreenchange', function () {
+		var icon = btn.querySelector('i');
+		var label = btn.querySelector('span');
+		if (document.fullscreenElement === frame) {
+			icon.className = 'fa fa-compress';
+			if (label) {
+				require(['translator'], function (translator) {
+					translator.translate('[[cop-documents:view.exit_fullscreen]]', function (t) { label.textContent = t; });
+				});
+			}
+		} else {
+			icon.className = 'fa fa-expand';
+			if (label) {
+				require(['translator'], function (translator) {
+					translator.translate('[[cop-documents:view.fullscreen]]', function (t) { label.textContent = t; });
+				});
+			}
 		}
 	});
 }

@@ -101,9 +101,16 @@
 			<div class="col-lg-9">
 				<!-- Preview Panel -->
 				<div class="doc-preview-panel mb-4">
-					<h5 class="mb-3">[[cop-documents:view.preview]]</h5>
+					<div class="d-flex align-items-center justify-content-between mb-3">
+						<h5 class="mb-0">[[cop-documents:view.preview]]</h5>
+						{{{ if (previewType == "pdf") }}}
+						<button type="button" class="btn btn-sm btn-outline-secondary" id="doc-fullscreen-btn" title="[[cop-documents:view.fullscreen]]">
+							<i class="fa fa-expand"></i> <span class="d-none d-sm-inline">[[cop-documents:view.fullscreen]]</span>
+						</button>
+						{{{ end }}}
+					</div>
 					{{{ if (previewType == "pdf") }}}
-					<div class="doc-preview-frame">
+					<div class="doc-preview-frame" id="doc-preview-frame">
 						<object data="{document.fileUrl}" type="application/pdf" width="100%" class="doc-pdf-object">
 							<iframe src="{document.fileUrl}" width="100%" class="doc-pdf-iframe">
 								<p class="text-center p-4">
@@ -212,76 +219,71 @@
 
 			<!-- Sidebar (desktop only — mobile gets compact strip above) -->
 			<div class="col-lg-3 d-none d-lg-block">
-				<!-- File Info Card -->
 				<div class="doc-sidebar-card mb-4">
-					<h6 class="doc-sidebar-card-title">[[cop-documents:view.file_info]]</h6>
-					<dl class="doc-sidebar-dl mb-0">
-						<dt>[[cop-documents:view.file_type]]</dt>
-						<dd>.{document.fileExt}</dd>
-						<dt>[[cop-documents:view.file_size]]</dt>
-						<dd>{document.fileSize}</dd>
-						<dt>[[cop-documents:view.current_version]]</dt>
-						<dd>v{document.currentVersion}</dd>
-						<dt>[[cop-documents:view.uploaded_date]]</dt>
-						<dd>{document.createdAt}</dd>
-					</dl>
-					<div class="mt-3">
-						<a href="{document.fileUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm w-100 doc-download-btn" data-doc-id="{document.docId}">
-							<i class="fa fa-download"></i> [[cop-documents:view.download]]
-						</a>
-						<small class="text-muted d-block text-center mt-1">{document.downloads} [[cop-documents:view.download_count]]</small>
+					<h6 class="doc-sidebar-card-title" data-bs-toggle="collapse" data-bs-target="#doc-details-collapse" aria-expanded="true" role="button">
+						[[cop-documents:view.details]]
+						<i class="fa fa-chevron-up float-end doc-collapse-icon"></i>
+					</h6>
+					<div class="collapse show" id="doc-details-collapse">
+						<dl class="doc-sidebar-dl mb-0">
+							<dt>[[cop-documents:view.author]]</dt>
+							<dd>{document.author}</dd>
+							<dt>[[cop-documents:view.date]]</dt>
+							<dd>{document.date}</dd>
+							<dt>[[cop-documents:view.category]]</dt>
+							<dd>{document.categoryLabel}</dd>
+							<dt>[[cop-documents:view.file_type]]</dt>
+							<dd>.{document.fileExt}</dd>
+							<dt>[[cop-documents:view.file_size]]</dt>
+							<dd>{document.fileSize}</dd>
+							<dt>[[cop-documents:view.current_version]]</dt>
+							<dd>v{document.currentVersion}</dd>
+							<dt>[[cop-documents:view.tags]]</dt>
+							<dd class="doc-tags">
+								{{{ each document.tagsArray }}}
+								<span class="badge bg-info text-dark">{@value}</span>
+								{{{ end }}}
+							</dd>
+							{{{ if document.region }}}
+							<dt>[[cop-documents:view.region]]</dt>
+							<dd>{document.region}</dd>
+							{{{ end }}}
+							{{{ if document.sector }}}
+							<dt>[[cop-documents:view.sector]]</dt>
+							<dd>{document.sector}</dd>
+							{{{ end }}}
+							{{{ if document.sourceOrg }}}
+							<dt>[[cop-documents:view.source_org]]</dt>
+							<dd>{document.sourceOrg}</dd>
+							{{{ end }}}
+							{{{ if document.pubDate }}}
+							<dt>[[cop-documents:view.pub_date]]</dt>
+							<dd>{document.pubDate}</dd>
+							{{{ end }}}
+							<dt>[[cop-documents:view.language]]</dt>
+							<dd>{document.language}</dd>
+							<dt>[[cop-documents:view.access]]</dt>
+							<dd>{document.accessLabel}</dd>
+							<dt>[[cop-documents:view.status]]</dt>
+							<dd>
+								{{{ if (document.status == "approved") }}}
+								<span class="badge bg-success">[[cop-documents:view.status_approved]]</span>
+								{{{ end }}}
+								{{{ if (document.status == "pending") }}}
+								<span class="badge bg-warning text-dark">[[cop-documents:view.status_pending]]</span>
+								{{{ end }}}
+								{{{ if (document.status == "rejected") }}}
+								<span class="badge bg-danger">[[cop-documents:view.status_rejected]]</span>
+								{{{ end }}}
+							</dd>
+						</dl>
+						<div class="mt-3">
+							<a href="{document.fileUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm w-100 doc-download-btn" data-doc-id="{document.docId}">
+								<i class="fa fa-download"></i> [[cop-documents:view.download]]
+							</a>
+							<small class="text-muted d-block text-center mt-1">{document.downloads} [[cop-documents:view.download_count]]</small>
+						</div>
 					</div>
-				</div>
-
-				<!-- Metadata Card -->
-				<div class="doc-sidebar-card mb-4">
-					<h6 class="doc-sidebar-card-title">[[cop-documents:view.metadata]]</h6>
-					<dl class="doc-sidebar-dl mb-0">
-						<dt>[[cop-documents:view.author]]</dt>
-						<dd>{document.author}</dd>
-						<dt>[[cop-documents:view.date]]</dt>
-						<dd>{document.date}</dd>
-						<dt>[[cop-documents:view.category]]</dt>
-						<dd>{document.categoryLabel}</dd>
-						<dt>[[cop-documents:view.tags]]</dt>
-						<dd class="doc-tags">
-							{{{ each document.tagsArray }}}
-							<span class="badge bg-info text-dark">{@value}</span>
-							{{{ end }}}
-						</dd>
-						{{{ if document.region }}}
-						<dt>[[cop-documents:view.region]]</dt>
-						<dd>{document.region}</dd>
-						{{{ end }}}
-						{{{ if document.sector }}}
-						<dt>[[cop-documents:view.sector]]</dt>
-						<dd>{document.sector}</dd>
-						{{{ end }}}
-						{{{ if document.sourceOrg }}}
-						<dt>[[cop-documents:view.source_org]]</dt>
-						<dd>{document.sourceOrg}</dd>
-						{{{ end }}}
-						{{{ if document.pubDate }}}
-						<dt>[[cop-documents:view.pub_date]]</dt>
-						<dd>{document.pubDate}</dd>
-						{{{ end }}}
-						<dt>[[cop-documents:view.language]]</dt>
-						<dd>{document.language}</dd>
-						<dt>[[cop-documents:view.access]]</dt>
-						<dd>{document.accessLabel}</dd>
-						<dt>[[cop-documents:view.status]]</dt>
-						<dd>
-							{{{ if (document.status == "approved") }}}
-							<span class="badge bg-success">[[cop-documents:view.status_approved]]</span>
-							{{{ end }}}
-							{{{ if (document.status == "pending") }}}
-							<span class="badge bg-warning text-dark">[[cop-documents:view.status_pending]]</span>
-							{{{ end }}}
-							{{{ if (document.status == "rejected") }}}
-							<span class="badge bg-danger">[[cop-documents:view.status_rejected]]</span>
-							{{{ end }}}
-						</dd>
-					</dl>
 				</div>
 			</div>
 		</div>

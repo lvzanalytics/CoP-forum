@@ -263,6 +263,17 @@
 				min-height: 400px;
 			}
 		}
+
+		&:fullscreen {
+			background: #fff;
+
+			object,
+			iframe {
+				height: 100vh;
+				min-height: 100vh;
+				border-radius: 0;
+			}
+		}
 	}
 
 	.doc-preview-image-wrap {
@@ -411,6 +422,15 @@
 		margin-bottom: 1rem;
 		padding-bottom: 0.5rem;
 		border-bottom: 1px solid var(--bs-border-color, #dee2e6);
+		cursor: pointer;
+
+		.doc-collapse-icon {
+			transition: transform 0.2s ease;
+		}
+
+		&[aria-expanded="false"] .doc-collapse-icon {
+			transform: rotate(180deg);
+		}
 	}
 
 	.doc-sidebar-dl {
