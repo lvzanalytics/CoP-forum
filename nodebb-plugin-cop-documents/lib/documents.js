@@ -86,7 +86,7 @@ documents.getByDocId = async function (docId) {
 	return doc;
 };
 
-documents.getApproved = async function (filters, page, perPage) {
+documents.getApproved = async function (filters, page, perPage, visibleAccess) {
 	let docIds;
 	const start = (page - 1) * perPage;
 	const stop = start + perPage - 1;
@@ -112,32 +112,27 @@ documents.getApproved = async function (filters, page, perPage) {
 		docIds = await db.getSortedSetRevRange('documents:approved', 0, -1);
 	}
 
-	// Apply text search filter on title/description/author
-	if (filters.q || filters.region || filters.sector) {
-		const docs = await getDocuments(docIds);
-		const filtered = docs.filter((doc) => {
-			if (!doc) return false;
-			if (filters.q) {
-				const q = filters.q.toLowerCase();
-				const matchTitle = doc.title && doc.title.toLowerCase().includes(q);
-				const matchDesc = doc.description && doc.description.toLowerCase().includes(q);
-				const matchAuthor = doc.author && doc.author.toLowerCase().includes(q);
-				if (!matchTitle && !matchDesc && !matchAuthor) return false;
-			}
-			if (filters.region && doc.region !== filters.region) return false;
-			if (filters.sector && doc.sector && !doc.sector.toLowerCase().includes(filters.sector.toLowerCase())) return false;
-			return true;
-		});
-		const total = filtered.length;
-		const paged = filtered.slice(start, stop + 1);
-		return { docs: paged, total: total };
-	}
-
-	const total = docIds.length;
-	const pagedIds = docIds.slice(start, stop + 1);
-	const docs = await getDocuments(pagedIds);
-
-	return { docs: docs.filter(Boolean), total: total };
+	// Fetch all candidate docs, then filter by access + text search
+	const docs = await getDocuments(docIds);
+	const filtered = docs.filter((doc) => {
+		if (!doc) return false;
+		// Access level filter — hide docs the user cannot see
+		if (visibleAccess && !visibleAccess.includes(doc.access || 'public')) return false;
+		// Text search filters
+		if (filters.q) {
+			const q = filters.q.toLowerCase();
+			const matchTitle = doc.title && doc.title.toLowerCase().includes(q);
+			const matchDesc = doc.description && doc.description.toLowerCase().includes(q);
+			const matchAuthor = doc.author && doc.author.toLowerCase().includes(q);
+			if (!matchTitle && !matchDesc && !matchAuthor) return false;
+		}
+		if (filters.region && doc.region !== filters.region) return false;
+		if (filters.sector && doc.sector && !doc.sector.toLowerCase().includes(filters.sector.toLowerCase())) return false;
+		return true;
+	});
+	const total = filtered.length;
+	const paged = filtered.slice(start, stop + 1);
+	return { docs: paged, total: total };
 };
 
 async function getDocuments(docIds) {

@@ -211,35 +211,51 @@ function initPdfFullscreen() {
 	var btn = document.getElementById('doc-fullscreen-btn');
 	if (!frame || !btn) return;
 
+	var canFullscreen = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+
 	btn.addEventListener('click', function () {
-		if (document.fullscreenElement) {
-			document.exitFullscreen();
-		} else if (frame.requestFullscreen) {
-			frame.requestFullscreen();
-		} else if (frame.webkitRequestFullscreen) {
-			frame.webkitRequestFullscreen();
+		if (canFullscreen) {
+			if (document.fullscreenElement) {
+				document.exitFullscreen();
+			} else if (frame.requestFullscreen) {
+				frame.requestFullscreen();
+			} else if (frame.webkitRequestFullscreen) {
+				frame.webkitRequestFullscreen();
+			}
+		} else {
+			// Fallback: open PDF in new tab (mobile Safari etc.)
+			var obj = frame.querySelector('object');
+			if (obj && obj.data) {
+				window.open(obj.data, '_blank');
+			}
 		}
 	});
 
-	document.addEventListener('fullscreenchange', function () {
+	if (canFullscreen) {
+		document.addEventListener('fullscreenchange', function () {
+			var icon = btn.querySelector('i');
+			var label = btn.querySelector('span');
+			if (document.fullscreenElement === frame) {
+				icon.className = 'fa fa-compress';
+				if (label) {
+					require(['translator'], function (translator) {
+						translator.translate('[[cop-documents:view.exit_fullscreen]]', function (t) { label.textContent = t; });
+					});
+				}
+			} else {
+				icon.className = 'fa fa-expand';
+				if (label) {
+					require(['translator'], function (translator) {
+						translator.translate('[[cop-documents:view.fullscreen]]', function (t) { label.textContent = t; });
+					});
+				}
+			}
+		});
+	} else {
+		// On devices without fullscreen API, change icon to external-link
 		var icon = btn.querySelector('i');
-		var label = btn.querySelector('span');
-		if (document.fullscreenElement === frame) {
-			icon.className = 'fa fa-compress';
-			if (label) {
-				require(['translator'], function (translator) {
-					translator.translate('[[cop-documents:view.exit_fullscreen]]', function (t) { label.textContent = t; });
-				});
-			}
-		} else {
-			icon.className = 'fa fa-expand';
-			if (label) {
-				require(['translator'], function (translator) {
-					translator.translate('[[cop-documents:view.fullscreen]]', function (t) { label.textContent = t; });
-				});
-			}
-		}
-	});
+		if (icon) icon.className = 'fa fa-external-link';
+	}
 }
 
 function initAdmin() {

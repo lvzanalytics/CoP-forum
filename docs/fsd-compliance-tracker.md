@@ -1,6 +1,6 @@
 # CoP Platform — FSD v2 Compliance Tracker
 
-**Last updated:** 2026-03-27
+**Last updated:** 2026-04-06
 **Reference:** `CoP FSD v2.md` (Functional Specification Document v1.0)
 
 ---
@@ -62,7 +62,7 @@
 - [x] Document categories (5 initial: Reports, Tools, Policy, Cases, Training) — translation keys with fr/en-GB
 - [x] Full-text search across titles, descriptions, tags, AI summaries — search filter on list page (AI summaries pending M5)
 - [x] Filter by category, region, sector, tag — filter bar on `/documents`
-- [x] Access control: Public vs Members Only per document — access field with middleware check
+- [x] Access control: 4-tier (public, members, moderators, admin) per document — access field with middleware check, required on upload
 - [x] Upload moderation queue (pending until approved) — `/documents/pending` with approve/reject actions
 - [x] Configurable auto-approval per category — admin settings checkboxes
 - [x] Version control (retain originals, show latest, admin history) — version upload form + version history table
@@ -109,7 +109,7 @@
 - [x] Topic reply notifications (built-in)
 - [x] @mention notifications (built-in via mentions plugin)
 - [x] Reaction notifications (built-in)
-- [ ] Document pending approval notification (requires doc library)
+- [x] Document pending approval notification — notifies admins + global mods on upload via NodeBB notification system; pending count banner on library page
 - [x] Per-type preference: immediate/daily/weekly/disabled (built-in)
 - [x] In-platform notifications always delivered (built-in)
 
@@ -219,12 +219,12 @@
 | M3: Member Directory | 10 | 0 | 0 | 10 |
 | M4: Zoom/Teams Events | 1 | 0 | 4 | 5 |
 | M4: Social Sharing | 1 | 0 | 2 | 3 |
-| M4: Email/Notifications | 7 | 0 | 2 | 9 |
+| M4: Email/Notifications | 8 | 0 | 1 | 9 |
 | M4: Moderation/Admin | 9 | 0 | 0 | 9 |
 | M5: AI Features | 0 | 0 | 24 | 24 |
 | Security | 12 | 0 | 4 | 16 |
 | Non-Functional | 4 | 1 | 3 | 8 |
-| **TOTAL** | **88 (68%)** | **1 (1%)** | **40 (31%)** | **129** |
+| **TOTAL** | **89 (69%)** | **1 (1%)** | **39 (30%)** | **129** |
 
 ---
 

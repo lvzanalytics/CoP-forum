@@ -79,6 +79,8 @@
 	"view.preview": "Aper\u00e7u",
 	"view.fullscreen": "Plein \u00e9cran",
 	"view.exit_fullscreen": "Quitter",
+	"view.preview_open_mobile": "Ouvrez le PDF pour le lire avec zoom et navigation",
+	"view.open_pdf": "Ouvrir le PDF",
 	"view.preview_unavailable": "L'aper\u00e7u n'est pas disponible pour ce type de fichier",
 	"view.preview_download_cta": "T\u00e9l\u00e9charger le fichier",
 	"view.breadcrumb_library": "Biblioth\u00e8que",

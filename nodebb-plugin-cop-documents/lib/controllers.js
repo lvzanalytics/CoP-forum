@@ -73,7 +73,15 @@ controllers.list = async function (req, res) {
 		sort: req.query.sort || 'newest',
 	};
 
-	const { docs, total } = await documents.getApproved(filters, page, DOCS_PER_PAGE);
+	// Determine which access levels this user can see
+	const canMod = req.uid ? await moderation.canModerate(req.uid) : false;
+	const isAdmin = req.uid ? await moderation.isAdmin(req.uid) : false;
+	const visibleAccess = ['public'];
+	if (req.loggedIn) visibleAccess.push('members');
+	if (canMod) visibleAccess.push('moderators');
+	if (isAdmin) visibleAccess.push('admin');
+
+	const { docs, total } = await documents.getApproved(filters, page, DOCS_PER_PAGE, visibleAccess);
 	const pageCount = Math.max(1, Math.ceil(total / DOCS_PER_PAGE));
 
 	const queryObj = { ...req.query };
@@ -90,8 +98,6 @@ controllers.list = async function (req, res) {
 		{ value: 'oldest', label: '[[cop-documents:library.sort_oldest]]', selected: filters.sort === 'oldest' },
 		{ value: 'popular', label: '[[cop-documents:library.sort_popular]]', selected: filters.sort === 'popular' },
 	];
-
-	const canMod = req.uid ? await moderation.canModerate(req.uid) : false;
 	let pendingCount = 0;
 	if (canMod) {
 		pendingCount = await db.sortedSetCard('documents:pending');
