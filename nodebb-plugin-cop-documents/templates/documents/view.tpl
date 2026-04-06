@@ -33,11 +33,11 @@
 					</div>
 					<div class="doc-hero-actions d-flex flex-wrap gap-2">
 						<a href="{document.fileUrl}" target="_blank" rel="noopener" class="btn btn-primary doc-download-btn" data-doc-id="{document.docId}">
-							<i class="fa fa-download"></i> [[cop-documents:view.download]]
+							<i class="fa fa-download"></i> <span class="d-none d-sm-inline">[[cop-documents:view.download]]</span>
 						</a>
 						{{{ if canEdit }}}
 						<button class="btn btn-outline-secondary doc-edit-btn" data-bs-toggle="modal" data-bs-target="#editDocumentModal">
-							<i class="fa fa-pencil"></i> [[cop-documents:view.edit_btn]]
+							<i class="fa fa-pencil"></i> <span class="d-none d-sm-inline">[[cop-documents:view.edit_btn]]</span>
 						</button>
 						{{{ end }}}
 					</div>
