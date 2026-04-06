@@ -39,11 +39,19 @@ Read these before starting any work:
 - `scripts/setup-cop.js` — One-time setup script (categories, branding, language config)
 - `docs/` — Internal docs with credentials (gitignored)
 
+## Installed Plugins (non-default)
+
+- **`@nodebb/nodebb-plugin-s3-uploads`** (v3.1.0, activated) — Routes all core uploads (profile avatars, post images, file attachments) to S3-compatible storage. Configure R2 credentials at `/admin/plugins/s3-uploads` or via env vars (`S3_UPLOADS_BUCKET`, `S3_UPLOADS_ENDPOINT`, `S3_UPLOADS_HOST`, `S3_UPLOADS_ACCESS_KEY_ID`, `S3_UPLOADS_SECRET_ACCESS_KEY`). Hooks: `filter:uploadImage`, `filter:uploadFile`.
+- **`nodebb-plugin-openai`** (v1.4.0, downloaded — NOT activated) — Topic summarization + ChatGPT chatbot. Downloaded as reference for Milestone 5 AI features. Has configurable `baseURL` (could point to OpenAI-compatible proxy). Will need evaluation: use as-is, fork for Claude/Anthropic support, or build custom `nodebb-plugin-cop-ai` with provider abstraction.
+- `nodebb-plugin-cop-documents` — Custom document library with its own R2 integration
+- `nodebb-plugin-cop-directory` — Custom evaluator member directory
+- `nodebb-theme-cop` — Custom theme extending Harmony
+
 ## Infrastructure
 
 - **Staging**: Render (free/hobby tier)
 - **Database**: Neon PostgreSQL (serverless, free tier)
-- **File storage**: Cloudflare R2 (planned)
+- **File storage**: Cloudflare R2 via `@nodebb/nodebb-plugin-s3-uploads` (all core uploads: avatars, post images, attachments) + custom R2 integration in `nodebb-plugin-cop-documents` (document library)
 - **Email**: SMTP2GO (planned)
 - **Production**: TBD (Hetzner/DigitalOcean/Lightsail — see `technical_considerations.md`)
 
@@ -53,7 +61,7 @@ Read these before starting any work:
 2. Branding & User Profiles — Custom theme plugin (`nodebb-theme-cop`), Ministry branding, profile fields (expertise, sector, region, organization)
 3. Document Library & Directory — Structured doc repository with metadata/tagging, searchable member directory with filters
 4. Integration & Admin Tools — Event posting with Zoom/Teams links, email notifications (SMTP2GO), moderation workflows, privacy/data protection
-5. AI Features & Final Testing — Discussion/document summarization, performance optimization, security review, handoff docs
+5. AI Features & Final Testing — Discussion/document summarization (`nodebb-plugin-openai` downloaded as reference/base — not yet activated), performance optimization, security review, handoff docs
 
 ## Key Conventions
 

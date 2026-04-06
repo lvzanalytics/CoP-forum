@@ -68,6 +68,7 @@
 - [x] Version control (retain originals, show latest, admin history) — version upload form + version history table
 - [x] Download tracking in analytics — download counter incremented via API, sorted set index
 - [x] Cloudflare R2 file storage integration — `@aws-sdk/client-s3` with auto-detection (R2 when credentials configured, local fallback), admin settings panel for credentials
+- [x] R2 storage for all core uploads (profile avatars, post images, attachments) — `@nodebb/nodebb-plugin-s3-uploads` v3.1.0 activated; configure at `/admin/plugins/s3-uploads` or via env vars
 
 ### Evaluator Member Directory (FSD §3.4)
 
@@ -129,6 +130,8 @@
 ## Milestone 5: AI Features & Final Testing — NOT STARTED
 
 ### AI Provider Architecture (FSD §2.1)
+
+> **Reference:** `nodebb-plugin-openai` v1.4.0 downloaded (not activated). Provides topic summarization + chatbot out of the box. Has configurable `baseURL` for OpenAI-compatible endpoints. Evaluate: use as-is, fork for multi-provider support, or build custom `nodebb-plugin-cop-ai`.
 
 - [ ] Provider abstraction layer (Gemini, OpenAI, Anthropic)
 - [ ] Switch providers via config change (no code change)
@@ -212,7 +215,7 @@
 | M1: Setup & Planning | 6 | 0 | 0 | 6 |
 | M2: Theme/Branding | 13 | 0 | 0 | 13 |
 | M2: User Profiles | 12 | 0 | 0 | 12 |
-| M3: Document Library | 13 | 0 | 0 | 13 |
+| M3: Document Library | 14 | 0 | 0 | 14 |
 | M3: Member Directory | 10 | 0 | 0 | 10 |
 | M4: Zoom/Teams Events | 1 | 0 | 4 | 5 |
 | M4: Social Sharing | 1 | 0 | 2 | 3 |
@@ -221,7 +224,7 @@
 | M5: AI Features | 0 | 0 | 24 | 24 |
 | Security | 12 | 0 | 4 | 16 |
 | Non-Functional | 4 | 1 | 3 | 8 |
-| **TOTAL** | **87 (68%)** | **1 (1%)** | **40 (31%)** | **128** |
+| **TOTAL** | **88 (68%)** | **1 (1%)** | **40 (31%)** | **129** |
 
 ---
 
