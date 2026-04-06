@@ -50,7 +50,7 @@
 		{{{ if loggedIn }}}
 		<div class="mb-3">
 			<a href="{config.relative_path}/documents/upload" class="btn btn-success">
-				<i class="fa fa-upload"></i> [[cop-documents:library.upload_btn]]
+				<i class="fa fa-upload me-1"></i> [[cop-documents:library.upload_btn]]
 			</a>
 		</div>
 		{{{ end }}}
@@ -63,30 +63,34 @@
 		<div class="row g-3">
 			{{{each documents}}}
 			<div class="col-md-6 col-lg-4">
-				<div class="card doc-card h-100">
-					<div class="card-body">
-						<div class="d-flex justify-content-between align-items-start mb-2">
-							<h5 class="card-title mb-0">
-								<a href="{config.relative_path}/documents/{./docId}/{./slug}">{./title}</a>
-							</h5>
-							<span class="badge bg-secondary ms-2">{./categoryLabel}</span>
+				<a href="{config.relative_path}/documents/{./docId}/{./slug}" class="doc-card-link">
+					<div class="doc-card h-100">
+						<div class="doc-card-header">
+							<div class="doc-card-icon">
+								<i class="fa fa-file-text-o"></i>
+							</div>
+							<span class="doc-card-category">{./categoryLabel}</span>
 						</div>
-						<p class="text-muted small mb-2">
-							<i class="fa fa-user"></i> {./author}
-							&middot;
-							<i class="fa fa-calendar"></i> {./date}
-						</p>
-						<p class="card-text">{./description}</p>
-						<div class="doc-tags mb-2">
+						<h5 class="doc-card-title">{./title}</h5>
+						<div class="doc-card-meta">
+							<span><i class="fa fa-user-o"></i> {./author}</span>
+							<span><i class="fa fa-calendar-o"></i> {./date}</span>
+						</div>
+						<p class="doc-card-desc">{./description}</p>
+						{{{ if ./tagsArray.length }}}
+						<div class="doc-card-tags">
 							{{{ each ./tagsArray }}}
-							<span class="badge bg-info text-dark">{@value}</span>
+							<span class="doc-card-tag">{@value}</span>
 							{{{ end }}}
 						</div>
-						<div class="text-muted small">
-							<i class="fa fa-download"></i> {./downloads} [[cop-documents:library.downloads]]
+						{{{ end }}}
+						<div class="doc-card-footer">
+							<span class="doc-card-downloads">
+								<i class="fa fa-download"></i> {./downloads} [[cop-documents:library.downloads]]
+							</span>
 						</div>
 					</div>
-				</div>
+				</a>
 			</div>
 			{{{end}}}
 		</div>

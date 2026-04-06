@@ -1,29 +1,149 @@
 // Document Library Styles
 
-.doc-card {
-	transition: box-shadow 0.2s ease-in-out;
-	border: 1px solid rgba(0, 0, 0, 0.1);
+// Document Card — List Page
+.doc-card-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+	height: 100%;
 
-	&:hover {
-		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
-	}
-
-	.card-title a {
-		color: inherit;
+	&:hover,
+	&:focus {
 		text-decoration: none;
+		color: inherit;
 
-		&:hover {
-			text-decoration: underline;
+		.doc-card {
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			transform: translateY(-2px);
+			border-color: var(--bs-primary, #0d6efd);
+		}
+
+		.doc-card-title {
+			color: var(--bs-primary, #0d6efd);
 		}
 	}
+}
 
-	.card-text {
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		font-size: 0.9rem;
-		color: #555;
+.doc-card {
+	background: var(--bs-body-bg, #fff);
+	border: 1px solid var(--bs-border-color, #dee2e6);
+	border-radius: 12px;
+	padding: 1.25rem;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.doc-card-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.75rem;
+}
+
+.doc-card-icon {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bs-primary-bg-subtle, rgba(13, 110, 253, 0.1));
+	border-radius: 10px;
+	color: var(--bs-primary, #0d6efd);
+	font-size: 1.1rem;
+	flex-shrink: 0;
+}
+
+.doc-card-category {
+	font-size: 0.7rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--bs-primary, #0d6efd);
+	background: var(--bs-primary-bg-subtle, rgba(13, 110, 253, 0.08));
+	padding: 0.2rem 0.6rem;
+	border-radius: 6px;
+}
+
+.doc-card-title {
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.4;
+	margin-bottom: 0.5rem;
+	color: var(--bs-body-color, #212529);
+	transition: color 0.15s ease;
+
+	// Two-line clamp
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.doc-card-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-bottom: 0.75rem;
+	font-size: 0.8rem;
+	color: var(--bs-secondary-color, #6c757d);
+
+	span {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	i {
+		font-size: 0.75rem;
+	}
+}
+
+.doc-card-desc {
+	font-size: 0.85rem;
+	color: var(--bs-secondary-color, #6c757d);
+	line-height: 1.5;
+	margin-bottom: 0.75rem;
+	flex-grow: 1;
+
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.doc-card-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin-bottom: 0.75rem;
+}
+
+.doc-card-tag {
+	font-size: 0.7rem;
+	font-weight: 500;
+	padding: 0.15rem 0.5rem;
+	border-radius: 5px;
+	background: var(--bs-info-bg-subtle, rgba(13, 202, 240, 0.1));
+	color: var(--bs-info-text-emphasis, #087990);
+}
+
+.doc-card-footer {
+	padding-top: 0.625rem;
+	border-top: 1px solid var(--bs-border-color-translucent, rgba(0, 0, 0, 0.06));
+	margin-top: auto;
+}
+
+.doc-card-downloads {
+	font-size: 0.78rem;
+	color: var(--bs-secondary-color, #6c757d);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+
+	i {
+		font-size: 0.72rem;
 	}
 }
 

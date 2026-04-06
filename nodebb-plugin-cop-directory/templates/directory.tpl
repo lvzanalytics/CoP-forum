@@ -115,70 +115,75 @@
 		<div class="row g-3" id="directory-results">
 			{{{ each members }}}
 			<div class="col-12 col-sm-6 col-lg-4">
-				<div class="card member-card h-100">
-					<div class="card-body d-flex flex-column">
-						<div class="d-flex align-items-center mb-3">
-							<div class="member-card__avatar me-3">
+				<a href="{config.relative_path}/user/{members.userslug}" class="member-card-link">
+					<div class="member-card h-100">
+						<div class="member-card__header">
+							<div class="member-card__avatar">
 								{{{ if members.picture }}}
-								<img src="{members.picture}" alt="{members.username}" class="rounded-circle" width="64" height="64" loading="lazy" />
+								<img src="{members.picture}" alt="{members.username}" loading="lazy" />
 								{{{ else }}}
-								<div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; background-color: {members.icon:bgColor}; color: #fff; font-size: 1.5rem; font-weight: 600;">
+								<div class="member-card__initials" style="background-color: {members.icon:bgColor};">
 									{members.icon:text}
 								</div>
 								{{{ end }}}
 							</div>
-							<div>
-								<h5 class="card-title mb-1">
+							<div class="member-card__identity">
+								<h5 class="member-card__name">
 									{{{ if members.fullname }}}{members.fullname}{{{ else }}}{members.username}{{{ end }}}
 								</h5>
-								{{{ if members.fullname_org }}}
-								<p class="text-muted mb-0 small">{members.fullname_org}</p>
+								{{{ if members.title_role }}}
+								<span class="member-card__role">{members.title_role}</span>
 								{{{ end }}}
 							</div>
 						</div>
 
-						{{{ if members.title_role }}}
-						<p class="mb-2 small"><i class="fa fa-briefcase me-1 text-muted"></i> {members.title_role}</p>
+						{{{ if members.fullname_org }}}
+						<div class="member-card__detail">
+							<i class="fa fa-building-o"></i>
+							<span>{members.fullname_org}</span>
+						</div>
 						{{{ end }}}
 
 						{{{ if members.org_type }}}
-						<p class="mb-2 small">
-							<span class="badge bg-secondary">{members.org_type}</span>
-						</p>
+						<div class="member-card__detail">
+							<i class="fa fa-tag"></i>
+							<span class="member-card__org-badge">{members.org_type}</span>
+						</div>
 						{{{ end }}}
 
 						{{{ if members.region }}}
-						<p class="mb-2 small"><i class="fa fa-map-marker me-1 text-muted"></i> {members.region}</p>
+						<div class="member-card__detail">
+							<i class="fa fa-map-marker"></i>
+							<span>{members.region}</span>
+						</div>
 						{{{ end }}}
 
 						{{{ if members.sector }}}
-						<p class="mb-2 small"><i class="fa fa-industry me-1 text-muted"></i> {members.sector}</p>
+						<div class="member-card__detail">
+							<i class="fa fa-industry"></i>
+							<span>{members.sector}</span>
+						</div>
 						{{{ end }}}
 
 						{{{ if members.expertiseList.length }}}
-						<div class="member-card__expertise mb-2">
+						<div class="member-card__expertise">
 							{{{ each members.expertiseList }}}
-							<span class="badge bg-primary-subtle text-primary me-1 mb-1">{@value}</span>
+							<span class="member-card__expertise-tag">{@value}</span>
 							{{{ end }}}
 						</div>
 						{{{ end }}}
 
 						{{{ if members.bio_pro }}}
-						<p class="small text-muted mb-2 flex-grow-1">{members.bio_pro}</p>
+						<p class="member-card__bio">{members.bio_pro}</p>
 						{{{ end }}}
 
-						<div class="mt-auto pt-2 d-flex gap-2">
-							<a href="{config.relative_path}/user/{members.userslug}" class="btn btn-sm btn-outline-primary">
-								[[cop-directory:directory.view_profile]]
-							</a>
-							{{{ if ../loggedIn }}}
-							<a href="{config.relative_path}/user/{members.userslug}/chats" class="btn btn-sm btn-outline-secondary">
-								<i class="fa fa-envelope me-1"></i>[[cop-directory:directory.send_message]]
-							</a>
-							{{{ end }}}
+						<div class="member-card__actions">
+							<span class="member-card__profile-link">
+								[[cop-directory:directory.view_profile]] <i class="fa fa-arrow-right"></i>
+							</span>
 						</div>
 					</div>
-				</div>
+				</a>
 			</div>
 			{{{ end }}}
 		</div>
