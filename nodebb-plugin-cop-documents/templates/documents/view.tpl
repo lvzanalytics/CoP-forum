@@ -45,16 +45,67 @@
 			</div>
 		</div>
 
+		<!-- Document Details (compact on mobile, sidebar on desktop) -->
+		<div class="doc-details-strip mb-4 d-lg-none">
+			<div class="doc-sidebar-card">
+				<dl class="doc-details-grid mb-0">
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.file_type]]</dt>
+						<dd>.{document.fileExt}</dd>
+					</div>
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.file_size]]</dt>
+						<dd>{document.fileSize}</dd>
+					</div>
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.current_version]]</dt>
+						<dd>v{document.currentVersion}</dd>
+					</div>
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.category]]</dt>
+						<dd>{document.categoryLabel}</dd>
+					</div>
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.access]]</dt>
+						<dd>{document.accessLabel}</dd>
+					</div>
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.language]]</dt>
+						<dd>{document.language}</dd>
+					</div>
+					{{{ if document.region }}}
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.region]]</dt>
+						<dd>{document.region}</dd>
+					</div>
+					{{{ end }}}
+					{{{ if document.sector }}}
+					<div class="doc-detail-item">
+						<dt>[[cop-documents:view.sector]]</dt>
+						<dd>{document.sector}</dd>
+					</div>
+					{{{ end }}}
+				</dl>
+				{{{ if document.tagsArray.length }}}
+				<div class="doc-tags mt-2">
+					{{{ each document.tagsArray }}}
+					<span class="badge bg-info text-dark">{@value}</span>
+					{{{ end }}}
+				</div>
+				{{{ end }}}
+			</div>
+		</div>
+
 		<div class="row">
 			<!-- Main Content -->
-			<div class="col-lg-8">
+			<div class="col-lg-9">
 				<!-- Preview Panel -->
 				<div class="doc-preview-panel mb-4">
 					<h5 class="mb-3">[[cop-documents:view.preview]]</h5>
 					{{{ if (previewType == "pdf") }}}
 					<div class="doc-preview-frame">
-						<object data="{document.fileUrl}" type="application/pdf" width="100%" height="600" class="doc-pdf-object">
-							<iframe src="{document.fileUrl}" width="100%" height="600" class="doc-pdf-iframe">
+						<object data="{document.fileUrl}" type="application/pdf" width="100%" class="doc-pdf-object">
+							<iframe src="{document.fileUrl}" width="100%" class="doc-pdf-iframe">
 								<p class="text-center p-4">
 									[[cop-documents:view.preview_unavailable]]
 									<br>
@@ -159,8 +210,8 @@
 				{{{ end }}}
 			</div>
 
-			<!-- Sidebar -->
-			<div class="col-lg-4">
+			<!-- Sidebar (desktop only — mobile gets compact strip above) -->
+			<div class="col-lg-3 d-none d-lg-block">
 				<!-- File Info Card -->
 				<div class="doc-sidebar-card mb-4">
 					<h6 class="doc-sidebar-card-title">[[cop-documents:view.file_info]]</h6>
@@ -305,10 +356,11 @@
 							</div>
 						</div>
 						<div class="mb-3">
-							<label class="form-label" for="edit-access">[[cop-documents:upload.access]]</label>
-							<select class="form-select" id="edit-access" name="access">
-								<option value="public" {{{ if (document.access == "public") }}}selected{{{ end }}}>[[cop-documents:upload.access_public]]</option>
-								<option value="members" {{{ if (document.access == "members") }}}selected{{{ end }}}>[[cop-documents:upload.access_members]]</option>
+							<label class="form-label" for="edit-access">[[cop-documents:upload.access]] <span class="text-danger">*</span></label>
+							<select class="form-select" id="edit-access" name="access" required>
+								{{{each accessOptions}}}
+								<option value="{./value}" {{{ if ./selected }}}selected{{{ end }}}>{./label}</option>
+								{{{end}}}
 							</select>
 						</div>
 					</form>

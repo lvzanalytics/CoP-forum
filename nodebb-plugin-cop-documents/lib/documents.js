@@ -25,7 +25,7 @@ documents.create = async function (data) {
 		sourceOrg: data.sourceOrg || '',
 		pubDate: data.pubDate || '',
 		language: data.language || 'fr',
-		access: data.access || 'public',
+		access: data.access,
 		fileUrl: data.fileUrl,
 		filePath: data.filePath || '',
 		fileName: data.fileName,
@@ -248,7 +248,7 @@ documents.update = async function (docId, data) {
 		sourceOrg: data.sourceOrg || '',
 		pubDate: data.pubDate || '',
 		language: data.language || 'fr',
-		access: data.access || 'public',
+		access: data.access,
 		updatedAt: now,
 	};
 

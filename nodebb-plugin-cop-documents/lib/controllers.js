@@ -7,6 +7,11 @@ const meta = require.main.require('./src/meta');
 const pagination = require.main.require('./src/pagination');
 const controllerHelpers = require.main.require('./src/controllers/helpers');
 const User = require.main.require('./src/user');
+const notifications = require.main.require('./src/notifications');
+const groups = require.main.require('./src/groups');
+const db = require.main.require('./src/database');
+const translator = require.main.require('./src/translator');
+const _ = require.main.require('lodash');
 
 const documents = require('./documents');
 const storage = require('./storage');
@@ -15,6 +20,8 @@ const moderation = require('./moderation');
 const controllers = module.exports;
 
 const DOCS_PER_PAGE = 20;
+
+const ACCESS_LEVELS = ['public', 'members', 'moderators', 'admin'];
 
 const DEFAULT_SETTINGS = {
 	maxFileSize: '20',
@@ -32,6 +39,27 @@ const DOC_CATEGORIES = ['reports', 'tools', 'policy', 'cases', 'training'];
 async function getSettings() {
 	const settings = await meta.settings.get('cop-documents');
 	return { ...DEFAULT_SETTINGS, ...settings };
+}
+
+function buildAccessOptions(selected) {
+	return ACCESS_LEVELS.map(level => ({
+		value: level,
+		label: `[[cop-documents:access.${level}]]`,
+		selected: level === selected,
+	}));
+}
+
+async function checkAccess(doc, req) {
+	switch (doc.access) {
+		case 'members':
+			return !!req.loggedIn;
+		case 'moderators':
+			return req.uid ? await moderation.canModerate(req.uid) : false;
+		case 'admin':
+			return req.uid ? await moderation.isAdmin(req.uid) : false;
+		default: // 'public'
+			return true;
+	}
 }
 
 controllers.list = async function (req, res) {
@@ -63,6 +91,12 @@ controllers.list = async function (req, res) {
 		{ value: 'popular', label: '[[cop-documents:library.sort_popular]]', selected: filters.sort === 'popular' },
 	];
 
+	const canMod = req.uid ? await moderation.canModerate(req.uid) : false;
+	let pendingCount = 0;
+	if (canMod) {
+		pendingCount = await db.sortedSetCard('documents:pending');
+	}
+
 	res.render('documents/list', {
 		title: '[[cop-documents:library.title]]',
 		documents: docs,
@@ -71,6 +105,8 @@ controllers.list = async function (req, res) {
 		sortOptions: sortOptions,
 		pagination: pagination.create(page, pageCount, queryObj),
 		loggedIn: req.loggedIn,
+		canModerate: canMod,
+		pendingCount: pendingCount,
 	});
 };
 
@@ -82,6 +118,7 @@ controllers.upload = async function (req, res) {
 	res.render('documents/upload', {
 		title: '[[cop-documents:upload.title]]',
 		categoryOptions: categoryOptions,
+		accessOptions: buildAccessOptions(''),
 	});
 };
 
@@ -92,9 +129,13 @@ controllers.view = async function (req, res) {
 		return controllerHelpers.notFound(req, res);
 	}
 
-	// Check access: if members-only, must be logged in
-	if (doc.access === 'members' && !req.loggedIn) {
-		return controllerHelpers.notAllowed(req, res);
+	// Check access level
+	const hasAccess = await checkAccess(doc, req);
+	if (!hasAccess) {
+		if (doc.access === 'members') {
+			return controllerHelpers.notAllowed(req, res);
+		}
+		return controllerHelpers.notFound(req, res);
 	}
 
 	// Only show approved docs to non-mods, unless it's the uploader
@@ -147,6 +188,7 @@ controllers.view = async function (req, res) {
 		canEdit: canEdit,
 		previewType: previewType,
 		categoryOptions: categoryOptions,
+		accessOptions: buildAccessOptions(doc.access),
 		loggedIn: req.loggedIn,
 	});
 };
@@ -177,7 +219,7 @@ controllers.handleUpload = async function (req, res) {
 	const { title, author, date, description, category, tags, region, sector, sourceOrg, pubDate, language, access } = req.body;
 
 	// Validate required fields
-	if (!title || !author || !date || !description || !category || !tags) {
+	if (!title || !author || !date || !description || !category || !tags || !access) {
 		return controllerHelpers.formatApiResponse(400, res, new Error('[[cop-documents:upload.error_required]]'));
 	}
 
@@ -223,7 +265,7 @@ controllers.handleUpload = async function (req, res) {
 		sourceOrg: sourceOrg || '',
 		pubDate: pubDate || '',
 		language: language || 'fr',
-		access: access || 'public',
+		access: access,
 		fileUrl: savedFile.url,
 		filePath: savedFile.path,
 		fileName: file.originalname,
@@ -234,6 +276,23 @@ controllers.handleUpload = async function (req, res) {
 	};
 
 	const doc = await documents.create(docData);
+
+	// Notify admins and global mods when a document is pending review
+	if (doc.status === 'pending') {
+		const notifObj = await notifications.create({
+			type: 'cop-documents-pending',
+			nid: `cop-documents:pending:${doc.docId}`,
+			mergeId: `cop-documents:pending:uid:${req.uid}`,
+			bodyShort: translator.compile('cop-documents:notification.new_pending', title),
+			path: `/documents/pending`,
+			from: req.uid,
+		});
+		if (notifObj) {
+			const memberSets = await groups.getMembersOfGroups(['administrators', 'Global Moderators']);
+			const uids = _.uniq(_.flatten(memberSets));
+			await notifications.push(notifObj, uids);
+		}
+	}
 
 	return controllerHelpers.formatApiResponse(200, res, {
 		docId: doc.docId,
@@ -262,7 +321,7 @@ controllers.handleUpdate = async function (req, res) {
 	const { title, author, date, description, category, tags, region, sector, sourceOrg, pubDate, language, access } = req.body;
 
 	// Validate required fields
-	if (!title || !author || !date || !description || !category || !tags) {
+	if (!title || !author || !date || !description || !category || !tags || !access) {
 		return controllerHelpers.formatApiResponse(400, res, new Error('[[cop-documents:upload.error_required]]'));
 	}
 
@@ -277,7 +336,7 @@ controllers.handleUpdate = async function (req, res) {
 		sourceOrg: sourceOrg || '',
 		pubDate: pubDate || '',
 		language: language || 'fr',
-		access: access || 'public',
+		access: access,
 	});
 
 	return controllerHelpers.formatApiResponse(200, res, {
@@ -328,7 +387,8 @@ controllers.handleDownload = async function (req, res) {
 		return controllerHelpers.formatApiResponse(404, res, new Error('[[error:not-found]]'));
 	}
 
-	if (doc.access === 'members' && !req.loggedIn) {
+	const hasAccess = await checkAccess(doc, req);
+	if (!hasAccess) {
 		return controllerHelpers.formatApiResponse(403, res, new Error('[[error:no-privileges]]'));
 	}
 

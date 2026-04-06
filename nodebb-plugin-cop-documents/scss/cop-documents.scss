@@ -1,5 +1,14 @@
 // Document Library Styles
 
+// Page top spacing
+.documents-library,
+.documents-view,
+.documents-pending,
+.documents-upload {
+	padding-top: 1.5rem;
+	padding-bottom: 2rem;
+}
+
 // Document Card — List Page
 .doc-card-link {
 	display: block;
@@ -194,7 +203,7 @@
 		@media (max-width: 575.98px) {
 			padding: 1rem 1.25rem;
 
-			.d-flex {
+			> .d-flex {
 				flex-direction: column;
 			}
 		}
@@ -250,6 +259,13 @@
 			display: block;
 			border: none;
 			border-radius: 8px;
+			height: 85vh;
+			min-height: 500px;
+
+			@media (max-width: 767.98px) {
+				height: 70vh;
+				min-height: 400px;
+			}
 		}
 	}
 
@@ -414,6 +430,35 @@
 			margin-bottom: 0.75rem;
 
 			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	// Mobile compact details strip
+	.doc-details-strip {
+		.doc-sidebar-card {
+			padding: 1rem;
+		}
+	}
+
+	.doc-details-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: 0.5rem 1rem;
+
+		.doc-detail-item {
+			dt {
+				font-size: 0.72rem;
+				font-weight: 500;
+				color: var(--bs-secondary-color, #6c757d);
+				margin-bottom: 0;
+				text-transform: uppercase;
+				letter-spacing: 0.02em;
+			}
+
+			dd {
+				font-size: 0.82rem;
 				margin-bottom: 0;
 			}
 		}

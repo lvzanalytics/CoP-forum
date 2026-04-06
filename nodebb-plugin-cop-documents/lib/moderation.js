@@ -10,3 +10,10 @@ moderation.canModerate = async function (uid) {
 	}
 	return await User.isAdminOrGlobalMod(uid);
 };
+
+moderation.isAdmin = async function (uid) {
+	if (!uid || parseInt(uid, 10) <= 0) {
+		return false;
+	}
+	return await User.isAdministrator(uid);
+};

@@ -46,6 +46,21 @@
 			</div>
 		</div>
 
+		<!-- Pending Review Banner (moderators only) -->
+		{{{ if canModerate }}}
+		{{{ if pendingCount }}}
+		<div class="alert alert-warning d-flex align-items-center justify-content-between mb-3">
+			<span>
+				<i class="fa fa-exclamation-triangle me-2"></i>
+				[[cop-documents:library.pending_banner, {pendingCount}]]
+			</span>
+			<a href="{config.relative_path}/documents/pending" class="btn btn-warning btn-sm">
+				<i class="fa fa-gavel me-1"></i> [[cop-documents:library.pending_review_btn]]
+			</a>
+		</div>
+		{{{ end }}}
+		{{{ end }}}
+
 		<!-- Upload Button -->
 		{{{ if loggedIn }}}
 		<div class="mb-3">

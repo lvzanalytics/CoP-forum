@@ -263,7 +263,7 @@ function handleApprove() {
 		.then(function (res) { return res.json(); })
 		.then(function (data) {
 			if (data.status && data.status.code === 'ok') {
-				require(['alerts'], function (alerts) { alerts.success('[[cop-documents:view.status_approved]]'); });
+				require(['alerts'], function (alerts) { alerts.success('[[cop-documents:moderation.approve_success]]'); });
 				ajaxify.refresh();
 			}
 		});
@@ -272,42 +272,52 @@ function handleApprove() {
 function handleReject() {
 	var relativePath = config.relative_path;
 	var docId = $(this).attr('data-doc-id');
-	var reason = prompt('[[cop-documents:moderation.reject_reason]]');
-	if (!reason) return;
 
-	fetch(relativePath + '/api/v3/plugins/cop-documents/' + docId + '/reject', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'x-csrf-token': config.csrf_token,
-		},
-		body: JSON.stringify({ reason: reason }),
-	})
-		.then(function (res) { return res.json(); })
-		.then(function (data) {
-			if (data.status && data.status.code === 'ok') {
-				require(['alerts'], function (alerts) { alerts.success('[[cop-documents:view.status_rejected]]'); });
-				ajaxify.refresh();
-			}
+	require(['translator'], function (translator) {
+		translator.translate('[[cop-documents:moderation.reject_reason]]', function (translated) {
+			var reason = prompt(translated);
+			if (!reason) return;
+
+			fetch(relativePath + '/api/v3/plugins/cop-documents/' + docId + '/reject', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-csrf-token': config.csrf_token,
+				},
+				body: JSON.stringify({ reason: reason }),
+			})
+				.then(function (res) { return res.json(); })
+				.then(function (data) {
+					if (data.status && data.status.code === 'ok') {
+						require(['alerts'], function (alerts) { alerts.success('[[cop-documents:moderation.reject_success]]'); });
+						ajaxify.refresh();
+					}
+				});
 		});
+	});
 }
 
 function handleDelete() {
 	var relativePath = config.relative_path;
 	var docId = $(this).attr('data-doc-id');
-	if (!confirm('[[cop-documents:moderation.delete]]?')) return;
 
-	fetch(relativePath + '/api/v3/plugins/cop-documents/' + docId, {
-		method: 'DELETE',
-		headers: {
-			'x-csrf-token': config.csrf_token,
-		},
-	})
-		.then(function (res) { return res.json(); })
-		.then(function (data) {
-			if (data.status && data.status.code === 'ok') {
-				require(['alerts'], function (alerts) { alerts.success('OK'); });
-				ajaxify.go('documents');
-			}
+	require(['translator'], function (translator) {
+		translator.translate('[[cop-documents:moderation.delete_confirm]]', function (translated) {
+			if (!confirm(translated)) return;
+
+			fetch(relativePath + '/api/v3/plugins/cop-documents/' + docId, {
+				method: 'DELETE',
+				headers: {
+					'x-csrf-token': config.csrf_token,
+				},
+			})
+				.then(function (res) { return res.json(); })
+				.then(function (data) {
+					if (data.status && data.status.code === 'ok') {
+						require(['alerts'], function (alerts) { alerts.success('[[cop-documents:moderation.delete_success]]'); });
+						ajaxify.go('documents');
+					}
+				});
 		});
+	});
 }

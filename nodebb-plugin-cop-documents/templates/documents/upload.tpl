@@ -91,10 +91,12 @@
 
 					<!-- Access Level -->
 					<div class="mb-3">
-						<label class="form-label" for="doc-access">[[cop-documents:upload.access]]</label>
-						<select class="form-select" id="doc-access" name="access">
-							<option value="public">[[cop-documents:upload.access_public]]</option>
-							<option value="members">[[cop-documents:upload.access_members]]</option>
+						<label class="form-label" for="doc-access">[[cop-documents:upload.access]] <span class="text-danger">*</span></label>
+						<select class="form-select" id="doc-access" name="access" required>
+							<option value="" disabled selected>[[cop-documents:upload.access_placeholder]]</option>
+							{{{each accessOptions}}}
+							<option value="{./value}">{./label}</option>
+							{{{end}}}
 						</select>
 					</div>
 
