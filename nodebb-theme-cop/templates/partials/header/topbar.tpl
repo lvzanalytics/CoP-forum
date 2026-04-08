@@ -40,6 +40,10 @@
 				[[themes/cop:nav.ressources]] <i class="fa fa-chevron-down"></i>
 			</a>
 			<div class="dropdown-menu dropdown-menu-end p-1">
+				<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" href="{relative_path}/events">
+					<i class="fa fa-fw fa-calendar text-secondary"></i>
+					<span>[[themes/cop:nav.events]]</span>
+				</a>
 				<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" href="{relative_path}/documents">
 					<i class="fa fa-fw fa-file-text-o text-secondary"></i>
 					<span>[[themes/cop:nav.documents]]</span>

@@ -1,0 +1,182 @@
+// ============================================
+// Events Plugin — Modern UI Styles
+// ============================================
+
+// Variables (matching theme if possible, or defining local ones)
+$events-accent: #2D6A4F;
+$events-accent-light: rgba(45, 106, 79, 0.08);
+$events-radius: 16px;
+$events-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+$events-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Glassmorphism Utility
+.glass-card {
+	background: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+// Global Colors & Accents
+.text-accent { color: $events-accent !important; }
+.bg-accent-light { background-color: $events-accent-light !important; }
+
+// --- Hero Section ---
+.events-hero {
+	h1 {
+		font-size: 3rem;
+		@media (max-width: 768px) { font-size: 2.25rem; }
+	}
+}
+
+// --- List View ---
+.event-card {
+	border-radius: $events-radius;
+	transition: $events-transition;
+	cursor: pointer;
+
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08) !important;
+
+		.banner-overlay {
+			opacity: 1 !important;
+			background: rgba(0, 0, 0, 0.2);
+		}
+	}
+
+	.event-date-block {
+		width: 100px;
+		border-right: 1px solid rgba(0,0,0,0.05);
+
+		.event-day { font-size: 1.75rem; }
+		.event-month { letter-spacing: 0.1em; font-weight: 600; }
+	}
+
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+}
+
+// --- Calendar View ---
+.calendar-container {
+	border-radius: $events-radius;
+
+	.calendar-header {
+		.col { padding: 1rem; }
+	}
+
+	.calendar-row {
+		min-height: 120px;
+		@media (max-width: 768px) { min-height: 80px; }
+	}
+
+	.calendar-cell {
+		padding: 1rem;
+		border-right: 1px solid rgba(0,0,0,0.05);
+		transition: background 0.2s;
+		position: relative;
+
+		&:last-child { border-right: none; }
+
+		&:hover {
+			background: rgba(0,0,0,0.02);
+		}
+
+		&.muted-day {
+			color: #ccc;
+			background: #fbfbfb;
+		}
+
+		.day-number {
+			font-weight: 500;
+			font-size: 1rem;
+		}
+
+		&.has-event {
+			.day-number {
+				color: $events-accent;
+				font-weight: 700;
+			}
+		}
+
+		.event-indicator {
+			height: 6px;
+			width: 6px;
+			border-radius: 50%;
+			margin-top: 8px;
+			box-shadow: 0 0 10px rgba(45, 106, 79, 0.4);
+		}
+	}
+}
+
+// --- Event Details (View) ---
+.event-hero-banner {
+	.banner-overlay {
+		padding-bottom: 2rem;
+	}
+
+	.breadcrumb-item + .breadcrumb-item::before {
+		color: rgba(255,255,255,0.5);
+	}
+}
+
+.timeline {
+	position: relative;
+	padding-left: 1rem;
+
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: $events-accent-light;
+	}
+
+	.timeline-item {
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			left: -1rem;
+			top: 6px;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: $events-accent;
+			transform: translateX(-50%);
+			border: 2px solid white;
+		}
+	}
+}
+
+// --- Form ---
+.border-dashed {
+	border: 2px dashed #ddd !important;
+	transition: border-color 0.3s;
+
+	&:hover {
+		border-color: $events-accent !important;
+	}
+}
+
+.cursor-pointer { cursor: pointer; }
+
+// --- Responsiveness ---
+@media (max-width: 991px) {
+	.calendar-row { min-height: 100px; }
+	.event-card .event-date-block { width: 80px; }
+}
+
+@media (max-width: 576px) {
+	.events-hero h1 { font-size: 2rem; }
+	.calendar-row { min-height: 60px; }
+	.calendar-cell { padding: 0.5rem; }
+	.calendar-header .col { font-size: 0.6rem; padding: 0.5rem; }
+}
