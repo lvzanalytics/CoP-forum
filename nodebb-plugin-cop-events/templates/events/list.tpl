@@ -34,7 +34,7 @@
 					<span class="input-group-text bg-white border-end-0"><i class="fa fa-search text-muted"></i></span>
 					<input type="text" class="form-control border-start-0 ps-0" component="events/search" placeholder="[[cop-events:events.search_placeholder]]" value="{filters.q}" />
 				</div>
-				{{{ if loggedIn }}}
+				{{{ if canManage }}}
 				<a href="{config.relative_path}/events/create" class="btn btn-primary btn-sm rounded-pill shadow-sm px-3">
 					<i class="fa fa-plus me-1"></i> [[cop-events:events.create]]
 				</a>
@@ -57,6 +57,16 @@
 			<div class="col-12">
 				<a href="{config.relative_path}/events/{../slug}" class="text-decoration-none">
 					<div class="event-card card border-0 shadow-sm overflow-hidden h-100 glass-card" data-event-id="{../eventId}">
+						{{{ if ../bannerUrl }}}
+						<div class="event-card-banner-mobile d-md-none" style="background-image: url('{../bannerUrl}'); background-size: cover; background-position: center; height: 160px; position: relative;">
+							<div class="position-absolute bottom-0 start-0 p-3 d-flex align-items-center gap-2">
+								<div class="bg-white rounded-3 shadow-sm px-3 py-2 text-center" style="min-width: 56px;">
+									<span class="d-block fw-bold text-primary fs-5 lh-1">{../day}</span>
+									<span class="d-block text-muted text-uppercase small" style="font-size: 0.65rem;">{../month}</span>
+								</div>
+							</div>
+						</div>
+						{{{ end }}}
 						<div class="row g-0">
 							<div class="col-auto d-none d-md-block">
 								<div class="event-date-block d-flex flex-column align-items-center justify-content-center h-100 p-4 bg-light">
@@ -65,7 +75,7 @@
 								</div>
 							</div>
 							<div class="col">
-								<div class="card-body p-4">
+								<div class="card-body p-3 p-md-4">
 									<div class="d-flex flex-column h-100">
 										<div class="mb-2">
 											{{{ if ../sector }}}
@@ -92,7 +102,7 @@
 								</div>
 							</div>
 							{{{ if ../bannerUrl }}}
-							<div class="col-md-3 d-none d-lg-block">
+							<div class="col-md-3 d-none d-md-block">
 								<div class="event-card-banner h-100" style="background-image: url('{../bannerUrl}'); background-size: cover; background-position: center; min-height: 180px;">
 									<div class="banner-overlay h-100 w-100 d-flex align-items-center justify-content-center opacity-0">
 										<span class="btn btn-light btn-sm rounded-pill shadow-sm">[[cop-events:events.details]]</span>

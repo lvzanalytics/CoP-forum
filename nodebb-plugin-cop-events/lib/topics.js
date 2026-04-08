@@ -63,7 +63,7 @@ function buildTopicContent(event) {
 
 eventTopics.createEventTopic = async function (event, uid) {
 	const settings = await meta.settings.get('cop-events');
-	const cid = parseInt(settings.defaultCategory, 10) || 4;
+	const cid = parseInt(settings.defaultCategory, 10) || 12;
 
 	const content = buildTopicContent(event);
 

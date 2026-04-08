@@ -27,7 +27,7 @@
 					<span class="fw-semibold">{monthName} {year}</span>
 					<a href="{nextUrl}" class="btn btn-link text-dark p-1"><i class="fa fa-chevron-right"></i></a>
 				</div>
-				{{{ if loggedIn }}}
+				{{{ if canManage }}}
 				<a href="{config.relative_path}/events/create" class="btn btn-primary btn-sm rounded-pill shadow-sm px-3">
 					<i class="fa fa-plus me-1"></i> [[cop-events:events.create]]
 				</a>

@@ -18,7 +18,7 @@ const MONTHS_FR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juill
 const DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
 const DEFAULT_SETTINGS = {
-	defaultCategory: '4',
+	defaultCategory: '12',
 	requireApproval: '0',
 };
 
@@ -27,11 +27,14 @@ async function getSettings() {
 	return { ...DEFAULT_SETTINGS, ...settings };
 }
 
+async function isAdminOrGlobalMod(uid) {
+	if (!uid) return false;
+	return User.isAdminOrGlobalMod(uid);
+}
+
 async function canEdit(uid, event) {
 	if (!uid) return false;
-	const isCreator = String(uid) === String(event.uid);
-	if (isCreator) return true;
-	return User.isAdminOrGlobalMod(uid);
+	return isAdminOrGlobalMod(uid);
 }
 
 // Page controllers
@@ -55,6 +58,8 @@ controllers.list = async function (req, res) {
 	const queryObj = { ...req.query };
 	delete queryObj.page;
 
+	const canManage = await isAdminOrGlobalMod(req.uid);
+
 	res.render('events/list', {
 		title: '[[cop-events:events.title]]',
 		events: eventsList,
@@ -63,6 +68,7 @@ controllers.list = async function (req, res) {
 		filters: filters,
 		pagination: pagination.create(page, pageCount, queryObj),
 		loggedIn: req.loggedIn,
+		canManage: canManage,
 	});
 };
 
@@ -86,6 +92,8 @@ controllers.calendar = async function (req, res) {
 	let nextYear = year;
 	if (nextMonth > 11) { nextMonth = 0; nextYear++; }
 
+	const canManage = await isAdminOrGlobalMod(req.uid);
+
 	res.render('events/calendar', {
 		title: '[[cop-events:events.calendar]]',
 		view: 'calendar',
@@ -95,6 +103,7 @@ controllers.calendar = async function (req, res) {
 		daysOfWeek: DAYS_FR,
 		prevUrl: `${nconf.get('relative_path')}/events/calendar?year=${prevYear}&month=${prevMonth}`,
 		nextUrl: `${nconf.get('relative_path')}/events/calendar?year=${nextYear}&month=${nextMonth}`,
+		canManage: canManage,
 	});
 };
 
@@ -124,6 +133,10 @@ controllers.view = async function (req, res) {
 };
 
 controllers.create = async function (req, res) {
+	const canManage = await isAdminOrGlobalMod(req.uid);
+	if (!canManage) {
+		return controllerHelpers.notAllowed(req, res);
+	}
 	res.render('events/form', {
 		title: '[[cop-events:events.create]]',
 		event: {},
@@ -154,6 +167,11 @@ controllers.edit = async function (req, res) {
 controllers.handleCreate = async function (req, res) {
 	if (!req.uid) {
 		return controllerHelpers.formatApiResponse(401, res, new Error('[[error:not-logged-in]]'));
+	}
+
+	const canManage = await isAdminOrGlobalMod(req.uid);
+	if (!canManage) {
+		return controllerHelpers.formatApiResponse(403, res, new Error('[[error:no-privileges]]'));
 	}
 
 	const { title, sector, region, startDate, startTime, endDate, endTime, meetingLink, meetingPlatform, registrationLink, description, location } = req.body;
