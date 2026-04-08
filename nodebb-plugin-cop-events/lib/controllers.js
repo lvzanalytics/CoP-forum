@@ -5,6 +5,7 @@ const meta = require.main.require('./src/meta');
 const pagination = require.main.require('./src/pagination');
 const controllerHelpers = require.main.require('./src/controllers/helpers');
 const User = require.main.require('./src/user');
+const categories = require.main.require('./src/categories');
 
 const events = require('./events');
 const eventTopics = require('./topics');
@@ -347,19 +348,53 @@ controllers.apiCalendar = async function (req, res) {
 
 controllers.admin = async function (req, res) {
 	const settings = await getSettings();
+	const allCats = await categories.getAllCategories();
+	const categoryOptions = allCats
+		.filter(c => c && !c.disabled)
+		.map(c => ({
+			cid: c.cid,
+			name: c.name,
+			selected: String(c.cid) === String(settings.defaultCategory),
+		}));
+
 	res.render('admin/plugins/cop-events', {
 		title: '[[cop-events:admin.title]]',
 		settings: settings,
+		categoryOptions: categoryOptions,
 	});
 };
 
 controllers.saveSettings = async function (req, res) {
 	const { defaultCategory, requireApproval } = req.body;
 	await meta.settings.set('cop-events', {
-		defaultCategory: String(defaultCategory || '4'),
+		defaultCategory: String(defaultCategory || '12'),
 		requireApproval: requireApproval ? '1' : '0',
 	});
 	return controllerHelpers.formatApiResponse(200, res, { success: true });
+};
+
+controllers.backfillTopics = async function (req, res) {
+	const canManage = await isAdminOrGlobalMod(req.uid);
+	if (!canManage) {
+		return controllerHelpers.formatApiResponse(403, res, new Error('[[error:no-privileges]]'));
+	}
+
+	const allEvents = await events.getAll(0, -1);
+	let created = 0;
+	for (const ev of allEvents) {
+		if (!parseInt(ev.tid, 10)) {
+			const tid = await eventTopics.createEventTopic(ev, ev.uid || req.uid);
+			if (tid) {
+				await events.setTopicId(ev.eventId, tid);
+				created++;
+			}
+		}
+	}
+
+	return controllerHelpers.formatApiResponse(200, res, {
+		message: `Created ${created} topic(s) for existing meetings.`,
+		created: created,
+	});
 };
 
 // Helpers

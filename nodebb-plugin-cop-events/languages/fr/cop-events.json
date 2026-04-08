@@ -1,9 +1,12 @@
 {
 	"admin.title": "Configuration des Rencontres",
 	"admin.default_category": "Catégorie par défaut pour les sujets de rencontre",
-	"admin.default_category_help": "L'ID de la catégorie « Événements » où les sujets seront créés automatiquement.",
+	"admin.default_category_help": "La catégorie de discussion où les sujets seront créés automatiquement pour chaque rencontre.",
 	"admin.require_approval": "Exiger l'approbation des nouvelles rencontres",
 	"admin.saved": "Paramètres enregistrés",
+	"admin.tools": "Outils",
+	"admin.backfill_desc": "Créer des sujets de discussion pour les rencontres existantes qui n'en ont pas encore.",
+	"admin.backfill_btn": "Créer les sujets manquants",
 
 	"events.title": "Rencontres de la CoP",
 	"events.subtitle": "Restez informé des prochains webinaires, ateliers et sessions de formation de la Communauté de Pratique.",

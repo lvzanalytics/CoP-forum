@@ -1,9 +1,12 @@
 {
 	"admin.title": "Meetings Configuration",
 	"admin.default_category": "Default category for meeting topics",
-	"admin.default_category_help": "The category ID where meeting topics will be auto-created.",
+	"admin.default_category_help": "The discussion category where topics will be auto-created for each meeting.",
 	"admin.require_approval": "Require approval for new meetings",
 	"admin.saved": "Settings saved",
+	"admin.tools": "Tools",
+	"admin.backfill_desc": "Create discussion topics for existing meetings that don't have one yet.",
+	"admin.backfill_btn": "Create missing topics",
 
 	"events.title": "CoP Meetings",
 	"events.subtitle": "Stay informed about upcoming webinars, workshops and training sessions of the Community of Practice.",

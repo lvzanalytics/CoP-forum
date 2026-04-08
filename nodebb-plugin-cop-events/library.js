@@ -25,6 +25,7 @@ library.init = async function (params) {
 	// Admin routes
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/cop-events', [], controllers.admin);
 	routeHelpers.setupApiRoute(router, 'put', '/api/admin/plugins/cop-events', [middleware.ensureLoggedIn], controllers.saveSettings);
+	routeHelpers.setupApiRoute(router, 'post', '/api/admin/plugins/cop-events/backfill', [middleware.ensureLoggedIn], controllers.backfillTopics);
 };
 
 library.addAdminNavigation = async function (header) {
