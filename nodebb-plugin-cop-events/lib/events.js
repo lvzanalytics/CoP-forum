@@ -145,6 +145,21 @@ events.update = async function (eventId, data) {
 
 events.setTopicId = async function (eventId, tid) {
 	await db.setObjectField(`event:${eventId}`, 'tid', tid);
+	await db.setObjectField(`event:tid:${tid}`, 'eventId', eventId);
+};
+
+events.getByTid = async function (tid) {
+	const mapping = await db.getObject(`event:tid:${tid}`);
+	if (!mapping || !mapping.eventId) return null;
+	return await db.getObject(`event:${mapping.eventId}`);
+};
+
+events.getByTids = async function (tids) {
+	const keys = tids.map(tid => `event:tid:${tid}`);
+	const mappings = await db.getObjects(keys);
+	const eventKeys = mappings.map(m => (m && m.eventId ? `event:${m.eventId}` : null));
+	const results = await Promise.all(eventKeys.map(k => (k ? db.getObject(k) : null)));
+	return results;
 };
 
 events.delete = async function (eventId) {

@@ -194,16 +194,79 @@
       }
     }
 
-    [component="topic/labels"] .badge {
-      background-color: $surface-secondary;
-      border-color: $border-subtle !important;
-      color: $text-secondary;
+    // Modern grouping for labels and tags
+    [component="topic/labels"], .tag-list {
+      display: inline-flex !important;
+      flex-wrap: wrap !important;
+      align-items: center !important;
+      gap: 4px !important;
+      margin: 0 !important;
+
+      .badge {
+        display: inline-flex !important;
+        align-items: center !important;
+        height: 18px !important;
+        padding: 0 8px !important;
+        font-size: 9px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        border-radius: 4px !important;
+        background-color: $surface-secondary !important;
+        border: 1px solid $border-subtle !important;
+        color: $text-secondary !important;
+        margin: 0 !important;
+        line-height: 1 !important;
+        flex: 0 0 auto !important;
+
+        &.hidden {
+          display: none !important;
+        }
+
+        i {
+          font-size: 8px !important;
+          margin-right: 3px !important;
+        }
+
+        &[component="topic/watched"] {
+          color: $accent-primary !important;
+          background-color: $accent-light !important;
+          border-color: rgba($accent-primary, 0.1) !important;
+        }
+      }
     }
 
-    .tag-list .badge {
-      background-color: $accent-light;
-      border: none !important;
-      color: $accent-primary;
+    .tag-list a {
+      display: inline-flex !important;
+      align-items: center !important;
+      text-decoration: none !important;
+      line-height: 1 !important;
+    }
+
+    .tag-list .badge,
+    .tag-list .tag {
+      font-weight: 700 !important;
+      background-color: $accent-light !important;
+      color: $accent-primary !important;
+      border: 1px solid rgba($accent-primary, 0.1) !important;
+      padding: 0 8px !important;
+      padding-left: 8px !important;
+      border-radius: 4px !important;
+      height: 18px !important;
+      font-size: 9px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      line-height: 1 !important;
+
+      &::before {
+        display: none !important;
+      }
+
+      &:hover {
+        background-color: rgba($accent-primary, 0.12) !important;
+      }
     }
 
     .meta.stats .card,

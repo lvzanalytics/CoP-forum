@@ -410,6 +410,72 @@
   border-color: $border-subtle !important;
   background-color: transparent;
   h1 { color: $text-primary; }
+
+  // Category label badge
+  [component="topic/category"] {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 4px 12px !important;
+    border-radius: $radius-full !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 24px !important;
+    line-height: 1 !important;
+    gap: 4px;
+  }
+
+  // Topic tags in header
+  .tag-list a {
+    display: inline-flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+  }
+
+  .tag-list .tag,
+  .tag-list .badge {
+    background-color: $accent-light !important;
+    color: $accent-primary !important;
+    border: none !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 4px 12px !important;
+    padding-left: 12px !important;
+    border-radius: $radius-full !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 24px !important;
+    line-height: 1 !important;
+
+    &::before {
+      display: none !important;
+    }
+
+    &:hover {
+      background-color: rgba($accent-primary, 0.12) !important;
+    }
+  }
+
+  // Labels (pinned, locked, watched)
+  [component="topic/labels"] .badge {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 4px 12px !important;
+    border-radius: $radius-full !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 24px !important;
+    line-height: 1 !important;
+    gap: 4px;
+
+    &.hidden {
+      display: none !important;
+    }
+  }
 }
 
 // ---- World page header ----

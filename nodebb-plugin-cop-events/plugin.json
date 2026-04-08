@@ -2,6 +2,8 @@
   "id": "nodebb-plugin-cop-events",
   "hooks": [
     { "hook": "static:app.load", "method": "init" },
+    { "hook": "filter:topics.get", "method": "addSectorLabels" },
+    { "hook": "filter:topic.get", "method": "addSectorLabelSingle" },
     { "hook": "filter:admin.header.build", "method": "addAdminNavigation" }
   ],
   "scripts": [

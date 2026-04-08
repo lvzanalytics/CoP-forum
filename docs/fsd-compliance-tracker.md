@@ -1,6 +1,6 @@
 # CoP Platform — FSD v2 Compliance Tracker
 
-**Last updated:** 2026-04-06
+**Last updated:** 2026-04-08
 **Reference:** `CoP FSD v2.md` (Functional Specification Document v1.0)
 
 ---
@@ -85,20 +85,20 @@
 
 ---
 
-## Milestone 4: Integration & Admin Tools — NOT STARTED
+## Milestone 4: Integration & Admin Tools — IN PROGRESS
 
 ### Videoconferencing — Zoom/Teams (FSD §4.1)
 
-- [ ] Event post type in Evenements category
-- [ ] Fields: Event Title, Date/Time (WAT), Meeting Link, Description, Registration Link
-- [ ] Meeting link as prominent CTA button
-- [ ] WAT timezone formatting
+- [x] Event post type in Evenements category — `nodebb-plugin-cop-events` with dedicated meeting management (create/edit/delete), auto-creates discussion topic in Événements category
+- [x] Fields: Event Title, Date/Time (WAT), Meeting Link, Description, Registration Link — form with all fields + sector, region, location, meeting platform, banner image upload
+- [x] Meeting link as prominent CTA button — hero banner with "Rejoindre la réunion" button on event detail page + sidebar CTA
+- [x] WAT timezone formatting — all dates formatted in UTC (Africa/Abidjan = UTC+0), displayed with "(WAT)" label
 - [x] Standard follow notifications for Evenements (built-in category follow)
 
 ### Social Media Sharing (FSD §4.2)
 
-- [ ] Share buttons (Facebook, LinkedIn, Twitter) in theme
-- [ ] Open Graph metadata on topics and documents
+- [x] Share buttons (Facebook, LinkedIn, Twitter) — implemented on event detail page (LinkedIn, Twitter, Facebook share URLs wired via JS)
+- [x] Open Graph metadata on topics and documents — built-in NodeBB: `og:title`, `og:description`, `og:image` generated for all topics; document pages inherit from page title
 - [x] Access-gated shared links for members-only content (built-in)
 
 ### Email Notification System (FSD §4.3)
@@ -217,14 +217,14 @@
 | M2: User Profiles | 12 | 0 | 0 | 12 |
 | M3: Document Library | 14 | 0 | 0 | 14 |
 | M3: Member Directory | 10 | 0 | 0 | 10 |
-| M4: Zoom/Teams Events | 1 | 0 | 4 | 5 |
-| M4: Social Sharing | 1 | 0 | 2 | 3 |
+| M4: Zoom/Teams Events | 5 | 0 | 0 | 5 |
+| M4: Social Sharing | 3 | 0 | 0 | 3 |
 | M4: Email/Notifications | 8 | 0 | 1 | 9 |
 | M4: Moderation/Admin | 9 | 0 | 0 | 9 |
 | M5: AI Features | 0 | 0 | 24 | 24 |
 | Security | 12 | 0 | 4 | 16 |
 | Non-Functional | 4 | 1 | 3 | 8 |
-| **TOTAL** | **89 (69%)** | **1 (1%)** | **39 (30%)** | **129** |
+| **TOTAL** | **95 (74%)** | **1 (1%)** | **33 (26%)** | **129** |
 
 ---
 
@@ -232,7 +232,8 @@
 
 1. ~~**Finish M2**~~ — DONE: 6 custom profile fields created, privacy controls configured, anonymization verified
 2. ~~**Finish M3**~~ — DONE: `nodebb-plugin-cop-documents` (doc library) and `nodebb-plugin-cop-directory` (member directory) built; i18n select options fixed
-3. **M4 quick wins** — Configure SMTP2GO, add social share buttons, build event post template
-4. **M5** — Build `nodebb-plugin-cop-ai` with provider abstraction, caching, admin panel
-5. **Cross-cutting** — French privacy policy page, backup scripts, accessibility audit, load testing
-6. ~~**Remaining M3**~~ — DONE: Sector focus filter added to directory
+3. ~~**Remaining M3**~~ — DONE: Sector focus filter added to directory
+4. ~~**M4 Events**~~ — DONE: `nodebb-plugin-cop-events` built (meetings CRUD, calendar view, RSVP, auto-topic in Événements category, admin panel with category dropdown + backfill tool). Admin/global-mod only creation. Navbar link added ("Rencontres").
+5. **M4 remaining** — Configure SMTP2GO
+6. **Cross-cutting** — French privacy policy page, backup scripts, accessibility audit, load testing
+7. **M5** — Build `nodebb-plugin-cop-ai` with provider abstraction, caching, admin panel

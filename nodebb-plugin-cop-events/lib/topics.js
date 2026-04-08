@@ -73,7 +73,7 @@ eventTopics.createEventTopic = async function (event, uid) {
 			cid: cid,
 			title: event.title,
 			content: content,
-			tags: [event.sector].filter(Boolean),
+			tags: [],
 		});
 		return result.topicData.tid;
 	} catch (err) {
