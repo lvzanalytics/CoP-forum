@@ -82,11 +82,13 @@ function initView() {
 				if (data.status && data.status.code === 'ok' && data.response) {
 					var resp = data.response;
 					$btn.toggleClass('btn-primary btn-outline-primary');
-					if (resp.rsvpd) {
-						$btn.html('<i class="fa fa-check me-2"></i> [[cop-events:events.rsvp_cancel]]');
-					} else {
-						$btn.html('<i class="fa fa-hand-paper-o me-2"></i> [[cop-events:events.rsvp]]');
-					}
+					var key = resp.rsvpd ? '[[cop-events:events.rsvp_cancel]]' : '[[cop-events:events.rsvp]]';
+					var icon = resp.rsvpd ? 'fa-check' : 'fa-hand-paper-o';
+					require(['translator'], function (translator) {
+						translator.translate(key, function (translated) {
+							$btn.html('<i class="fa ' + icon + ' me-2"></i> ' + translated);
+						});
+					});
 					$('[component="events/rsvp-count"]').text(resp.count);
 				}
 			});
