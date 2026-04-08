@@ -392,7 +392,6 @@ controllers.backfillTopics = async function (req, res) {
 	}
 
 	return controllerHelpers.formatApiResponse(200, res, {
-		message: `Created ${created} topic(s) for existing meetings.`,
 		created: created,
 	});
 };

@@ -7,6 +7,7 @@
 	"admin.tools": "Outils",
 	"admin.backfill_desc": "Créer des sujets de discussion pour les rencontres existantes qui n'en ont pas encore.",
 	"admin.backfill_btn": "Créer les sujets manquants",
+	"admin.backfill_result": "%1 sujet(s) créé(s) avec succès.",
 
 	"events.title": "Rencontres de la CoP",
 	"events.subtitle": "Restez informé des prochains webinaires, ateliers et sessions de formation de la Communauté de Pratique.",

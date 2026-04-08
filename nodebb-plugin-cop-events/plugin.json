@@ -7,6 +7,9 @@
   "scripts": [
     "public/js/events.js"
   ],
+  "modules": {
+    "../admin/plugins/cop-events.js": "./public/js/admin/plugins/cop-events.js"
+  },
   "scss": [
     "scss/events.scss"
   ],

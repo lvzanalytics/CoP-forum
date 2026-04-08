@@ -7,6 +7,7 @@
 	"admin.tools": "Tools",
 	"admin.backfill_desc": "Create discussion topics for existing meetings that don't have one yet.",
 	"admin.backfill_btn": "Create missing topics",
+	"admin.backfill_result": "%1 topic(s) created successfully.",
 
 	"events.title": "CoP Meetings",
 	"events.subtitle": "Stay informed about upcoming webinars, workshops and training sessions of the Community of Practice.",
