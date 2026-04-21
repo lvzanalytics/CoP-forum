@@ -57,20 +57,24 @@ plugin.filterTopicBuild = async function (hookData) {
 	const isPrivileged = uid ? await privileges.admin.can('admin:dashboard', uid) ||
 		await privileges.users.isGlobalModerator([uid]).then(r => r[0]) : false;
 
+	// Read cached summary first — it affects what we show
+	const tid = hookData.templateData.tid;
+	const cached = await cache.getDiscussionSummary(tid);
+
 	if (!isPrivileged) {
-		// Regular users: enforce minimum replies
+		// Regular users: enforce minimum replies for the generate button
 		const minReplies = parseInt(currentSettings.minRepliesForSummary, 10) || 15;
 		const postcount = parseInt(hookData.templateData.postcount, 10) || 0;
-		if (postcount < minReplies) {
+		if (postcount < minReplies && !cached.summary) {
+			// No cached summary and not enough replies — hide everything
 			return hookData;
 		}
 	}
 
+	// Show the summary section
 	hookData.templateData.canSummarize = true;
-
-	// Read cached summary
-	const tid = hookData.templateData.tid;
-	const cached = await cache.getDiscussionSummary(tid);
+	// Only admins/mods can generate/refresh summaries
+	hookData.templateData.canGenerateSummary = isPrivileged;
 	if (cached.summary) {
 		hookData.templateData.aiSummary = cached.summary;
 		hookData.templateData.aiSummaryTs = cached.summaryTs;

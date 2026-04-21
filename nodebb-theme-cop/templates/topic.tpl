@@ -67,6 +67,7 @@
 			<button class="btn btn-sm btn-link p-0 mt-1 cop-ai-read-more">[[themes/cop:ai.read_more]]</button>
 		</div>
 		{{{ end }}}
+		{{{ if canGenerateSummary }}}
 		<div class="d-flex gap-2 align-items-center">
 			<button class="btn btn-sm btn-outline-secondary" component="copai/summarize-btn" data-tid="{tid}">
 				<i class="fa fa-wand-magic-sparkles me-1"></i>
@@ -76,6 +77,7 @@
 		<div component="copai/summary-loading" class="d-none text-center py-3">
 			<i class="fa fa-spinner fa-spin"></i> [[themes/cop:ai.generating]]
 		</div>
+		{{{ end }}}
 	</div>
 	{{{ end }}}
 
