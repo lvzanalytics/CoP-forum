@@ -1,0 +1,25 @@
+{
+  "id": "nodebb-plugin-cop-ai",
+  "hooks": [
+    { "hook": "static:app.load", "method": "init" },
+    { "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
+    { "hook": "filter:topic.thread_tools", "method": "filterTopicThreadTools" },
+    { "hook": "action:posts.purge", "method": "actionPostsPurge" },
+    { "hook": "action:post.delete", "method": "actionPostDelete" },
+    { "hook": "action:post.move", "method": "actionPostMove" },
+    { "hook": "action:post.changeOwner", "method": "actionPostChangeOwner" },
+    { "hook": "action:cop-documents.approved", "method": "onDocumentApproved" },
+    { "hook": "action:cop-documents.versionUploaded", "method": "onDocumentVersionUploaded" }
+  ],
+  "scripts": [
+    "public/js/main.js"
+  ],
+  "modules": {
+    "../admin/plugins/cop-ai.js": "./public/js/admin/plugins/cop-ai.js"
+  },
+  "scss": [
+    "scss/cop-ai.scss"
+  ],
+  "templates": "templates",
+  "languages": "languages"
+}

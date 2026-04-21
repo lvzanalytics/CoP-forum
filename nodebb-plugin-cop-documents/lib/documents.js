@@ -1,6 +1,7 @@
 'use strict';
 
 const db = require.main.require('./src/database');
+const plugins = require.main.require('./src/plugins');
 const User = require.main.require('./src/user');
 const slugify = require.main.require('./src/slugify');
 
@@ -179,6 +180,8 @@ documents.approve = async function (docId, adminUid) {
 	// Move from pending to approved
 	await db.sortedSetRemove('documents:pending', docId);
 	await db.sortedSetAdd('documents:approved', now, docId);
+
+	plugins.hooks.fire('action:cop-documents.approved', { docId, uid: adminUid });
 };
 
 documents.reject = async function (docId, adminUid, reason) {
@@ -318,6 +321,8 @@ documents.addVersion = async function (docId, versionData) {
 		const userData = await User.getUserFields(versionData.uid, ['username', 'userslug']);
 		version.user = userData;
 	}
+
+	plugins.hooks.fire('action:cop-documents.versionUploaded', { docId });
 
 	return version;
 };

@@ -107,6 +107,7 @@
         "nodebb-plugin-spam-be-gone": "2.3.2",
         "nodebb-plugin-web-push": "0.7.6",
         "nodebb-rewards-essentials": "1.0.2",
+        "nodebb-plugin-cop-ai": "file:nodebb-plugin-cop-ai",
         "nodebb-plugin-cop-directory": "file:nodebb-plugin-cop-directory",
         "nodebb-plugin-cop-documents": "file:nodebb-plugin-cop-documents",
         "nodebb-plugin-cop-events": "file:nodebb-plugin-cop-events",
