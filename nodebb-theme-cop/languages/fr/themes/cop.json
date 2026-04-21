@@ -97,6 +97,7 @@
 	"widget.digest_title": "Synthèse d'activité",
 	"widget.digest_empty": "Aucune activité récente à résumer pour le moment.",
 	"widget.digest_generate": "Générer la synthèse",
+	"widget.digest_refresh": "Actualiser la synthèse",
 
 	"widget.events_title": "Prochaines rencontres",
 	"widget.events_past": "Passées récemment",

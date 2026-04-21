@@ -97,6 +97,7 @@
 	"widget.digest_title": "Activity Digest",
 	"widget.digest_empty": "No recent activity to summarise at the moment.",
 	"widget.digest_generate": "Generate digest",
+	"widget.digest_refresh": "Refresh digest",
 
 	"widget.events_title": "Upcoming Events",
 	"widget.events_past": "Recently held",

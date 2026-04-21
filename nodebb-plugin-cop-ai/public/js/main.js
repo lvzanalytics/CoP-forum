@@ -99,69 +99,48 @@ $(document).on('click', '.cop-ai-read-more', function () {
 	});
 });
 
-// Catchup digest — button in categories page opens modal + updates inline widget
+// Catchup digest — generate button (admin only), same pattern as discussion summarize
 $(document).on('click', '[component="copai/catchup-btn"]', function () {
-	openCatchupModal();
-});
+	var btn = $(this);
+	var widget = btn.closest('[component="copai/digest-widget"]');
+	var loadingEl = widget.find('[component="copai/digest-loading"]');
 
-function openCatchupModal() {
-	require(['bootbox', 'translator'], function (bootbox, translator) {
-		translator.translate(
-			'[[cop-ai:catchup.modal_title]]|[[cop-ai:catchup.loading]]|[[global:close]]|[[cop-ai:catchup.no_activity]]',
-			function (translated) {
-				var parts = translated.split('|');
-				var modal = bootbox.dialog({
-					title: parts[0],
-					message: '<div class="copai-catchup-content"><div class="text-center p-4"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><p class="mt-2">' + parts[1] + '</p></div></div>',
-					size: 'large',
-					buttons: {
-						ok: {
-							label: parts[2],
-							className: 'btn-primary',
-						},
-					},
-				});
+	btn.prop('disabled', true);
+	loadingEl.removeClass('d-none');
 
-				$.get(config.relative_path + '/api/v3/plugins/cop-ai/catchup', function (res) {
-					if (res && res.response && res.response.digest) {
-						var digestHtml = formatSummary(res.response.digest);
-						modal.find('.copai-catchup-content').html(
-							'<div class="copai-digest-text">' + digestHtml + '</div>'
-						);
-						// Update inline digest widget on categories page
-						updateDigestWidget(digestHtml);
-					} else {
-						modal.find('.copai-catchup-content').html(
-							'<div class="alert alert-info">' + parts[3] + '</div>'
-						);
-					}
-				}).fail(function (xhr) {
-					modal.find('.copai-catchup-content').html(
-						'<div class="alert alert-danger">' +
-						(xhr.responseJSON && xhr.responseJSON.status ? xhr.responseJSON.status.message : 'Error') +
-						'</div>'
-					);
-				});
+	$.get(config.relative_path + '/api/v3/plugins/cop-ai/catchup', function (res) {
+		loadingEl.addClass('d-none');
+		btn.prop('disabled', false);
+
+		if (res && res.response && res.response.digest) {
+			var digestHtml = formatSummary(res.response.digest);
+			var contentEl = widget.find('[component="copai/digest-content"]');
+			var emptyEl = widget.find('[component="copai/digest-empty"]');
+
+			if (contentEl.length) {
+				contentEl.html(digestHtml);
+			} else if (emptyEl.length) {
+				emptyEl.replaceWith(
+					'<div class="cop-digest-content" component="copai/digest-content">' + digestHtml + '</div>'
+				);
 			}
-		);
+
+			// Update button text to "refresh"
+			require(['translator'], function (translator) {
+				translator.translate('[[themes/cop:widget.digest_refresh]]', function (text) {
+					btn.html('<i class="fa fa-arrows-rotate me-1"></i>' + text);
+				});
+			});
+		}
+	}).fail(function (xhr) {
+		loadingEl.addClass('d-none');
+		btn.prop('disabled', false);
+		require(['alerts'], function (alerts) {
+			var msg = (xhr.responseJSON && xhr.responseJSON.status) ? xhr.responseJSON.status.message : 'Error';
+			alerts.error(msg);
+		});
 	});
-}
-
-function updateDigestWidget(digestHtml) {
-	var widget = $('[component="copai/digest-widget"]');
-	if (!widget.length) return;
-
-	var contentEl = widget.find('[component="copai/digest-content"]');
-	var emptyEl = widget.find('[component="copai/digest-empty"]');
-
-	if (contentEl.length) {
-		contentEl.html(digestHtml);
-	} else if (emptyEl.length) {
-		emptyEl.replaceWith(
-			'<div class="cop-digest-content" component="copai/digest-content">' + digestHtml + '</div>'
-		);
-	}
-}
+});
 
 function formatSummary(text) {
 	var html = escapeHtml(text);

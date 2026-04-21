@@ -43,9 +43,13 @@
 						</div>
 						{{{ end }}}
 						{{{ if isAdmin }}}
-						<button class="btn btn-sm btn-primary mt-2 w-100" component="copai/catchup-btn">
-							<i class="fa fa-sparkles me-1"></i>[[themes/cop:widget.digest_generate]]
+						<button class="btn btn-sm btn-outline-secondary mt-2 w-100" component="copai/catchup-btn">
+							<i class="fa fa-wand-magic-sparkles me-1"></i>
+							{{{ if digestContent }}}[[themes/cop:widget.digest_refresh]]{{{ else }}}[[themes/cop:widget.digest_generate]]{{{ end }}}
 						</button>
+						<div component="copai/digest-loading" class="d-none text-center py-3">
+							<i class="fa fa-spinner fa-spin"></i> [[themes/cop:ai.generating]]
+						</div>
 						{{{ end }}}
 					</div>
 				</div>

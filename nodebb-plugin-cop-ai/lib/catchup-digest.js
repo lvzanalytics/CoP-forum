@@ -25,11 +25,8 @@ catchupDigest.isEligible = async function (uid, settings) {
 };
 
 catchupDigest.generate = async function (uid, settings) {
-	// Check cache
-	const cached = await cache.getDigest(uid);
-	if (cache.isDigestValid(cached, settings)) {
-		return cached.content;
-	}
+	// No cache check here — always regenerate fresh (same pattern as discussionSummary.summarize).
+	// Cache is only read in the display hook (filterCategoriesBuild).
 
 	// Check rate limit
 	const allowed = await rateLimit.check(uid, 'catchup', settings);
