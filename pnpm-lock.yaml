@@ -259,7 +259,7 @@ importers:
         version: 4.8.17
       nodebb-plugin-openai:
         specifier: ^1.4.0
-        version: 1.4.0(ws@8.18.3)
+        version: 1.4.0(ws@8.18.3)(zod@4.3.6)
       nodebb-plugin-spam-be-gone:
         specifier: 2.3.2
         version: 2.3.2
@@ -6127,6 +6127,9 @@ packages:
     peerDependencies:
       zod: ^3.25.28 || ^4
 
+  zod@4.3.6:
+    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+
   zxcvbn@4.4.2:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
 
@@ -6136,32 +6139,37 @@ snapshots:
 
   '@adactive/bootstrap-tagsinput@0.8.2': {}
 
-  '@ai-sdk/anthropic@3.0.71':
+  '@ai-sdk/anthropic@3.0.71(zod@4.3.6)':
     dependencies:
       '@ai-sdk/provider': 3.0.8
-      '@ai-sdk/provider-utils': 4.0.23
+      '@ai-sdk/provider-utils': 4.0.23(zod@4.3.6)
+      zod: 4.3.6
 
-  '@ai-sdk/gateway@3.0.104':
+  '@ai-sdk/gateway@3.0.104(zod@4.3.6)':
     dependencies:
       '@ai-sdk/provider': 3.0.8
-      '@ai-sdk/provider-utils': 4.0.23
+      '@ai-sdk/provider-utils': 4.0.23(zod@4.3.6)
       '@vercel/oidc': 3.2.0
+      zod: 4.3.6
 
-  '@ai-sdk/google@3.0.64':
+  '@ai-sdk/google@3.0.64(zod@4.3.6)':
     dependencies:
       '@ai-sdk/provider': 3.0.8
-      '@ai-sdk/provider-utils': 4.0.23
+      '@ai-sdk/provider-utils': 4.0.23(zod@4.3.6)
+      zod: 4.3.6
 
-  '@ai-sdk/openai@3.0.53':
+  '@ai-sdk/openai@3.0.53(zod@4.3.6)':
     dependencies:
       '@ai-sdk/provider': 3.0.8
-      '@ai-sdk/provider-utils': 4.0.23
+      '@ai-sdk/provider-utils': 4.0.23(zod@4.3.6)
+      zod: 4.3.6
 
-  '@ai-sdk/provider-utils@4.0.23':
+  '@ai-sdk/provider-utils@4.0.23(zod@4.3.6)':
     dependencies:
       '@ai-sdk/provider': 3.0.8
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.0.8
+      zod: 4.3.6
 
   '@ai-sdk/provider@3.0.8':
     dependencies:
@@ -6191,10 +6199,11 @@ snapshots:
   '@anthropic-ai/claude-agent-sdk-win32-x64@0.2.116':
     optional: true
 
-  '@anthropic-ai/claude-agent-sdk@0.2.116':
+  '@anthropic-ai/claude-agent-sdk@0.2.116(zod@4.3.6)':
     dependencies:
-      '@anthropic-ai/sdk': 0.81.0
-      '@modelcontextprotocol/sdk': 1.29.0
+      '@anthropic-ai/sdk': 0.81.0(zod@4.3.6)
+      '@modelcontextprotocol/sdk': 1.29.0(zod@4.3.6)
+      zod: 4.3.6
     optionalDependencies:
       '@anthropic-ai/claude-agent-sdk-darwin-arm64': 0.2.116
       '@anthropic-ai/claude-agent-sdk-darwin-x64': 0.2.116
@@ -6208,9 +6217,11 @@ snapshots:
       - '@cfworker/json-schema'
       - supports-color
 
-  '@anthropic-ai/sdk@0.81.0':
+  '@anthropic-ai/sdk@0.81.0(zod@4.3.6)':
     dependencies:
       json-schema-to-ts: 3.1.1
+    optionalDependencies:
+      zod: 4.3.6
 
   '@apidevtools/json-schema-ref-parser@9.0.6':
     dependencies:
@@ -7237,7 +7248,7 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@modelcontextprotocol/sdk@1.29.0':
+  '@modelcontextprotocol/sdk@1.29.0(zod@4.3.6)':
     dependencies:
       '@hono/node-server': 1.19.14(hono@4.12.14)
       ajv: 8.18.0
@@ -7254,7 +7265,8 @@ snapshots:
       json-schema-typed: 8.0.2
       pkce-challenge: 5.0.1
       raw-body: 3.0.2
-      zod-to-json-schema: 3.25.2
+      zod: 4.3.6
+      zod-to-json-schema: 3.25.2(zod@4.3.6)
     transitivePeerDependencies:
       - supports-color
 
@@ -7981,12 +7993,13 @@ snapshots:
       clean-stack: 2.2.0
       indent-string: 4.0.0
 
-  ai@6.0.168:
+  ai@6.0.168(zod@4.3.6):
     dependencies:
-      '@ai-sdk/gateway': 3.0.104
+      '@ai-sdk/gateway': 3.0.104(zod@4.3.6)
       '@ai-sdk/provider': 3.0.8
-      '@ai-sdk/provider-utils': 4.0.23
+      '@ai-sdk/provider-utils': 4.0.23(zod@4.3.6)
       '@opentelemetry/api': 1.9.0
+      zod: 4.3.6
 
   ajv-draft-04@1.0.0(ajv@8.18.0):
     optionalDependencies:
@@ -10561,17 +10574,17 @@ snapshots:
 
   nodebb-plugin-cop-ai@file:nodebb-plugin-cop-ai:
     dependencies:
-      '@ai-sdk/anthropic': 3.0.71
-      '@ai-sdk/google': 3.0.64
-      '@ai-sdk/openai': 3.0.53
-      '@anthropic-ai/claude-agent-sdk': 0.2.116
-      ai: 6.0.168
+      '@ai-sdk/anthropic': 3.0.71(zod@4.3.6)
+      '@ai-sdk/google': 3.0.64(zod@4.3.6)
+      '@ai-sdk/openai': 3.0.53(zod@4.3.6)
+      '@anthropic-ai/claude-agent-sdk': 0.2.116(zod@4.3.6)
+      ai: 6.0.168(zod@4.3.6)
       mammoth: 1.12.0
       pdf-parse: 1.1.4
+      zod: 4.3.6
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - supports-color
-      - zod
 
   nodebb-plugin-cop-directory@file:nodebb-plugin-cop-directory: {}
 
@@ -10622,9 +10635,9 @@ snapshots:
       lodash: 4.17.23
       validator: 13.15.26
 
-  nodebb-plugin-openai@1.4.0(ws@8.18.3):
+  nodebb-plugin-openai@1.4.0(ws@8.18.3)(zod@4.3.6):
     dependencies:
-      openai: 4.103.0(ws@8.18.3)
+      openai: 4.103.0(ws@8.18.3)(zod@4.3.6)
     transitivePeerDependencies:
       - encoding
       - ws
@@ -10782,7 +10795,7 @@ snapshots:
     dependencies:
       mimic-function: 5.0.1
 
-  openai@4.103.0(ws@8.18.3):
+  openai@4.103.0(ws@8.18.3)(zod@4.3.6):
     dependencies:
       '@types/node': 18.19.130
       '@types/node-fetch': 2.6.13
@@ -10793,6 +10806,7 @@ snapshots:
       node-fetch: 2.7.0
     optionalDependencies:
       ws: 8.18.3
+      zod: 4.3.6
     transitivePeerDependencies:
       - encoding
 
@@ -12385,6 +12399,10 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-to-json-schema@3.25.2: {}
+  zod-to-json-schema@3.25.2(zod@4.3.6):
+    dependencies:
+      zod: 4.3.6
+
+  zod@4.3.6: {}
 
   zxcvbn@4.4.2: {}

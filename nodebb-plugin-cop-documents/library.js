@@ -12,6 +12,7 @@ library.init = async function (params) {
 	routeHelpers.setupPageRoute(router, '/documents', [], controllers.list);
 	routeHelpers.setupPageRoute(router, '/documents/upload', [middleware.ensureLoggedIn], controllers.upload);
 	routeHelpers.setupPageRoute(router, '/documents/pending', [middleware.ensureLoggedIn], controllers.pending);
+	routeHelpers.setupPageRoute(router, '/documents/my', [middleware.ensureLoggedIn], controllers.myDocuments);
 	routeHelpers.setupPageRoute(router, '/documents/:docId(\\d+)/:slug?', [], controllers.view);
 
 	// API routes
@@ -22,6 +23,7 @@ library.init = async function (params) {
 	routeHelpers.setupApiRoute(router, 'put', '/api/v3/plugins/cop-documents/:docId', [middleware.ensureLoggedIn], controllers.handleUpdate);
 	routeHelpers.setupApiRoute(router, 'delete', '/api/v3/plugins/cop-documents/:docId', [middleware.ensureLoggedIn], controllers.handleDelete);
 	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/version', [middleware.ensureLoggedIn], controllers.handleVersionUpload);
+	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-documents/:docId/summarize', [middleware.ensureLoggedIn], controllers.handleGenerateSummary);
 
 	// Admin routes
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/cop-documents', [], controllers.admin);

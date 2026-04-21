@@ -2,6 +2,8 @@
 
 const { generateText } = require('ai');
 
+const AI_TIMEOUT_MS = 120000; // 2 minutes per call
+
 function getModel(settings) {
 	switch (settings.provider) {
 		case 'anthropic': {
@@ -20,6 +22,16 @@ function getModel(settings) {
 			})(settings.model);
 		}
 	}
+}
+
+function withTimeout(promise, ms) {
+	return new Promise((resolve, reject) => {
+		const timer = setTimeout(() => reject(new Error('AI request timed out')), ms);
+		promise.then(
+			(val) => { clearTimeout(timer); resolve(val); },
+			(err) => { clearTimeout(timer); reject(err); }
+		);
+	});
 }
 
 async function generateWithAgentSDK(systemPrompt, userPrompt, settings) {
@@ -63,15 +75,21 @@ async function generateWithAgentSDK(systemPrompt, userPrompt, settings) {
 
 exports.generate = async function (systemPrompt, userPrompt, settings) {
 	if (settings.provider === 'agent-sdk') {
-		return generateWithAgentSDK(systemPrompt, userPrompt, settings);
+		return withTimeout(
+			generateWithAgentSDK(systemPrompt, userPrompt, settings),
+			AI_TIMEOUT_MS
+		);
 	}
 
 	const model = getModel(settings);
-	const { text, usage } = await generateText({
-		model,
-		system: systemPrompt,
-		prompt: userPrompt,
-		temperature: 0.3,
-	});
-	return { text, usage };
+	const result = await withTimeout(
+		generateText({
+			model,
+			system: systemPrompt,
+			prompt: userPrompt,
+			temperature: 0.3,
+		}),
+		AI_TIMEOUT_MS
+	);
+	return { text: result.text, usage: result.usage };
 };

@@ -111,5 +111,30 @@
 	"access.public": "Public",
 	"access.members": "Members only",
 	"access.moderators": "Moderators",
-	"access.admin": "Administrators"
+	"access.admin": "Administrators",
+
+	"my.title": "My Documents",
+	"my.filter_all": "All",
+	"my.filter_pending": "Pending",
+	"my.filter_approved": "Approved",
+	"my.filter_rejected": "Rejected",
+	"my.no_documents": "You have not submitted any documents.",
+
+	"ai.summary_title": "AI Summary",
+	"ai.generate": "Generate AI summary",
+	"ai.regenerate": "Regenerate",
+	"ai.generating": "Generating...",
+	"ai.generated_on": "Generated on",
+	"ai.success": "Summary generated successfully",
+	"ai.error_generating": "Error generating summary",
+	"ai.not_available": "AI module is not available",
+	"ai.step_extract": "Extracting text",
+	"ai.step_extract_detail": "Reading and extracting document content",
+	"ai.step_analyze": "Analyzing content",
+	"ai.step_analyze_detail": "Identifying themes and key points",
+	"ai.step_generate": "Writing summary",
+	"ai.step_generate_detail": "Synthesizing key information",
+	"ai.time_short": "About 15 seconds",
+	"ai.time_medium": "About 30–60 seconds — large document",
+	"ai.time_long": "Up to 2 minutes — very large document"
 }

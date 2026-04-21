@@ -156,6 +156,10 @@ controllers.view = async function (req, res) {
 	const versions = await documents.getVersions(docId);
 	const canMod = req.uid ? await moderation.canModerate(req.uid) : false;
 
+	// AI summary fields
+	const aiSummary = doc['ai:summary'] || null;
+	const aiSummaryTs = doc['ai:summaryTs'] ? new Date(parseInt(doc['ai:summaryTs'], 10)).toLocaleDateString('fr-FR') : null;
+
 	// Parse tags
 	let tags = [];
 	if (doc.tags) {
@@ -196,6 +200,33 @@ controllers.view = async function (req, res) {
 		categoryOptions: categoryOptions,
 		accessOptions: buildAccessOptions(doc.access),
 		loggedIn: req.loggedIn,
+		aiSummary: aiSummary,
+		aiSummaryTs: aiSummaryTs,
+	});
+};
+
+controllers.myDocuments = async function (req, res) {
+	if (!req.uid) {
+		return controllerHelpers.notAllowed(req, res);
+	}
+
+	const docs = await documents.getByUid(req.uid);
+
+	const counts = { all: docs.length, pending: 0, approved: 0, rejected: 0 };
+	docs.forEach((doc) => {
+		if (counts[doc.status] !== undefined) {
+			counts[doc.status]++;
+		}
+	});
+
+	const filter = req.query.status || '';
+	const filtered = filter ? docs.filter(d => d.status === filter) : docs;
+
+	res.render('documents/my', {
+		title: '[[cop-documents:my.title]]',
+		documents: filtered,
+		counts: counts,
+		activeFilter: filter,
 	});
 };
 
@@ -446,6 +477,41 @@ controllers.handleVersionUpload = async function (req, res) {
 
 	await documents.addVersion(req.params.docId, versionData);
 	return controllerHelpers.formatApiResponse(200, res, { docId: req.params.docId });
+};
+
+controllers.handleGenerateSummary = async function (req, res) {
+	if (!req.uid) {
+		return controllerHelpers.formatApiResponse(401, res, new Error('[[error:not-logged-in]]'));
+	}
+
+	const canMod = await moderation.canModerate(req.uid);
+	if (!canMod) {
+		return controllerHelpers.formatApiResponse(403, res, new Error('[[error:no-privileges]]'));
+	}
+
+	const { docId } = req.params;
+	const doc = await documents.getByDocId(docId);
+	if (!doc || !doc.docId) {
+		return controllerHelpers.formatApiResponse(404, res, new Error('[[error:not-found]]'));
+	}
+
+	// Check if cop-ai's document-summary module is available
+	let documentSummary;
+	try {
+		require.resolve('nodebb-plugin-cop-ai/lib/document-summary');
+		documentSummary = require('nodebb-plugin-cop-ai/lib/document-summary');
+	} catch (e) {
+		return controllerHelpers.formatApiResponse(503, res, new Error('[[cop-documents:ai.not_available]]'));
+	}
+
+	try {
+		const aiSettings = require('nodebb-plugin-cop-ai/lib/settings');
+		const currentSettings = await aiSettings.get();
+		const result = await documentSummary.summarize(docId, req.uid, currentSettings);
+		return controllerHelpers.formatApiResponse(200, res, { summary: result });
+	} catch (err) {
+		return controllerHelpers.formatApiResponse(500, res, new Error(err.message || '[[cop-documents:ai.error_generating]]'));
+	}
 };
 
 controllers.admin = async function (req, res) {

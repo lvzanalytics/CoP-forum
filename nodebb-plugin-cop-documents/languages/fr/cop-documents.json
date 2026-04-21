@@ -111,5 +111,30 @@
 	"access.public": "Public",
 	"access.members": "Membres uniquement",
 	"access.moderators": "Modérateurs",
-	"access.admin": "Administrateurs"
+	"access.admin": "Administrateurs",
+
+	"my.title": "Mes documents",
+	"my.filter_all": "Tous",
+	"my.filter_pending": "En attente",
+	"my.filter_approved": "Approuvés",
+	"my.filter_rejected": "Rejetés",
+	"my.no_documents": "Vous n'avez soumis aucun document.",
+
+	"ai.summary_title": "Résumé IA",
+	"ai.generate": "Générer le résumé IA",
+	"ai.regenerate": "Régénérer",
+	"ai.generating": "Génération en cours...",
+	"ai.generated_on": "Généré le",
+	"ai.success": "Résumé généré avec succès",
+	"ai.error_generating": "Erreur lors de la génération du résumé",
+	"ai.not_available": "Le module IA n'est pas disponible",
+	"ai.step_extract": "Extraction du texte",
+	"ai.step_extract_detail": "Lecture et extraction du contenu du document",
+	"ai.step_analyze": "Analyse du contenu",
+	"ai.step_analyze_detail": "Identification des thèmes et points clés",
+	"ai.step_generate": "Rédaction du résumé",
+	"ai.step_generate_detail": "Synthèse des informations principales",
+	"ai.time_short": "Environ 15 secondes",
+	"ai.time_medium": "Environ 30 à 60 secondes — document volumineux",
+	"ai.time_long": "Jusqu'à 2 minutes — document très volumineux"
 }

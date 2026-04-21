@@ -26,6 +26,7 @@ $(document).on('click', '.doc-download-btn', handleDownload);
 $(document).on('click', '.doc-approve-btn', handleApprove);
 $(document).on('click', '.doc-reject-btn', handleReject);
 $(document).on('click', '.doc-delete-btn', handleDelete);
+$(document).on('click', '.doc-generate-summary-btn, .doc-regenerate-summary-btn', handleAiSummary);
 
 function initUpload() {
 	var relativePath = config.relative_path;
@@ -112,6 +113,106 @@ function initView() {
 
 	// PDF fullscreen toggle
 	initPdfFullscreen();
+}
+
+function handleAiSummary() {
+	var btn = $(this);
+	var docId = btn.attr('data-doc-id');
+	var originalHtml = btn.html();
+	var panel = btn.closest('.doc-ai-summary-panel');
+	var progress = panel.find('.doc-ai-progress');
+	var steps = progress.find('.doc-ai-step');
+
+	// Estimate time from file size (bytes)
+	var fileSize = parseInt(btn.attr('data-file-size'), 10) || 0;
+	var sizeMB = fileSize / (1024 * 1024);
+	var estimateSeconds;
+	if (sizeMB < 1) {
+		estimateSeconds = 15;
+	} else if (sizeMB < 5) {
+		estimateSeconds = 30;
+	} else if (sizeMB < 20) {
+		estimateSeconds = 60;
+	} else {
+		estimateSeconds = 90;
+	}
+
+	// Show progress, hide button
+	btn.addClass('d-none');
+	progress.removeClass('d-none');
+
+	require(['translator'], function (translator) {
+		var key = estimateSeconds <= 30
+			? '[[cop-documents:ai.time_short]]'
+			: (estimateSeconds <= 60
+				? '[[cop-documents:ai.time_medium]]'
+				: '[[cop-documents:ai.time_long]]');
+		translator.translate(key, function (text) {
+			progress.find('.doc-ai-time-estimate').text(text);
+		});
+	});
+
+	// Animate through steps
+	function activateStep(index) {
+		steps.each(function (i) {
+			var step = $(this);
+			if (i < index) {
+				step.removeClass('active').addClass('done');
+				step.find('.doc-ai-step-icon i').attr('class', 'fa fa-check');
+			} else if (i === index) {
+				step.addClass('active').removeClass('done');
+			} else {
+				step.removeClass('active done');
+			}
+		});
+	}
+
+	activateStep(0);
+	// Extraction typically takes a few seconds for large files
+	var extractTime = Math.min(sizeMB * 1000, 8000) || 3000;
+	var stepTimer1 = setTimeout(function () { activateStep(1); }, Math.max(extractTime, 2000));
+	var stepTimer2 = setTimeout(function () { activateStep(2); }, Math.max(extractTime + 5000, 8000));
+
+	fetch(config.relative_path + '/api/v3/plugins/cop-documents/' + docId + '/summarize', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'x-csrf-token': config.csrf_token,
+		},
+	})
+		.then(function (res) { return res.json(); })
+		.then(function (data) {
+			clearTimeout(stepTimer1);
+			clearTimeout(stepTimer2);
+			if (data.status && data.status.code === 'ok') {
+				// Mark all steps done briefly before refresh
+				activateStep(3);
+				require(['alerts'], function (alerts) { alerts.success('[[cop-documents:ai.success]]'); });
+				setTimeout(function () { ajaxify.refresh(); }, 600);
+			} else {
+				var msg = (data.status && data.status.message) || '[[cop-documents:ai.error_generating]]';
+				require(['alerts'], function (alerts) { alerts.error(msg); });
+				resetProgress();
+			}
+		})
+		.catch(function () {
+			clearTimeout(stepTimer1);
+			clearTimeout(stepTimer2);
+			require(['alerts'], function (alerts) { alerts.error('[[cop-documents:ai.error_generating]]'); });
+			resetProgress();
+		});
+
+	function resetProgress() {
+		progress.addClass('d-none');
+		btn.removeClass('d-none').prop('disabled', false).html(originalHtml);
+		steps.removeClass('active done');
+		steps.each(function () {
+			var step = $(this);
+			var origIcon = step.attr('data-step');
+			var iconMap = { extract: 'fa-file-text', analyze: 'fa-brain', generate: 'fa-wand-magic-sparkles' };
+			step.find('.doc-ai-step-icon i').attr('class', 'fa ' + (iconMap[origIcon] || 'fa-circle'));
+		});
+	}
 }
 
 function initEditForm() {

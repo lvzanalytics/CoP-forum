@@ -148,6 +148,55 @@
 					<p>{document.description}</p>
 				</div>
 
+				<!-- AI Summary -->
+				{{{ if aiSummary }}}
+				<div class="doc-ai-summary-panel mb-4">
+					<h5 class="mb-3"><i class="fa fa-robot me-2"></i>[[cop-documents:ai.summary_title]]</h5>
+					<p>{aiSummary}</p>
+					<small class="text-muted">[[cop-documents:ai.generated_on]] {aiSummaryTs}</small>
+					{{{ if canModerate }}}
+					<button class="btn btn-sm btn-outline-secondary ms-2 doc-regenerate-summary-btn" data-doc-id="{document.docId}">
+						<i class="fa fa-refresh"></i> [[cop-documents:ai.regenerate]]
+					</button>
+					{{{ end }}}
+				</div>
+				{{{ end }}}
+				{{{ if (!aiSummary && canModerate) }}}
+				<div class="doc-ai-summary-panel doc-ai-summary-empty mb-4">
+					<button class="btn btn-sm btn-outline-primary doc-generate-summary-btn" data-doc-id="{document.docId}" data-file-size="{document.fileSize}">
+						<i class="fa fa-wand-magic-sparkles me-1"></i>[[cop-documents:ai.generate]]
+					</button>
+					<div class="doc-ai-progress d-none mt-3">
+						<div class="doc-ai-progress-steps">
+							<div class="doc-ai-step" data-step="extract">
+								<div class="doc-ai-step-icon"><i class="fa fa-file-text"></i></div>
+								<div class="doc-ai-step-body">
+									<div class="doc-ai-step-label">[[cop-documents:ai.step_extract]]</div>
+									<div class="doc-ai-step-detail text-muted small">[[cop-documents:ai.step_extract_detail]]</div>
+								</div>
+							</div>
+							<div class="doc-ai-step" data-step="analyze">
+								<div class="doc-ai-step-icon"><i class="fa fa-brain"></i></div>
+								<div class="doc-ai-step-body">
+									<div class="doc-ai-step-label">[[cop-documents:ai.step_analyze]]</div>
+									<div class="doc-ai-step-detail text-muted small">[[cop-documents:ai.step_analyze_detail]]</div>
+								</div>
+							</div>
+							<div class="doc-ai-step" data-step="generate">
+								<div class="doc-ai-step-icon"><i class="fa fa-wand-magic-sparkles"></i></div>
+								<div class="doc-ai-step-body">
+									<div class="doc-ai-step-label">[[cop-documents:ai.step_generate]]</div>
+									<div class="doc-ai-step-detail text-muted small">[[cop-documents:ai.step_generate_detail]]</div>
+								</div>
+							</div>
+						</div>
+						<div class="doc-ai-progress-note text-muted small mt-2">
+							<i class="fa fa-clock me-1"></i><span class="doc-ai-time-estimate"></span>
+						</div>
+					</div>
+				</div>
+				{{{ end }}}
+
 				<!-- Version History -->
 				{{{ if versions.length }}}
 				<div class="doc-versions-panel mb-4">

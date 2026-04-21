@@ -540,6 +540,54 @@
 // Edit Modal Theme Overrides
 // ============================================================
 
+// ============================================================
+// AI Summary Panel
+// ============================================================
+
+.doc-ai-summary-panel {
+	background: var(--bs-body-bg, #fff);
+	border: 1px solid var(--bs-border-color, #dee2e6);
+	border-left: 3px solid var(--bs-primary);
+	border-radius: 12px;
+	padding: 1.5rem;
+
+	h5 {
+		font-weight: 600;
+		font-size: 1rem;
+	}
+
+	p {
+		line-height: 1.7;
+		white-space: pre-line;
+		margin-bottom: 0.5rem;
+	}
+}
+
+.doc-ai-summary-empty {
+	border-left-color: var(--bs-secondary);
+}
+
+.doc-card-ai-snippet {
+	font-size: 0.78rem;
+	color: var(--bs-secondary-color);
+	margin-bottom: 0.75rem;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.doc-card-ai-badge {
+	font-size: 0.65rem;
+	font-weight: 600;
+	color: var(--bs-primary);
+	margin-right: 0.35rem;
+}
+
+// ============================================================
+// Edit Modal Theme Overrides
+// ============================================================
+
 #editDocumentModal {
 	.modal-content {
 		border-radius: 12px;
@@ -560,4 +608,80 @@
 		border-top-color: var(--bs-border-color, #dee2e6);
 		padding: 1rem 1.5rem;
 	}
+}
+
+// AI Summary Progress Steps
+.doc-ai-progress {
+	background: var(--bs-tertiary-bg, #f8f9fa);
+	border: 1px solid var(--bs-border-color, #dee2e6);
+	border-radius: 0.5rem;
+	padding: 1rem 1.25rem;
+}
+
+.doc-ai-progress-steps {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.doc-ai-step {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	opacity: 0.4;
+	transition: opacity 0.3s ease;
+
+	&.active {
+		opacity: 1;
+
+		.doc-ai-step-icon {
+			background: var(--bs-primary, #0d6efd);
+			color: #fff;
+			animation: doc-ai-pulse 1.5s ease-in-out infinite;
+		}
+	}
+
+	&.done {
+		opacity: 0.7;
+
+		.doc-ai-step-icon {
+			background: var(--bs-success, #198754);
+			color: #fff;
+			animation: none;
+		}
+	}
+}
+
+.doc-ai-step-icon {
+	flex-shrink: 0;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bs-secondary-bg, #e9ecef);
+	color: var(--bs-secondary-color, #6c757d);
+	font-size: 0.8rem;
+	transition: background 0.3s ease, color 0.3s ease;
+}
+
+.doc-ai-step-label {
+	font-weight: 600;
+	font-size: 0.875rem;
+}
+
+.doc-ai-step-detail {
+	line-height: 1.3;
+}
+
+.doc-ai-progress-note {
+	border-top: 1px solid var(--bs-border-color, #dee2e6);
+	padding-top: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+@keyframes doc-ai-pulse {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(var(--bs-primary-rgb, 13, 110, 253), 0.4); }
+	50% { box-shadow: 0 0 0 6px rgba(var(--bs-primary-rgb, 13, 110, 253), 0); }
 }

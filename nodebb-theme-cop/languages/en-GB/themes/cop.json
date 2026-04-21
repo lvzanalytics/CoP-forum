@@ -81,5 +81,12 @@
 	"landing.prefooter_support": "Support",
 	"landing.prefooter_register": "Registration",
 	"landing.prefooter_login": "Sign in",
-	"landing.prefooter_contact": "Contact"
+	"landing.prefooter_contact": "Contact",
+
+	"ai.summary_title": "AI Summary",
+	"ai.summarize": "Summarise this discussion",
+	"ai.refresh": "Refresh summary",
+	"ai.generating": "Generating summary...",
+	"ai.catchup_text": "You've been away for a while — catch up on recent discussions.",
+	"ai.catchup_button": "Catch up"
 }

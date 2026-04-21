@@ -54,6 +54,30 @@
 		</div>
 	</div>
 
+	<!-- AI Discussion Summary -->
+	{{{ if canSummarize }}}
+	<div class="cop-ai-summary-section py-3 border-bottom">
+		{{{ if aiSummary }}}
+		<div component="copai/summary" class="mb-2">
+			<div class="d-flex align-items-center gap-2 mb-2">
+				<i class="fa fa-robot text-muted"></i>
+				<span class="fw-semibold small text-muted">[[themes/cop:ai.summary_title]]</span>
+			</div>
+			<div class="cop-ai-summary-text">{aiSummary}</div>
+		</div>
+		{{{ end }}}
+		<div class="d-flex gap-2 align-items-center">
+			<button class="btn btn-sm btn-outline-secondary" component="copai/summarize-btn" data-tid="{tid}">
+				<i class="fa fa-wand-magic-sparkles me-1"></i>
+				{{{ if aiSummary }}}[[themes/cop:ai.refresh]]{{{ else }}}[[themes/cop:ai.summarize]]{{{ end }}}
+			</button>
+		</div>
+		<div component="copai/summary-loading" class="d-none text-center py-3">
+			<i class="fa fa-spinner fa-spin"></i> [[themes/cop:ai.generating]]
+		</div>
+	</div>
+	{{{ end }}}
+
 	<!-- Messages area -->
 	<div class="flex-fill">
 		<!-- IMPORT partials/post_bar.tpl -->

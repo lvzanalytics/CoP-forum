@@ -160,10 +160,36 @@ async function getDocuments(docIds) {
 		if (doc && doc.category) {
 			doc.categoryLabel = `[[cop-documents:doc_category.${doc.category}]]`;
 		}
+		if (doc) {
+			doc.aiSummary = doc['ai:summary'] || null;
+		}
 	});
 
 	return docs;
 }
+
+documents.getByUid = async function (uid) {
+	const docIds = await db.getSortedSetRevRange(`uid:${uid}:documents`, 0, -1);
+	if (!docIds.length) return [];
+	const keys = docIds.map(id => `document:${id}`);
+	const docs = await db.getObjects(keys);
+
+	const usersData = await User.getUsersFields([uid], ['uid', 'username', 'userslug', 'picture']);
+	const userData = usersData[0] || {};
+
+	return docs.filter(Boolean).map((doc) => {
+		doc.user = userData;
+		if (doc.tags && typeof doc.tags === 'string') {
+			doc.tagsArray = doc.tags.split(',').map(t => t.trim()).filter(Boolean);
+		}
+		if (doc.category) {
+			doc.categoryLabel = `[[cop-documents:doc_category.${doc.category}]]`;
+		}
+		doc.statusLabel = `[[cop-documents:view.status_${doc.status || 'pending'}]]`;
+		doc.aiSummary = doc['ai:summary'] || null;
+		return doc;
+	});
+};
 
 documents.getPending = async function () {
 	const docIds = await db.getSortedSetRevRange('documents:pending', 0, -1);

@@ -81,5 +81,12 @@
 	"landing.prefooter_support": "Support",
 	"landing.prefooter_register": "Inscription",
 	"landing.prefooter_login": "Connexion",
-	"landing.prefooter_contact": "Contact"
+	"landing.prefooter_contact": "Contact",
+
+	"ai.summary_title": "Résumé IA",
+	"ai.summarize": "Résumer cette discussion",
+	"ai.refresh": "Actualiser le résumé",
+	"ai.generating": "Génération du résumé...",
+	"ai.catchup_text": "Vous étiez absent(e) depuis un moment — consultez un résumé des discussions récentes.",
+	"ai.catchup_button": "Rattraper mon retard"
 }

@@ -43,6 +43,7 @@
 	"summary_modal.title": "Discussion Summary",
 	"summary_modal.loading": "Generating summary...",
 	"summary_modal.empty": "No summary available",
+	"summary_modal.refresh": "Refresh summary",
 
 	"doc_summary.title": "AI Summary",
 	"doc_summary.generate": "Generate summary",

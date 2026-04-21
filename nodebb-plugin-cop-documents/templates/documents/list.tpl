@@ -61,11 +61,14 @@
 		{{{ end }}}
 		{{{ end }}}
 
-		<!-- Upload Button -->
+		<!-- Action Buttons -->
 		{{{ if loggedIn }}}
-		<div class="mb-3">
+		<div class="mb-3 d-flex flex-wrap gap-2">
 			<a href="{config.relative_path}/documents/upload" class="btn btn-success">
 				<i class="fa fa-upload me-1"></i> [[cop-documents:library.upload_btn]]
+			</a>
+			<a href="{config.relative_path}/documents/my" class="btn btn-outline-secondary">
+				<i class="fa fa-folder-o me-1"></i> [[cop-documents:my.title]]
 			</a>
 		</div>
 		{{{ end }}}
@@ -92,6 +95,12 @@
 							<span><i class="fa fa-calendar-o"></i> {./date}</span>
 						</div>
 						<p class="doc-card-desc">{./description}</p>
+						{{{ if ./aiSummary }}}
+						<div class="doc-card-ai-snippet">
+							<span class="doc-card-ai-badge"><i class="fa fa-robot"></i> IA</span>
+							<span>{./aiSummary}</span>
+						</div>
+						{{{ end }}}
 						{{{ if ./tagsArray.length }}}
 						<div class="doc-card-tags">
 							{{{ each ./tagsArray }}}

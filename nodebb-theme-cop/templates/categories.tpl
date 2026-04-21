@@ -11,6 +11,15 @@
 		<p class="cop-hero__tagline">[[themes/cop:hero.tagline]]</p>
 	</div>
 
+	{{{ if showCatchupBanner }}}
+	<div class="cop-catchup-banner alert d-flex align-items-center justify-content-between mt-3">
+		<span><i class="fa fa-clock-rotate-left me-2"></i>[[themes/cop:ai.catchup_text]]</span>
+		<button class="btn btn-sm btn-primary ms-3" component="copai/catchup-btn">
+			[[themes/cop:ai.catchup_button]]
+		</button>
+	</div>
+	{{{ end }}}
+
 	{{{ if pagination.pages.length }}}
 	<div class="pt-3"><!-- IMPORT partials/category/selector-dropdown-left.tpl --></div>
 	{{{ end }}}

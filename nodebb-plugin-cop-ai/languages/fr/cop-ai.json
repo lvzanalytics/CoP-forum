@@ -43,6 +43,7 @@
 	"summary_modal.title": "Résumé de la discussion",
 	"summary_modal.loading": "Génération du résumé en cours...",
 	"summary_modal.empty": "Aucun résumé disponible",
+	"summary_modal.refresh": "Actualiser le résumé",
 
 	"doc_summary.title": "Résumé IA",
 	"doc_summary.generate": "Générer le résumé",

@@ -4,7 +4,7 @@ const controllers = require('./lib/controllers');
 const settings = require('./lib/settings');
 const cache = require('./lib/cache');
 const discussionSummary = require('./lib/discussion-summary');
-const documentSummary = require('./lib/document-summary');
+const catchupDigest = require('./lib/catchup-digest');
 
 const routeHelpers = require.main.require('./src/routes/helpers');
 const privileges = require.main.require('./src/privileges');
@@ -19,10 +19,7 @@ plugin.init = async function (params) {
 	// Admin page
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/cop-ai', [], controllers.renderAdmin);
 
-	// API routes
-	routeHelpers.setupApiRoute(router, 'get', '/api/v3/plugins/cop-ai/documents/:docId/summary', [], controllers.getDocumentSummary);
-	routeHelpers.setupApiRoute(router, 'post', '/api/v3/plugins/cop-ai/documents/:docId/summarize', [middleware.ensureLoggedIn], controllers.generateDocumentSummary);
-	routeHelpers.setupApiRoute(router, 'get', '/api/v3/plugins/cop-ai/catchup/eligible', [middleware.ensureLoggedIn], controllers.checkCatchupEligible);
+	// API routes — catchup digest (modal AJAX) + usage stats
 	routeHelpers.setupApiRoute(router, 'get', '/api/v3/plugins/cop-ai/catchup', [middleware.ensureLoggedIn], controllers.getCatchupDigest);
 	routeHelpers.setupApiRoute(router, 'get', '/api/v3/plugins/cop-ai/usage', [middleware.ensureLoggedIn], controllers.getUsageStats);
 
@@ -44,29 +41,60 @@ plugin.addAdminNavigation = async function (header) {
 	return header;
 };
 
-plugin.filterTopicThreadTools = async function (hookData) {
+// filter:topic.build — inject discussion summary data into topic template
+plugin.filterTopicBuild = async function (hookData) {
 	const currentSettings = await settings.get();
 	if (currentSettings.enableDiscussionSummary !== 'on') {
 		return hookData;
 	}
 
-	const uid = hookData.uid;
+	const uid = hookData.req ? hookData.req.uid : 0;
 	const accessLevel = currentSettings.discussionSummaryAccess;
 	if (accessLevel === 'disabled') return hookData;
 	if (accessLevel === 'members' && !uid) return hookData;
 
 	// Check minimum replies
 	const minReplies = parseInt(currentSettings.minRepliesForSummary, 10) || 15;
-	const topicData = await topics.getTopicFields(hookData.tid, ['postcount']);
-	if ((parseInt(topicData.postcount, 10) || 0) < minReplies) {
+	const postcount = parseInt(hookData.templateData.postcount, 10) || 0;
+	if (postcount < minReplies) {
 		return hookData;
 	}
 
-	hookData.tools.push({
-		class: 'copai-summarize-topic',
-		icon: 'fa-wand-magic-sparkles',
-		title: '[[cop-ai:summarize_discussion]]',
-	});
+	hookData.templateData.canSummarize = true;
+
+	// Read cached summary
+	const tid = hookData.templateData.tid;
+	const cached = await cache.getDiscussionSummary(tid);
+	if (cached.summary) {
+		hookData.templateData.aiSummary = cached.summary;
+		hookData.templateData.aiSummaryTs = cached.summaryTs;
+	}
+
+	return hookData;
+};
+
+// filter:categories.build — inject catchup eligibility into categories template
+plugin.filterCategoriesBuild = async function (hookData) {
+	const currentSettings = await settings.get();
+	if (currentSettings.enableCatchupDigest !== 'on') {
+		return hookData;
+	}
+
+	const uid = hookData.req ? hookData.req.uid : 0;
+	if (!uid) return hookData;
+
+	const accessLevel = currentSettings.catchupDigestAccess;
+	if (accessLevel === 'disabled') return hookData;
+
+	try {
+		const eligible = await catchupDigest.isEligible(uid, currentSettings);
+		if (eligible) {
+			hookData.templateData.showCatchupBanner = true;
+		}
+	} catch (err) {
+		// Silently fail — no banner shown
+	}
+
 	return hookData;
 };
 
@@ -92,6 +120,7 @@ plugin.actionPostChangeOwner = async function (hookData) {
 // Document hooks
 plugin.onDocumentApproved = async function (hookData) {
 	try {
+		const documentSummary = require('./lib/document-summary');
 		const currentSettings = await settings.get();
 		if (currentSettings.enableDocSummary !== 'on' || (!currentSettings.apiKey && !(currentSettings.provider === 'agent-sdk' && currentSettings.loginMethod === 'claudeai'))) {
 			return;

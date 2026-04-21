@@ -3,7 +3,8 @@
   "hooks": [
     { "hook": "static:app.load", "method": "init" },
     { "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
-    { "hook": "filter:topic.thread_tools", "method": "filterTopicThreadTools" },
+    { "hook": "filter:topic.build", "method": "filterTopicBuild" },
+    { "hook": "filter:categories.build", "method": "filterCategoriesBuild" },
     { "hook": "action:posts.purge", "method": "actionPostsPurge" },
     { "hook": "action:post.delete", "method": "actionPostDelete" },
     { "hook": "action:post.move", "method": "actionPostMove" },
@@ -20,6 +21,9 @@
   "scss": [
     "scss/cop-ai.scss"
   ],
+  "staticDirs": {
+    "cop-ai": "public"
+  },
   "templates": "templates",
   "languages": "languages"
 }

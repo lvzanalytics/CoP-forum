@@ -1,37 +1,18 @@
-.copai-summary-container {
-  .copai-summary-text {
-    line-height: 1.6;
-    font-size: 0.95rem;
+// cop-ai — Styles for discussion summary modal + catchup modal only
+// Document and catchup banner styles live in cop-documents and cop-theme respectively.
 
-    p {
-      margin-bottom: 0.5rem;
-    }
+.copai-summary-text {
+  line-height: 1.6;
+  font-size: 0.95rem;
 
-    li {
-      margin-left: 1rem;
-      list-style: disc;
-    }
-  }
-}
-
-.copai-doc-summary {
-  border-left: 3px solid var(--bs-primary);
-
-  .card-title {
-    color: var(--bs-primary);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  p {
+    margin-bottom: 0.5rem;
   }
 
-  .card-text {
-    font-size: 0.92rem;
-    line-height: 1.5;
+  li {
+    margin-left: 1rem;
+    list-style: disc;
   }
-}
-
-.copai-catchup-banner {
-  border-left: 4px solid var(--bs-info);
 }
 
 .copai-digest-text {

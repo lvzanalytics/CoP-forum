@@ -20,6 +20,7 @@
     "@ai-sdk/google": "^3.0.0",
     "@anthropic-ai/claude-agent-sdk": "^0.2.101",
     "pdf-parse": "^1.1.1",
-    "mammoth": "^1.8.0"
+    "mammoth": "^1.8.0",
+    "zod": "^4.0.0"
   }
 }

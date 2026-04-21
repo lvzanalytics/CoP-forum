@@ -10,8 +10,10 @@ const textExtractor = require('./text-extractor');
 
 const documentSummary = module.exports;
 
-const MAX_CHARS_SINGLE_PASS = 12000;
-const CHUNK_SIZE = 10000;
+// Claude handles ~200k tokens. 200k chars ≈ 50k tokens — comfortably fits
+// 50-100 page docs in a single pass.
+const MAX_CHARS_SINGLE_PASS = 200000;
+const CHUNK_SIZE = 150000;
 
 function chunkText(text) {
 	const chunks = [];
@@ -97,7 +99,8 @@ async function summarizeWithContent(metadata, text, settings) {
 		return result.text;
 	}
 
-	// Multi-pass: chunk the text, summarize each, then combine
+	// Multi-pass for very large documents (500+ pages)
+	console.log(`[cop-ai] Large document: ${text.length} chars, chunking into ${Math.ceil(text.length / CHUNK_SIZE)} parts`);
 	const chunks = chunkText(text);
 	const chunkSummaries = [];
 
