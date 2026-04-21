@@ -77,12 +77,18 @@ cache.getDigest = async function (uid) {
 	return data || null;
 };
 
+cache.getSharedDigest = async function () {
+	const data = await db.getObject('copai:digest:shared');
+	return data || null;
+};
+
 cache.setDigest = async function (uid, digest) {
-	await db.setObject(`copai:digest:${uid}`, {
-		content: digest,
-		timestamp: Date.now(),
-	});
-	await db.sortedSetAdd('copai:digest:uids', Date.now(), uid);
+	const now = Date.now();
+	const payload = { content: digest, timestamp: now };
+	await db.setObject(`copai:digest:${uid}`, payload);
+	// Also store as shared digest so all members can see it
+	await db.setObject('copai:digest:shared', payload);
+	await db.sortedSetAdd('copai:digest:uids', now, uid);
 };
 
 cache.isDigestValid = function (cached, settings) {

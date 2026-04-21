@@ -126,9 +126,15 @@ plugin.filterCategoriesBuild = async function (hookData) {
 		const accessLevel = currentSettings.catchupDigestAccess;
 		if (accessLevel !== 'disabled') {
 			hookData.templateData.showDigestWidget = true;
-			// Check cached digest
+			// Check cached digest — admins see their own, members see the shared one
 			try {
-				const cached = await cache.getDigest(uid);
+				let cached;
+				if (isAdmin) {
+					cached = await cache.getDigest(uid);
+				}
+				if (!cached || !cached.content || !cache.isDigestValid(cached, currentSettings)) {
+					cached = await cache.getSharedDigest();
+				}
 				if (cached && cached.content && cache.isDigestValid(cached, currentSettings)) {
 					hookData.templateData.digestContent = cached.content;
 				}
