@@ -38,9 +38,14 @@ catchupDigest.generate = async function (uid, settings) {
 	}
 
 	const lastonline = await user.getUserField(uid, 'lastonline');
-	const since = parseInt(lastonline, 10) || (Date.now() - 14 * 24 * 60 * 60 * 1000);
+	const sinceLastOnline = parseInt(lastonline, 10) || 0;
 
-	// Get recent topics since user was last online
+	// For active users (online within 7 days), use a 7-day window so admins
+	// who are never truly absent can still generate useful digests
+	const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+	const since = sinceLastOnline > sevenDaysAgo ? sevenDaysAgo : (sinceLastOnline || sevenDaysAgo);
+
+	// Get recent topics since the computed window
 	const tids = await db.getSortedSetRangeByScore('topics:recent', 0, 50, since, '+inf');
 	if (!tids.length) {
 		return null;

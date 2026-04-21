@@ -9,23 +9,71 @@
   padding: 0 16px;
 }
 
-// ---- Compact page header ----
-.cop-channels-header {
-  padding: 24px 0 16px;
+// ---- Hero banner ----
+.cop-channels-hero {
+  position: relative;
+  border-radius: $radius-lg;
+  padding: 40px 36px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  min-height: 160px;
+  display: flex;
+  align-items: flex-end;
 
-  .cop-channels-title {
-    font-size: $type-h2;
-    font-weight: 700;
-    color: $text-primary;
-    margin: 0 0 4px;
-    letter-spacing: -0.02em;
+  @media (max-width: 575.98px) {
+    padding: 28px 20px;
+    min-height: 130px;
   }
+}
 
-  .cop-channels-subtitle {
-    font-size: $type-body-sm;
-    color: $text-secondary;
-    margin: 0;
-    line-height: 1.5;
+.cop-channels-hero-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url('/plugins/nodebb-theme-cop/cop/landing/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.03);
+}
+
+.cop-channels-hero-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.45) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.cop-channels-hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cop-channels-title {
+  font-size: $type-h1;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 575.98px) {
+    font-size: $type-h2;
+  }
+}
+
+.cop-channels-subtitle {
+  font-size: $type-body-sm;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  line-height: 1.55;
+  max-width: 540px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 575.98px) {
+    font-size: $type-caption;
   }
 }
 
@@ -348,6 +396,45 @@
 
 .cop-event-time {
   font-size: $type-caption;
+}
+
+// Past events — subtle muted treatment
+.cop-past-events-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 4px;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: $border-subtle;
+  }
+
+  span {
+    font-size: $type-overline;
+    font-weight: 500;
+    color: $text-tertiary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+}
+
+.cop-event-past {
+  opacity: 0.65;
+
+  &:hover { opacity: 0.85; }
+}
+
+.cop-event-date-past {
+  background: $surface-secondary !important;
+
+  .cop-event-day,
+  .cop-event-month {
+    color: $text-tertiary !important;
+  }
 }
 
 // ---- Document item ----

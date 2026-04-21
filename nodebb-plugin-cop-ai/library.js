@@ -136,13 +136,22 @@ plugin.filterCategoriesBuild = async function (hookData) {
 		}
 	}
 
-	// Upcoming events widget
+	// Events widget — upcoming + recent past
 	try {
 		const eventsLib = require('nodebb-plugin-cop-events/lib/events');
 		const upcomingEvents = await eventsLib.getUpcoming(0, 2);
 		hookData.templateData.upcomingEvents = upcomingEvents || [];
+		// Show up to 2 recent past events if fewer than 3 upcoming
+		const pastSlots = 3 - (upcomingEvents ? upcomingEvents.length : 0);
+		if (pastSlots > 0) {
+			const pastEvents = await eventsLib.getPast(0, pastSlots - 1);
+			hookData.templateData.pastEvents = pastEvents || [];
+		} else {
+			hookData.templateData.pastEvents = [];
+		}
 	} catch (err) {
 		hookData.templateData.upcomingEvents = [];
+		hookData.templateData.pastEvents = [];
 	}
 
 	// Recent documents widget

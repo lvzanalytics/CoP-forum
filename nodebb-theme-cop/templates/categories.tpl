@@ -1,8 +1,12 @@
 <div class="cop-channels-page flex-fill">
-	<!-- Compact Page Header -->
-	<div class="cop-channels-header">
-		<h1 class="cop-channels-title">[[themes/cop:channels.title]]</h1>
-		<p class="cop-channels-subtitle">[[themes/cop:channels.subtitle]]</p>
+	<!-- Hero Banner -->
+	<div class="cop-channels-hero">
+		<div class="cop-channels-hero-bg"></div>
+		<div class="cop-channels-hero-overlay"></div>
+		<div class="cop-channels-hero-content">
+			<h1 class="cop-channels-title">{config.siteTitle}</h1>
+			<p class="cop-channels-subtitle">[[themes/cop:hero.tagline]]</p>
+		</div>
 	</div>
 
 	<!-- Two-column layout -->
@@ -48,7 +52,7 @@
 				{{{ end }}}
 				{{{ end }}}
 
-				<!-- Upcoming Events Widget -->
+				<!-- Events Widget -->
 				<div class="cop-widget">
 					<div class="cop-widget-header">
 						<i class="fa fa-calendar"></i>
@@ -59,24 +63,47 @@
 						{{{ each upcomingEvents }}}
 						<a href="{config.relative_path}/events/{./slug}" class="cop-event-item">
 							<div class="cop-event-date-badge">
-								<span class="cop-event-day">{./dayOfMonth}</span>
-								<span class="cop-event-month">{./monthShort}</span>
+								<span class="cop-event-day">{./day}</span>
+								<span class="cop-event-month">{./month}</span>
 							</div>
 							<div class="cop-event-info">
 								<div class="cop-event-title">{./title}</div>
-								<div class="cop-event-time text-muted small">{./timeString}</div>
+								<div class="cop-event-time text-muted small">{./startTimeFormatted}</div>
 							</div>
 						</a>
 						{{{ end }}}
-						<a href="{config.relative_path}/events" class="cop-widget-link">
-							[[themes/cop:widget.events_all]] <i class="fa fa-arrow-right fa-sm"></i>
+						{{{ end }}}
+
+						{{{ if pastEvents.length }}}
+						<div class="cop-past-events-divider">
+							<span>[[themes/cop:widget.events_past]]</span>
+						</div>
+						{{{ each pastEvents }}}
+						<a href="{config.relative_path}/events/{./slug}" class="cop-event-item cop-event-past">
+							<div class="cop-event-date-badge cop-event-date-past">
+								<span class="cop-event-day">{./day}</span>
+								<span class="cop-event-month">{./month}</span>
+							</div>
+							<div class="cop-event-info">
+								<div class="cop-event-title">{./title}</div>
+								<div class="cop-event-time text-muted small">{./startDateFormatted}</div>
+							</div>
 						</a>
-						{{{ else }}}
+						{{{ end }}}
+						{{{ end }}}
+
+						{{{ if !upcomingEvents.length }}}
+						{{{ if !pastEvents.length }}}
 						<div class="cop-widget-empty">
 							<i class="fa fa-calendar-xmark"></i>
 							<p>[[themes/cop:widget.events_empty]]</p>
 						</div>
 						{{{ end }}}
+						{{{ end }}}
+
+						<a href="{config.relative_path}/events" class="cop-widget-link">
+							[[themes/cop:widget.events_all]] <i class="fa fa-arrow-right fa-sm"></i>
+						</a>
 					</div>
 				</div>
 
@@ -91,7 +118,7 @@
 						{{{ each recentDocuments }}}
 						<a href="{config.relative_path}/documents/{./docId}" class="cop-doc-item">
 							<div class="cop-doc-icon">
-								<i class="fa fa-file-{./fileTypeIcon}"></i>
+								<i class="fa fa-file-lines"></i>
 							</div>
 							<div class="cop-doc-info">
 								<div class="cop-doc-title">{./title}</div>

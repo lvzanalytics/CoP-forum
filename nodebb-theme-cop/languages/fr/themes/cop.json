@@ -99,6 +99,7 @@
 	"widget.digest_generate": "Générer la synthèse",
 
 	"widget.events_title": "Prochaines rencontres",
+	"widget.events_past": "Passées récemment",
 	"widget.events_empty": "Aucune rencontre prévue prochainement.",
 	"widget.events_all": "Voir toutes les rencontres",
 

@@ -99,6 +99,7 @@
 	"widget.digest_generate": "Generate digest",
 
 	"widget.events_title": "Upcoming Events",
+	"widget.events_past": "Recently held",
 	"widget.events_empty": "No upcoming events scheduled.",
 	"widget.events_all": "View all events",
 
