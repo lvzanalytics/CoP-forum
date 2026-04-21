@@ -1,12 +1,12 @@
 'use strict';
 
-// Format digest markdown on categories page load
-$(window).on('action:ajaxify.end', function (ev, data) {
-	if (data.url === 'categories' || data.url === 'categories/') {
-		var contentEl = $('[component="copai/digest-content"]');
-		if (contentEl.length && contentEl.text().trim()) {
-			var raw = contentEl.text().trim();
-			contentEl.html(formatSummary(raw));
+// Format cached digest markdown → HTML on categories page (same pattern as discussion/document summaries)
+$(window).on('action:ajaxify.end', function () {
+	var el = $('[component="copai/digest-content"][data-raw-digest]');
+	if (el.length) {
+		var raw = el.attr('data-raw-digest');
+		if (raw) {
+			el.html(formatSummary(raw));
 		}
 	}
 });
@@ -165,52 +165,69 @@ function updateDigestWidget(digestHtml) {
 
 function formatSummary(text) {
 	var html = escapeHtml(text);
-
-	// Bold
-	html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-	// Italic
-	html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-	// Split into paragraphs on double newlines
-	var paragraphs = html.split(/\n{2,}/);
+	var lines = html.split('\n');
 	var result = [];
+	var i = 0;
 
-	paragraphs.forEach(function (para) {
-		para = para.trim();
-		if (!para) return;
+	while (i < lines.length) {
+		var line = lines[i];
+
+		// Blank line
+		if (!line.trim()) { i++; continue; }
+
+		// Headings
+		var hMatch = line.match(/^(#{1,6})\s+(.+)$/);
+		if (hMatch) {
+			var level = Math.min(hMatch[1].length + 1, 6);
+			result.push('<h' + level + '>' + inlineFormat(hMatch[2]) + '</h' + level + '>');
+			i++; continue;
+		}
 
 		// Horizontal rule
-		if (/^-{3,}$/.test(para)) {
+		if (/^-{3,}$/.test(line.trim())) {
 			result.push('<hr>');
-			return;
+			i++; continue;
 		}
 
-		// Check if it's a list block (lines starting with - or •)
-		var lines = para.split('\n');
-		var allList = lines.every(function (l) { return /^\s*[-•]\s/.test(l) || !l.trim(); });
-		if (allList && lines.some(function (l) { return /^\s*[-•]\s/.test(l); })) {
-			var items = lines
-				.filter(function (l) { return /^\s*[-•]\s/.test(l); })
-				.map(function (l) { return '<li>' + l.replace(/^\s*[-•]\s+/, '') + '</li>'; });
+		// Unordered list block
+		if (/^\s*[-•]\s/.test(line)) {
+			var items = [];
+			while (i < lines.length && /^\s*[-•]\s/.test(lines[i])) {
+				items.push('<li>' + inlineFormat(lines[i].replace(/^\s*[-•]\s+/, '')) + '</li>');
+				i++;
+			}
 			result.push('<ul>' + items.join('') + '</ul>');
-			return;
+			continue;
 		}
 
-		// Check if it's a numbered list
-		var allNumbered = lines.every(function (l) { return /^\s*\d+[.)]\s/.test(l) || !l.trim(); });
-		if (allNumbered && lines.some(function (l) { return /^\s*\d+[.)]\s/.test(l); })) {
-			var items = lines
-				.filter(function (l) { return /^\s*\d+[.)]\s/.test(l); })
-				.map(function (l) { return '<li>' + l.replace(/^\s*\d+[.)]\s+/, '') + '</li>'; });
+		// Ordered list block
+		if (/^\s*\d+[.)]\s/.test(line)) {
+			var items = [];
+			while (i < lines.length && /^\s*\d+[.)]\s/.test(lines[i])) {
+				items.push('<li>' + inlineFormat(lines[i].replace(/^\s*\d+[.)]\s+/, '')) + '</li>');
+				i++;
+			}
 			result.push('<ol>' + items.join('') + '</ol>');
-			return;
+			continue;
 		}
 
-		// Regular paragraph — preserve single line breaks
-		result.push('<p>' + para.replace(/\n/g, '<br>') + '</p>');
-	});
+		// Paragraph — collect consecutive non-blank, non-special lines
+		var paraLines = [];
+		while (i < lines.length && lines[i].trim() && !/^#{1,6}\s/.test(lines[i]) &&
+			!/^\s*[-•]\s/.test(lines[i]) && !/^\s*\d+[.)]\s/.test(lines[i]) && !/^-{3,}$/.test(lines[i].trim())) {
+			paraLines.push(lines[i]);
+			i++;
+		}
+		result.push('<p>' + inlineFormat(paraLines.join('<br>')) + '</p>');
+	}
 
 	return result.join('');
+}
+
+function inlineFormat(text) {
+	return text
+		.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+		.replace(/\*(.+?)\*/g, '<em>$1</em>');
 }
 
 function stripMarkdown(text) {

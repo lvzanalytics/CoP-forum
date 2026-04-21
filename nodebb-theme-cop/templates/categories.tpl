@@ -35,7 +35,7 @@
 					</div>
 					<div class="cop-widget-body">
 						{{{ if digestContent }}}
-						<div class="cop-digest-content" component="copai/digest-content">{digestContent}</div>
+						<div class="cop-digest-content" component="copai/digest-content" data-raw-digest="{digestContent}"></div>
 						{{{ else }}}
 						<div class="cop-widget-empty" component="copai/digest-empty">
 							<i class="fa fa-sparkles"></i>

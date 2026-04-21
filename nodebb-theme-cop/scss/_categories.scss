@@ -331,11 +331,29 @@
   font-size: $type-caption;
   line-height: 1.65;
   color: $text-primary;
-  max-height: 200px;
+  max-height: 280px;
   overflow-y: auto;
+
+  h2, h3, h4, h5, h6 {
+    font-size: $type-body-sm;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0.75rem 0 0.25rem;
+    letter-spacing: -0.01em;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  h3, h4, h5, h6 {
+    font-size: $type-caption;
+    color: $text-secondary;
+  }
 
   p { margin-bottom: 0.5rem; }
   ul, ol { margin-bottom: 0.5rem; padding-left: 1.25rem; }
+  li { margin-bottom: 0.2rem; }
+  hr { margin: 0.5rem 0; border-color: $border-subtle; }
+  strong { font-weight: 600; }
 }
 
 // ---- Event item ----
