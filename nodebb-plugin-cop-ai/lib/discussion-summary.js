@@ -36,8 +36,23 @@ function chunkPosts(postList, maxTokensPerChunk = 3000) {
 
 function formatPosts(postList) {
 	return postList
-		.map(p => `${p.username} :\n${p.content}`)
-		.join('\n---\n');
+		.map((p, i) => {
+			const role = i === 0 && p.isAuthor ? ' (auteur du sujet)' : '';
+			return `**${p.username}**${role} :\n${p.content}`;
+		})
+		.join('\n\n---\n\n');
+}
+
+function buildContext(postList) {
+	const authorPost = postList.find(p => p.isAuthor);
+	const repliers = [...new Set(postList.filter(p => !p.isAuthor).map(p => p.username))];
+	const replyCount = postList.filter(p => !p.isAuthor).length;
+
+	return {
+		author: authorPost ? authorPost.username : 'Inconnu',
+		replyCount,
+		replierCount: repliers.length,
+	};
 }
 
 discussionSummary.summarize = async function (tid, uid, settings) {
@@ -48,7 +63,7 @@ discussionSummary.summarize = async function (tid, uid, settings) {
 	}
 
 	// Check cache
-	const topicData = await topics.getTopicFields(tid, ['postcount']);
+	const topicData = await topics.getTopicFields(tid, ['postcount', 'title']);
 	const currentReplyCount = parseInt(topicData.postcount, 10) || 0;
 	const cached = await cache.getDiscussionSummary(tid);
 
@@ -57,7 +72,7 @@ discussionSummary.summarize = async function (tid, uid, settings) {
 	}
 
 	// Generate summary
-	const summary = await generateSummary(tid, settings);
+	const summary = await generateSummary(tid, topicData.title, settings);
 
 	// Cache result
 	await cache.setDiscussionSummary(tid, summary, currentReplyCount);
@@ -68,13 +83,13 @@ discussionSummary.summarize = async function (tid, uid, settings) {
 	return summary;
 };
 
-async function generateSummary(tid, settings) {
+async function generateSummary(tid, topicTitle, settings) {
 	const allPids = await topics.getPids(tid);
 	const userMap = {};
 	const allPostData = [];
 
 	await batch.processArray(allPids, async function (pids) {
-		let postData = await posts.getPostsFields(pids, ['uid', 'content', 'deleted']);
+		let postData = await posts.getPostsFields(pids, ['uid', 'content', 'deleted', 'upvotes', 'timestamp']);
 		postData = postData.filter(p => p && !p.deleted);
 
 		const missingUids = postData
@@ -89,22 +104,26 @@ async function generateSummary(tid, settings) {
 		}
 
 		postData.forEach((p) => {
-			p.username = userMap[p.uid] || 'Unknown';
+			p.username = userMap[p.uid] || 'Inconnu';
 		});
 
 		allPostData.push(...postData);
 	}, { batch: 500 });
 
-	// Strip PII
-	const { posts: sanitizedPosts } = sanitize.stripPII(allPostData);
+	// Clean content (strip HTML, emails) but keep usernames
+	const { posts: cleanedPosts } = sanitize.cleanContent(allPostData);
+	const context = buildContext(cleanedPosts);
 
-	const chunks = chunkPosts(sanitizedPosts);
+	const contextLine = `Titre de la discussion : « ${topicTitle} »\n` +
+		`Auteur : ${context.author} | ${context.replyCount} réponse(s) de ${context.replierCount} intervenant(s)\n\n`;
+
+	const chunks = chunkPosts(cleanedPosts);
 
 	if (chunks.length === 1) {
 		const text = formatPosts(chunks[0]);
 		const result = await provider.generate(
 			prompts.DISCUSSION_SUMMARY_SYSTEM,
-			`Résumez la discussion suivante :\n\n${text}`,
+			`${contextLine}${text}`,
 			settings
 		);
 		if (result.usage) {
@@ -119,7 +138,7 @@ async function generateSummary(tid, settings) {
 		const text = formatPosts(chunk);
 		const result = await provider.generate(
 			prompts.DISCUSSION_CHUNK_SYSTEM,
-			`Résumez cet extrait de discussion :\n\n${text}`,
+			`${contextLine}${text}`,
 			settings
 		);
 		if (result.text) {
@@ -134,7 +153,7 @@ async function generateSummary(tid, settings) {
 	const combined = chunkSummaries.join('\n\n');
 	const finalResult = await provider.generate(
 		prompts.DISCUSSION_FINAL_SYSTEM,
-		`Voici les résumés partiels d'une discussion :\n\n${combined}\n\nProduisez la synthèse finale.`,
+		`${contextLine}Résumés partiels :\n\n${combined}\n\nProduisez la synthèse finale.`,
 		settings
 	);
 	if (finalResult.usage) {

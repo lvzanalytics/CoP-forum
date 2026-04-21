@@ -86,6 +86,7 @@
 	"ai.summary_title": "Résumé IA",
 	"ai.summarize": "Résumer cette discussion",
 	"ai.refresh": "Actualiser le résumé",
+	"ai.read_more": "Lire le résumé complet",
 	"ai.generating": "Génération du résumé...",
 	"ai.catchup_text": "Vous étiez absent(e) depuis un moment — consultez un résumé des discussions récentes.",
 	"ai.catchup_button": "Rattraper mon retard"

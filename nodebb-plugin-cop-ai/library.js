@@ -74,6 +74,28 @@ plugin.filterTopicBuild = async function (hookData) {
 	if (cached.summary) {
 		hookData.templateData.aiSummary = cached.summary;
 		hookData.templateData.aiSummaryTs = cached.summaryTs;
+		// Truncated preview: strip markdown then truncate
+		const maxPreview = 280;
+		let plain = cached.summary
+			.replace(/\*\*(.+?)\*\*/g, '$1')
+			.replace(/\*(.+?)\*/g, '$1')
+			.replace(/^#{1,6}\s+/gm, '')
+			.replace(/^[-•]\s+/gm, '')
+			.replace(/^\d+[.)]\s+/gm, '')
+			.replace(/^-{3,}$/gm, '')
+			.replace(/\n{2,}/g, ' ')
+			.replace(/\n/g, ' ')
+			.replace(/\s{2,}/g, ' ')
+			.trim();
+		if (plain.length > maxPreview) {
+			plain = plain.slice(0, maxPreview);
+			const lastSpace = plain.lastIndexOf(' ');
+			if (lastSpace > maxPreview * 0.7) {
+				plain = plain.slice(0, lastSpace);
+			}
+			plain += '…';
+		}
+		hookData.templateData.aiSummaryPreview = plain;
 	}
 
 	return hookData;

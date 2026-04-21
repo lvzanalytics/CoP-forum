@@ -86,6 +86,7 @@
 	"ai.summary_title": "AI Summary",
 	"ai.summarize": "Summarise this discussion",
 	"ai.refresh": "Refresh summary",
+	"ai.read_more": "Read full summary",
 	"ai.generating": "Generating summary...",
 	"ai.catchup_text": "You've been away for a while — catch up on recent discussions.",
 	"ai.catchup_button": "Catch up"

@@ -1,104 +1,221 @@
 'use strict';
 
-$('document').ready(function () {
-	// Discussion summary — inline button in theme topic.tpl
-	$(document).on('click', '[component="copai/summarize-btn"]', function () {
-		const tid = $(this).attr('data-tid');
-		if (!tid) return;
+$(document).on('click', '[component="copai/summarize-btn"]', function () {
+	const tid = $(this).attr('data-tid');
+	if (!tid) return;
 
-		const btn = $(this);
-		const summaryContainer = $('[component="copai/summary"]');
-		const loadingEl = $('[component="copai/summary-loading"]');
+	const btn = $(this);
+	const section = btn.closest('.cop-ai-summary-section');
+	const summaryContainer = section.find('[component="copai/summary"]');
+	const loadingEl = section.find('[component="copai/summary-loading"]');
 
-		btn.prop('disabled', true);
-		loadingEl.removeClass('d-none');
+	btn.prop('disabled', true);
+	loadingEl.removeClass('d-none');
 
-		socket.emit('plugins.copai.summarizeTopic', { tid }, function (err, data) {
-			loadingEl.addClass('d-none');
-			btn.prop('disabled', false);
+	socket.emit('plugins.copai.summarizeTopic', { tid }, function (err, data) {
+		loadingEl.addClass('d-none');
+		btn.prop('disabled', false);
 
-			if (err) {
-				require(['alerts'], function (alerts) {
-					alerts.error(err.message);
-				});
-				return;
-			}
-			if (data) {
-				// Render or update summary inline
-				if (summaryContainer.length) {
-					summaryContainer.find('.cop-ai-summary-text').html(formatSummary(data));
-				} else {
-					// Create the summary container if it didn't exist
-					const html =
-						'<div component="copai/summary" class="mb-2">' +
-						'<div class="d-flex align-items-center gap-2 mb-2">' +
-						'<i class="fa fa-robot text-muted"></i>' +
-						'<span class="fw-semibold small text-muted">[[cop-ai:summary_modal.title]]</span>' +
-						'</div>' +
-						'<div class="cop-ai-summary-text">' + formatSummary(data) + '</div>' +
-						'</div>';
-					btn.closest('.cop-ai-summary-section').prepend(html);
+		if (err) {
+			require(['alerts'], function (alerts) {
+				alerts.error(err.message);
+			});
+			return;
+		}
+		if (data) {
+			const formatted = formatSummary(data);
+			const truncated = truncateHtml(data, 280);
+
+			if (summaryContainer.length) {
+				summaryContainer.find('.cop-ai-summary-preview').html(truncated);
+				summaryContainer.attr('data-full-summary', data);
+				summaryContainer.removeClass('d-none');
+				// Show "read more" only if text was truncated
+				if (data.length > 280) {
+					summaryContainer.find('.cop-ai-read-more').removeClass('d-none');
 				}
-				// Update button text to "refresh"
-				btn.find('i').nextAll().remove();
-				btn.append(' [[cop-ai:summary_modal.refresh]]');
+			} else {
+				// Build the container
+				require(['translator'], function (translator) {
+					translator.translate(
+						'[[themes/cop:ai.summary_title]]|[[themes/cop:ai.read_more]]|[[themes/cop:ai.refresh]]',
+						function (translated) {
+							var parts = translated.split('|');
+							var html =
+								'<div component="copai/summary" class="mb-2" data-full-summary="' + escapeAttr(data) + '">' +
+								'<div class="d-flex align-items-center gap-2 mb-2">' +
+								'<i class="fa fa-robot text-muted"></i>' +
+								'<span class="fw-semibold small text-muted">' + parts[0] + '</span>' +
+								'</div>' +
+								'<div class="cop-ai-summary-preview">' + truncated + '</div>' +
+								(data.length > 280
+									? '<button class="btn btn-sm btn-link p-0 mt-1 cop-ai-read-more">' + parts[1] + '</button>'
+									: '') +
+								'</div>';
+							section.find('[component="copai/summarize-btn"]').closest('.d-flex').before(html);
+							// Update button to refresh
+							btn.find('i').nextAll().remove();
+							btn.append(' ' + parts[2]);
+						}
+					);
+				});
 			}
-		});
+		}
 	});
+});
 
-	// Catchup digest — button in theme categories.tpl opens modal
-	$(document).on('click', '[component="copai/catchup-btn"]', function () {
-		openCatchupModal();
-	});
+// Read more — open full summary in modal
+$(document).on('click', '.cop-ai-read-more', function () {
+	var container = $(this).closest('[component="copai/summary"]');
+	var fullText = container.attr('data-full-summary');
+	if (!fullText) return;
 
-	function openCatchupModal() {
-		require(['bootbox'], function (bootbox) {
-			const modal = bootbox.dialog({
-				title: '[[cop-ai:catchup.modal_title]]',
-				message: '<div class="copai-catchup-content"><div class="text-center p-4"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><p class="mt-2">[[cop-ai:catchup.loading]]</p></div></div>',
+	require(['bootbox', 'translator'], function (bootbox, translator) {
+		translator.translate('[[themes/cop:ai.summary_title]]|[[global:close]]', function (translated) {
+			var parts = translated.split('|');
+			bootbox.dialog({
+				title: '<i class="fa fa-robot me-2"></i>' + parts[0],
+				message: '<div class="copai-modal-summary">' + formatSummary(fullText) + '</div>',
 				size: 'large',
 				buttons: {
 					ok: {
-						label: '[[global:close]]',
+						label: parts[1],
 						className: 'btn-primary',
 					},
 				},
 			});
-
-			$.get(config.relative_path + '/api/v3/plugins/cop-ai/catchup', function (res) {
-				if (res && res.response && res.response.digest) {
-					modal.find('.copai-catchup-content').html(
-						'<div class="copai-digest-text">' + formatSummary(res.response.digest) + '</div>'
-					);
-				} else {
-					modal.find('.copai-catchup-content').html(
-						'<div class="alert alert-info">[[cop-ai:catchup.no_activity]]</div>'
-					);
-				}
-			}).fail(function (xhr) {
-				modal.find('.copai-catchup-content').html(
-					'<div class="alert alert-danger">' +
-					(xhr.responseJSON && xhr.responseJSON.status ? xhr.responseJSON.status.message : 'Error') +
-					'</div>'
-				);
-			});
 		});
-	}
-
-	function formatSummary(text) {
-		// Convert markdown-like formatting to HTML
-		return escapeHtml(text)
-			.replace(/\n\n/g, '</p><p>')
-			.replace(/\n/g, '<br>')
-			.replace(/^/, '<p>')
-			.replace(/$/, '</p>')
-			.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-			.replace(/- (.+?)(<br>|<\/p>)/g, '<li>$1</li>$2');
-	}
-
-	function escapeHtml(text) {
-		const div = document.createElement('div');
-		div.textContent = text;
-		return div.innerHTML;
-	}
+	});
 });
+
+// Catchup digest — button in theme categories.tpl opens modal
+$(document).on('click', '[component="copai/catchup-btn"]', function () {
+	openCatchupModal();
+});
+
+function openCatchupModal() {
+	require(['bootbox', 'translator'], function (bootbox, translator) {
+		translator.translate(
+			'[[cop-ai:catchup.modal_title]]|[[cop-ai:catchup.loading]]|[[global:close]]|[[cop-ai:catchup.no_activity]]',
+			function (translated) {
+				var parts = translated.split('|');
+				var modal = bootbox.dialog({
+					title: parts[0],
+					message: '<div class="copai-catchup-content"><div class="text-center p-4"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><p class="mt-2">' + parts[1] + '</p></div></div>',
+					size: 'large',
+					buttons: {
+						ok: {
+							label: parts[2],
+							className: 'btn-primary',
+						},
+					},
+				});
+
+				$.get(config.relative_path + '/api/v3/plugins/cop-ai/catchup', function (res) {
+					if (res && res.response && res.response.digest) {
+						modal.find('.copai-catchup-content').html(
+							'<div class="copai-digest-text">' + formatSummary(res.response.digest) + '</div>'
+						);
+					} else {
+						modal.find('.copai-catchup-content').html(
+							'<div class="alert alert-info">' + parts[3] + '</div>'
+						);
+					}
+				}).fail(function (xhr) {
+					modal.find('.copai-catchup-content').html(
+						'<div class="alert alert-danger">' +
+						(xhr.responseJSON && xhr.responseJSON.status ? xhr.responseJSON.status.message : 'Error') +
+						'</div>'
+					);
+				});
+			}
+		);
+	});
+}
+
+function formatSummary(text) {
+	var html = escapeHtml(text);
+
+	// Bold
+	html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+	// Italic
+	html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+	// Split into paragraphs on double newlines
+	var paragraphs = html.split(/\n{2,}/);
+	var result = [];
+
+	paragraphs.forEach(function (para) {
+		para = para.trim();
+		if (!para) return;
+
+		// Horizontal rule
+		if (/^-{3,}$/.test(para)) {
+			result.push('<hr>');
+			return;
+		}
+
+		// Check if it's a list block (lines starting with - or •)
+		var lines = para.split('\n');
+		var allList = lines.every(function (l) { return /^\s*[-•]\s/.test(l) || !l.trim(); });
+		if (allList && lines.some(function (l) { return /^\s*[-•]\s/.test(l); })) {
+			var items = lines
+				.filter(function (l) { return /^\s*[-•]\s/.test(l); })
+				.map(function (l) { return '<li>' + l.replace(/^\s*[-•]\s+/, '') + '</li>'; });
+			result.push('<ul>' + items.join('') + '</ul>');
+			return;
+		}
+
+		// Check if it's a numbered list
+		var allNumbered = lines.every(function (l) { return /^\s*\d+[.)]\s/.test(l) || !l.trim(); });
+		if (allNumbered && lines.some(function (l) { return /^\s*\d+[.)]\s/.test(l); })) {
+			var items = lines
+				.filter(function (l) { return /^\s*\d+[.)]\s/.test(l); })
+				.map(function (l) { return '<li>' + l.replace(/^\s*\d+[.)]\s+/, '') + '</li>'; });
+			result.push('<ol>' + items.join('') + '</ol>');
+			return;
+		}
+
+		// Regular paragraph — preserve single line breaks
+		result.push('<p>' + para.replace(/\n/g, '<br>') + '</p>');
+	});
+
+	return result.join('');
+}
+
+function stripMarkdown(text) {
+	return text
+		.replace(/\*\*(.+?)\*\*/g, '$1')
+		.replace(/\*(.+?)\*/g, '$1')
+		.replace(/^#{1,6}\s+/gm, '')
+		.replace(/^[-•]\s+/gm, '')
+		.replace(/^\d+[.)]\s+/gm, '')
+		.replace(/^-{3,}$/gm, '')
+		.replace(/\n{2,}/g, ' ')
+		.replace(/\n/g, ' ')
+		.replace(/\s{2,}/g, ' ')
+		.trim();
+}
+
+function truncateHtml(text, maxLen) {
+	var plain = stripMarkdown(text);
+	if (plain.length <= maxLen) {
+		return escapeHtml(plain);
+	}
+	var truncated = plain.slice(0, maxLen);
+	var lastSpace = truncated.lastIndexOf(' ');
+	if (lastSpace > maxLen * 0.7) {
+		truncated = truncated.slice(0, lastSpace);
+	}
+	return escapeHtml(truncated + '…');
+}
+
+function escapeHtml(text) {
+	var div = document.createElement('div');
+	div.textContent = text;
+	return div.innerHTML;
+}
+
+function escapeAttr(text) {
+	return text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}

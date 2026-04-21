@@ -58,12 +58,13 @@
 	{{{ if canSummarize }}}
 	<div class="cop-ai-summary-section py-3 border-bottom">
 		{{{ if aiSummary }}}
-		<div component="copai/summary" class="mb-2">
+		<div component="copai/summary" class="mb-2" data-full-summary="{aiSummary}">
 			<div class="d-flex align-items-center gap-2 mb-2">
 				<i class="fa fa-robot text-muted"></i>
 				<span class="fw-semibold small text-muted">[[themes/cop:ai.summary_title]]</span>
 			</div>
-			<div class="cop-ai-summary-text">{aiSummary}</div>
+			<div class="cop-ai-summary-preview text-muted small">{aiSummaryPreview}</div>
+			<button class="btn btn-sm btn-link p-0 mt-1 cop-ai-read-more">[[themes/cop:ai.read_more]]</button>
 		</div>
 		{{{ end }}}
 		<div class="d-flex gap-2 align-items-center">
