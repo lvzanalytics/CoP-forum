@@ -1,147 +1,403 @@
 // ============================================
-// Categories — Card grid + topic list rows
+// Categories — Channel hub + sidebar widgets
 // ============================================
 
-// ---- Hero section on categories page ----
-.cop-hero {
-  text-align: center;
-  padding: 48px 24px 40px;
-  background-color: $surface-secondary;
-  border-bottom: 1px solid $border-subtle;
-  margin: 0 -24px;
+// ---- Page wrapper ----
+.cop-channels-page {
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 16px;
+}
 
-  .cop-hero__title {
-    font-size: $type-hero;
+// ---- Compact page header ----
+.cop-channels-header {
+  padding: 24px 0 16px;
+
+  .cop-channels-title {
+    font-size: $type-h2;
     font-weight: 700;
     color: $text-primary;
+    margin: 0 0 4px;
     letter-spacing: -0.02em;
-    margin: 0 0 8px;
-    line-height: 1.1;
   }
 
-  .cop-hero__tagline {
-    font-size: $type-body;
+  .cop-channels-subtitle {
+    font-size: $type-body-sm;
     color: $text-secondary;
-    max-width: 640px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-}
-
-// ---- Categories grid ----
-.categories-list {
-  padding: 24px 0 !important;
-  display: grid !important;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  list-style: none;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  [component="categories/category"] {
-    border: none;
     margin: 0;
+    line-height: 1.5;
   }
 }
 
-// ---- Category card ----
-.cop-category-card {
-  background-color: $surface-primary;
-  border: 1px solid $border-subtle !important;
-  border-radius: $radius-lg !important;
-  padding: 24px !important;
-  margin: 0 !important;
-  transition: box-shadow $transition-fast;
-  position: relative; // anchor for stretched link
+// ---- Channels list (vertical stack) ----
+.cop-channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+// ---- Channel card ----
+.cop-channel-card {
+  display: flex;
+  background: $surface-primary;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: box-shadow $transition-fast, border-color $transition-fast;
+  position: relative;
 
   &:hover {
     box-shadow: $shadow-md;
+    border-color: $border-medium;
   }
 
-  .flex-shrink-0 {
-    .category-icon {
-      width: 56px !important;
-      height: 56px !important;
-      border-radius: $radius-lg !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-    }
+  .cop-channel-accent {
+    width: 4px;
+    flex-shrink: 0;
+    background-color: var(--channel-color, $accent-primary);
   }
 
-  // Stretched link — title <a> covers the entire card
-  .title {
-    font-size: $type-h3 !important;
+  .cop-channel-body {
+    flex: 1;
+    padding: 16px 20px;
+    min-width: 0;
+  }
+
+  .cop-channel-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .cop-channel-icon-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .cop-channel-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+  }
+
+  .cop-channel-unread-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    background: $orange;
+    border: 2px solid $surface-primary;
+    border-radius: $radius-full;
+  }
+
+  .cop-channel-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cop-channel-name {
+    font-size: $type-body;
     font-weight: 600;
-    color: $text-primary;
+    margin: 0;
+    line-height: 1.3;
 
     a {
       color: $text-primary;
-      &:hover { color: $accent-primary; }
+      text-decoration: none;
 
-      // Stretch the link to cover the full card
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: 0;
+      &:hover {
+        color: $accent-primary;
       }
     }
   }
 
-  // Keep subcategory links clickable above the stretched link
-  .cop-subcategory-badge {
+  .cop-channel-desc {
+    font-size: $type-caption;
+    color: $text-secondary;
+    margin: 4px 0 0;
+    line-height: 1.5;
+    // Truncate long descriptions
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cop-channel-children {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+    padding-left: 58px; // align with text after icon
+  }
+
+  .cop-subchannel {
     position: relative;
-    z-index: 1;
-  }
+    z-index: 1; // above stretched-link
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: $type-overline;
+    font-weight: 500;
+    color: $accent-primary;
+    background: $accent-light;
+    padding: 3px 10px;
+    border-radius: $radius-full;
+    text-decoration: none;
+    transition: background-color $transition-fast;
 
-  .description {
-    color: $text-secondary !important;
-    font-size: $type-body-sm !important;
-  }
-
-  .stats {
-    font-size: $type-caption !important;
-    color: $text-tertiary !important;
-  }
-
-  .meta.stats .card {
-    background-color: transparent !important;
-    border: none !important;
-
-    .fs-5 {
-      font-size: $type-body-sm !important;
-      color: $text-secondary;
-    }
-
-    span.text-lowercase, i {
-      color: $text-tertiary;
+    &:hover {
+      background: rgba(45, 106, 79, 0.14);
+      color: $accent-hover;
     }
   }
 
-  &.unread-class .title a {
+  .cop-channel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid $border-subtle;
+  }
+
+  .cop-channel-stats {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: $type-caption;
+    color: $text-tertiary;
+
+    i { margin-right: 2px; }
+  }
+
+  .cop-stat-sep {
+    color: $text-tertiary;
+    opacity: 0.5;
+  }
+
+  .cop-channel-activity {
+    font-size: $type-caption;
+    color: $text-tertiary;
+  }
+
+  // Unread state
+  &.unread .cop-channel-name a {
     color: $accent-primary;
     font-weight: 700;
   }
 }
 
-.cop-subcategory-badge {
-  background-color: $surface-secondary !important;
-  color: $accent-primary !important;
-  font-size: $type-caption;
-  padding: 4px 10px !important;
-  border-radius: $radius-full !important;
+// ---- Sidebar widgets ----
+.cop-sidebar-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: calc(#{$navbar-height} + 16px);
 
-  &:hover {
-    background-color: $accent-light !important;
+  @media (max-width: 991.98px) {
+    position: static;
+    margin-top: 8px;
   }
 }
 
-// ---- Category page header ----
+.cop-widget {
+  background: $surface-primary;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.cop-widget-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid $border-subtle;
+  font-size: $type-body-sm;
+  font-weight: 600;
+  color: $text-primary;
+
+  i {
+    color: $accent-primary;
+    font-size: 0.9rem;
+  }
+}
+
+.cop-widget-body {
+  padding: 14px 18px;
+}
+
+.cop-widget-empty {
+  text-align: center;
+  padding: 16px 8px;
+
+  i {
+    font-size: 1.5rem;
+    color: $text-tertiary;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  p {
+    font-size: $type-caption;
+    color: $text-secondary;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.cop-widget-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: $type-caption;
+  font-weight: 500;
+  color: $accent-primary;
+  text-decoration: none;
+  border-top: 1px solid $border-subtle;
+  margin-left: -18px;
+  margin-right: -18px;
+  margin-bottom: -14px;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: $accent-light;
+    color: $accent-hover;
+  }
+}
+
+// ---- Digest content ----
+.cop-digest-content {
+  font-size: $type-caption;
+  line-height: 1.65;
+  color: $text-primary;
+  max-height: 200px;
+  overflow-y: auto;
+
+  p { margin-bottom: 0.5rem; }
+  ul, ol { margin-bottom: 0.5rem; padding-left: 1.25rem; }
+}
+
+// ---- Event item ----
+.cop-event-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity $transition-fast;
+
+  &:hover { opacity: 0.8; }
+
+  & + .cop-event-item {
+    border-top: 1px solid $border-subtle;
+  }
+}
+
+.cop-event-date-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: $accent-light;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+
+  .cop-event-day {
+    font-size: $type-body;
+    font-weight: 700;
+    color: $accent-primary;
+    line-height: 1.1;
+  }
+
+  .cop-event-month {
+    font-size: $type-overline;
+    font-weight: 500;
+    color: $accent-primary;
+    text-transform: uppercase;
+  }
+}
+
+.cop-event-info {
+  min-width: 0;
+}
+
+.cop-event-title {
+  font-size: $type-body-sm;
+  font-weight: 500;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cop-event-time {
+  font-size: $type-caption;
+}
+
+// ---- Document item ----
+.cop-doc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity $transition-fast;
+
+  &:hover { opacity: 0.8; }
+
+  & + .cop-doc-item {
+    border-top: 1px solid $border-subtle;
+  }
+}
+
+.cop-doc-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $surface-secondary;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+  color: $text-secondary;
+  font-size: 0.9rem;
+}
+
+.cop-doc-info {
+  min-width: 0;
+}
+
+.cop-doc-title {
+  font-size: $type-body-sm;
+  font-weight: 500;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cop-doc-author {
+  font-size: $type-caption;
+}
+
+// ---- Category page header (single-category view) ----
 .category-header {
   padding: 24px 0;
   border-bottom: 1px solid $border-subtle;

@@ -1,5 +1,16 @@
 'use strict';
 
+// Format digest markdown on categories page load
+$(window).on('action:ajaxify.end', function (ev, data) {
+	if (data.url === 'categories' || data.url === 'categories/') {
+		var contentEl = $('[component="copai/digest-content"]');
+		if (contentEl.length && contentEl.text().trim()) {
+			var raw = contentEl.text().trim();
+			contentEl.html(formatSummary(raw));
+		}
+	}
+});
+
 $(document).on('click', '[component="copai/summarize-btn"]', function () {
 	const tid = $(this).attr('data-tid');
 	if (!tid) return;
@@ -88,7 +99,7 @@ $(document).on('click', '.cop-ai-read-more', function () {
 	});
 });
 
-// Catchup digest — button in theme categories.tpl opens modal
+// Catchup digest — button in categories page opens modal + updates inline widget
 $(document).on('click', '[component="copai/catchup-btn"]', function () {
 	openCatchupModal();
 });
@@ -113,9 +124,12 @@ function openCatchupModal() {
 
 				$.get(config.relative_path + '/api/v3/plugins/cop-ai/catchup', function (res) {
 					if (res && res.response && res.response.digest) {
+						var digestHtml = formatSummary(res.response.digest);
 						modal.find('.copai-catchup-content').html(
-							'<div class="copai-digest-text">' + formatSummary(res.response.digest) + '</div>'
+							'<div class="copai-digest-text">' + digestHtml + '</div>'
 						);
+						// Update inline digest widget on categories page
+						updateDigestWidget(digestHtml);
 					} else {
 						modal.find('.copai-catchup-content').html(
 							'<div class="alert alert-info">' + parts[3] + '</div>'
@@ -131,6 +145,22 @@ function openCatchupModal() {
 			}
 		);
 	});
+}
+
+function updateDigestWidget(digestHtml) {
+	var widget = $('[component="copai/digest-widget"]');
+	if (!widget.length) return;
+
+	var contentEl = widget.find('[component="copai/digest-content"]');
+	var emptyEl = widget.find('[component="copai/digest-empty"]');
+
+	if (contentEl.length) {
+		contentEl.html(digestHtml);
+	} else if (emptyEl.length) {
+		emptyEl.replaceWith(
+			'<div class="cop-digest-content" component="copai/digest-content">' + digestHtml + '</div>'
+		);
+	}
 }
 
 function formatSummary(text) {

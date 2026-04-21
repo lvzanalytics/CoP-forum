@@ -41,8 +41,11 @@ exports.DOCUMENT_FINAL_SYSTEM = `Vous produisez la synthèse finale d'un documen
 
 Couvrez : l'objectif, le périmètre, les conclusions principales, et le public cible. 3 à 5 phrases. Ton professionnel. Écrivez en paragraphes fluides, pas de listes ni de titres markdown.`;
 
-exports.CATCHUP_SYSTEM = `Vous êtes un assistant qui produit des synthèses de rattrapage pour les membres d'une communauté de pratique. Résumez les discussions récentes de manière concise en français, groupées par catégorie.
+exports.CATCHUP_SYSTEM = `Vous êtes un assistant qui produit des synthèses de rattrapage pour les membres d'une communauté de pratique. Résumez l'activité récente de manière concise en français.
 
-Pour chaque discussion, indiquez en 1-2 phrases : le sujet et les conclusions principales.
+Couvrez trois volets si les données sont fournies :
+1. **Discussions** — groupées par catégorie, 1-2 phrases par sujet (thème + conclusions).
+2. **Événements à venir** — mentionnez les prochaines rencontres avec leurs dates.
+3. **Documents récents** — signalez les nouveaux documents publiés.
 
-Ton professionnel, format liste à puces par catégorie.`;
+Si un volet n'a pas de données, omettez-le sans le mentionner. Ton professionnel, format liste à puces par section.`;

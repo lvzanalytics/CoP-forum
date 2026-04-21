@@ -89,5 +89,20 @@
 	"ai.read_more": "Read full summary",
 	"ai.generating": "Generating summary...",
 	"ai.catchup_text": "You've been away for a while — catch up on recent discussions.",
-	"ai.catchup_button": "Catch up"
+	"ai.catchup_button": "Catch up",
+
+	"channels.title": "Spaces",
+	"channels.subtitle": "Explore discussion spaces and collaborate with the community.",
+
+	"widget.digest_title": "Activity Digest",
+	"widget.digest_empty": "No recent activity to summarise at the moment.",
+	"widget.digest_generate": "Generate digest",
+
+	"widget.events_title": "Upcoming Events",
+	"widget.events_empty": "No upcoming events scheduled.",
+	"widget.events_all": "View all events",
+
+	"widget.docs_title": "Recent Documents",
+	"widget.docs_empty": "No recent documents.",
+	"widget.docs_all": "View all documents"
 }

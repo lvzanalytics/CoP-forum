@@ -91,9 +91,31 @@ catchupDigest.generate = async function (uid, settings) {
 		return `## ${cat}\n${items}`;
 	}).join('\n\n');
 
+	// Fetch upcoming events (cross-plugin, graceful)
+	let eventsSection = '';
+	try {
+		const eventsLib = require('nodebb-plugin-cop-events/lib/events');
+		const upcoming = await eventsLib.getUpcoming(0, 4);
+		if (upcoming && upcoming.length) {
+			const items = upcoming.map(e => `- ${e.title} (${e.dateString || ''})`).join('\n');
+			eventsSection = `\n\n## Événements à venir\n${items}`;
+		}
+	} catch (err) { /* plugin not active */ }
+
+	// Fetch recent documents (cross-plugin, graceful)
+	let docsSection = '';
+	try {
+		const docsLib = require('nodebb-plugin-cop-documents/lib/documents');
+		const result = await docsLib.getApproved({}, 1, 5, ['public', 'members']);
+		if (result && result.docs && result.docs.length) {
+			const items = result.docs.map(d => `- ${d.title} (${d.authorName || 'Auteur inconnu'})`).join('\n');
+			docsSection = `\n\n## Documents récents\n${items}`;
+		}
+	} catch (err) { /* plugin not active */ }
+
 	const result = await provider.generate(
 		prompts.CATCHUP_SYSTEM,
-		`L'utilisateur était absent depuis ${Math.round((Date.now() - since) / (24 * 60 * 60 * 1000))} jours. Voici les discussions récentes :\n\n${digestInput}\n\nProduisez un résumé de rattrapage.`,
+		`L'utilisateur était absent depuis ${Math.round((Date.now() - since) / (24 * 60 * 60 * 1000))} jours. Voici les discussions récentes :\n\n${digestInput}${eventsSection}${docsSection}\n\nProduisez un résumé de rattrapage.`,
 		settings
 	);
 

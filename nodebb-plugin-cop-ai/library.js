@@ -105,35 +105,53 @@ plugin.filterTopicBuild = async function (hookData) {
 	return hookData;
 };
 
-// filter:categories.build — inject catchup eligibility into categories template
+// filter:categories.build — inject sidebar widget data into categories template
 plugin.filterCategoriesBuild = async function (hookData) {
+	const uid = hookData.req ? hookData.req.uid : 0;
+	const isLoggedIn = !!uid;
+	hookData.templateData.isLoggedIn = isLoggedIn;
+
+	let isAdmin = false;
+	if (uid) {
+		try {
+			isAdmin = await privileges.admin.can('admin:dashboard', uid) ||
+				(await privileges.users.isGlobalModerator([uid]))[0];
+		} catch (err) { /* ignore */ }
+	}
+	hookData.templateData.isAdmin = isAdmin;
+
+	// Digest widget — for logged-in members when feature enabled
 	const currentSettings = await settings.get();
-	if (currentSettings.enableCatchupDigest !== 'on') {
-		return hookData;
+	if (currentSettings.enableCatchupDigest === 'on' && isLoggedIn) {
+		const accessLevel = currentSettings.catchupDigestAccess;
+		if (accessLevel !== 'disabled') {
+			hookData.templateData.showDigestWidget = true;
+			// Check cached digest
+			try {
+				const cached = await cache.getDigest(uid);
+				if (cached && cached.content && cache.isDigestValid(cached, currentSettings)) {
+					hookData.templateData.digestContent = cached.content;
+				}
+			} catch (err) { /* ignore */ }
+		}
 	}
 
-	const uid = hookData.req ? hookData.req.uid : 0;
-	if (!uid) return hookData;
-
-	const accessLevel = currentSettings.catchupDigestAccess;
-	if (accessLevel === 'disabled') return hookData;
-
+	// Upcoming events widget
 	try {
-		// Admins/mods always see the catchup banner (for testing/demo)
-		const isPrivileged = await privileges.admin.can('admin:dashboard', uid) ||
-			(await privileges.users.isGlobalModerator([uid]))[0];
-
-		if (isPrivileged) {
-			hookData.templateData.showCatchupBanner = true;
-			return hookData;
-		}
-
-		const eligible = await catchupDigest.isEligible(uid, currentSettings);
-		if (eligible) {
-			hookData.templateData.showCatchupBanner = true;
-		}
+		const eventsLib = require('nodebb-plugin-cop-events/lib/events');
+		const upcomingEvents = await eventsLib.getUpcoming(0, 2);
+		hookData.templateData.upcomingEvents = upcomingEvents || [];
 	} catch (err) {
-		// Silently fail — no banner shown
+		hookData.templateData.upcomingEvents = [];
+	}
+
+	// Recent documents widget
+	try {
+		const docsLib = require('nodebb-plugin-cop-documents/lib/documents');
+		const result = await docsLib.getApproved({}, 1, 3, ['public', 'members']);
+		hookData.templateData.recentDocuments = (result && result.docs) || [];
+	} catch (err) {
+		hookData.templateData.recentDocuments = [];
 	}
 
 	return hookData;
