@@ -62,6 +62,7 @@
 							<input class="form-check-input" type="checkbox" id="enableDocSummary" name="enableDocSummary">
 							<label class="form-check-label" for="enableDocSummary">[[cop-ai:admin.enable_doc_summary]]</label>
 						</div>
+						<div class="form-text">[[cop-ai:admin.enable_doc_summary_help]]</div>
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="docSummaryAccess">[[cop-ai:admin.doc_summary_access]]</label>
@@ -80,6 +81,7 @@
 							<input class="form-check-input" type="checkbox" id="enableDiscussionSummary" name="enableDiscussionSummary">
 							<label class="form-check-label" for="enableDiscussionSummary">[[cop-ai:admin.enable_discussion_summary]]</label>
 						</div>
+						<div class="form-text">[[cop-ai:admin.enable_discussion_summary_help]]</div>
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="discussionSummaryAccess">[[cop-ai:admin.discussion_summary_access]]</label>

@@ -53,11 +53,17 @@ plugin.filterTopicBuild = async function (hookData) {
 	if (accessLevel === 'disabled') return hookData;
 	if (accessLevel === 'members' && !uid) return hookData;
 
-	// Check minimum replies
-	const minReplies = parseInt(currentSettings.minRepliesForSummary, 10) || 15;
-	const postcount = parseInt(hookData.templateData.postcount, 10) || 0;
-	if (postcount < minReplies) {
-		return hookData;
+	// Admins/mods always see the summarize button regardless of reply count
+	const isPrivileged = uid ? await privileges.admin.can('admin:dashboard', uid) ||
+		await privileges.users.isGlobalModerator([uid]).then(r => r[0]) : false;
+
+	if (!isPrivileged) {
+		// Regular users: enforce minimum replies
+		const minReplies = parseInt(currentSettings.minRepliesForSummary, 10) || 15;
+		const postcount = parseInt(hookData.templateData.postcount, 10) || 0;
+		if (postcount < minReplies) {
+			return hookData;
+		}
 	}
 
 	hookData.templateData.canSummarize = true;
@@ -87,6 +93,15 @@ plugin.filterCategoriesBuild = async function (hookData) {
 	if (accessLevel === 'disabled') return hookData;
 
 	try {
+		// Admins/mods always see the catchup banner (for testing/demo)
+		const isPrivileged = await privileges.admin.can('admin:dashboard', uid) ||
+			(await privileges.users.isGlobalModerator([uid]))[0];
+
+		if (isPrivileged) {
+			hookData.templateData.showCatchupBanner = true;
+			return hookData;
+		}
+
 		const eligible = await catchupDigest.isEligible(uid, currentSettings);
 		if (eligible) {
 			hookData.templateData.showCatchupBanner = true;
