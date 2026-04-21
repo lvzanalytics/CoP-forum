@@ -1,6 +1,6 @@
 'use strict';
 
-define('admin/plugins/cop-ai', ['settings', 'alerts'], function (settings, alerts) {
+define('admin/plugins/cop-ai', ['settings', 'alerts', 'translator'], function (settings, alerts, translator) {
 	var ACP = {};
 
 	function toggleProviderFields() {
@@ -33,7 +33,9 @@ define('admin/plugins/cop-ai', ['settings', 'alerts'], function (settings, alert
 		$.get(config.relative_path + '/api/v3/plugins/cop-ai/usage', function (res) {
 			var container = $('#copai-usage-stats');
 			if (!res || !res.response) {
-				container.html('<div class="alert alert-danger">[[cop-ai:admin.usage_error]]</div>');
+				translator.translate('[[cop-ai:admin.usage_error]]', function (t) {
+					container.html('<div class="alert alert-danger">' + t + '</div>');
+				});
 				return;
 			}
 
@@ -43,34 +45,45 @@ define('admin/plugins/cop-ai', ['settings', 'alerts'], function (settings, alert
 				(data.catchup && data.catchup.length);
 
 			if (!hasData) {
-				container.html('<div class="alert alert-info">[[cop-ai:admin.no_usage_data]]</div>');
+				translator.translate('[[cop-ai:admin.no_usage_data]]', function (t) {
+					container.html('<div class="alert alert-info">' + t + '</div>');
+				});
 				return;
 			}
 
-			var html = '';
 			var sections = [
-				{ key: 'discussion', label: '[[cop-ai:admin.tab_discussions]]' },
-				{ key: 'document', label: '[[cop-ai:admin.tab_documents]]' },
-				{ key: 'catchup', label: '[[cop-ai:admin.tab_digest]]' },
+				{ key: 'discussion', labelKey: '[[cop-ai:admin.tab_discussions]]' },
+				{ key: 'document', labelKey: '[[cop-ai:admin.tab_documents]]' },
+				{ key: 'catchup', labelKey: '[[cop-ai:admin.tab_digest]]' },
 			];
 
-			sections.forEach(function (section) {
-				var entries = data[section.key];
-				if (!entries || !entries.length) return;
+			// Translate all labels at once
+			var allKeys = sections.map(function (s) { return s.labelKey; });
+			allKeys.push('[[cop-ai:admin.date]]', '[[cop-ai:admin.tokens]]');
+			translator.translate(allKeys.join('|'), function (translated) {
+				var parts = translated.split('|');
+				var html = '';
 
-				html += '<h6 class="fw-bold mt-3">' + section.label + '</h6>';
-				html += '<table class="table table-sm table-striped"><thead><tr>';
-				html += '<th>[[cop-ai:admin.date]]</th><th>[[cop-ai:admin.tokens]]</th>';
-				html += '</tr></thead><tbody>';
-				entries.forEach(function (entry) {
-					html += '<tr><td>' + entry.date + '</td><td>' + Math.round(entry.tokens).toLocaleString() + '</td></tr>';
+				sections.forEach(function (section, i) {
+					var entries = data[section.key];
+					if (!entries || !entries.length) return;
+
+					html += '<h6 class="fw-bold mt-3">' + parts[i] + '</h6>';
+					html += '<table class="table table-sm table-striped"><thead><tr>';
+					html += '<th>' + parts[3] + '</th><th>' + parts[4] + '</th>';
+					html += '</tr></thead><tbody>';
+					entries.forEach(function (entry) {
+						html += '<tr><td>' + entry.date + '</td><td>' + Math.round(entry.tokens).toLocaleString() + '</td></tr>';
+					});
+					html += '</tbody></table>';
 				});
-				html += '</tbody></table>';
-			});
 
-			container.html(html);
+				container.html(html);
+			});
 		}).fail(function () {
-			$('#copai-usage-stats').html('<div class="alert alert-danger">[[cop-ai:admin.usage_error]]</div>');
+			translator.translate('[[cop-ai:admin.usage_error]]', function (t) {
+				$('#copai-usage-stats').html('<div class="alert alert-danger">' + t + '</div>');
+			});
 		});
 	}
 
@@ -102,23 +115,26 @@ define('admin/plugins/cop-ai', ['settings', 'alerts'], function (settings, alert
 		$('.copai-clear-btn').on('click', function () {
 			var btn = $(this);
 			var type = btn.data('type');
-			if (!confirm('[[cop-ai:admin.clear_confirm]]')) return;
 
-			btn.prop('disabled', true);
-			$.ajax({
-				url: config.relative_path + '/api/v3/plugins/cop-ai/cache/' + type,
-				method: 'DELETE',
-			}).done(function () {
-				alerts.alert({
-					type: 'success',
-					alert_id: 'cop-ai-cleared',
-					title: '[[cop-ai:admin.cleared]]',
+			translator.translate('[[cop-ai:admin.clear_confirm]]', function (t) {
+				if (!confirm(t)) return;
+
+				btn.prop('disabled', true);
+				$.ajax({
+					url: config.relative_path + '/api/v3/plugins/cop-ai/cache/' + type,
+					method: 'DELETE',
+				}).done(function () {
+					alerts.alert({
+						type: 'success',
+						alert_id: 'cop-ai-cleared',
+						title: '[[cop-ai:admin.cleared]]',
+					});
+					loadCacheCounts();
+				}).fail(function () {
+					alerts.error('Error');
+				}).always(function () {
+					btn.prop('disabled', false);
 				});
-				loadCacheCounts();
-			}).fail(function () {
-				alerts.error('Error');
-			}).always(function () {
-				btn.prop('disabled', false);
 			});
 		});
 	};
