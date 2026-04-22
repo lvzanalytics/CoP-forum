@@ -10,10 +10,10 @@ const textExtractor = require('./text-extractor');
 
 const documentSummary = module.exports;
 
-// Claude handles ~200k tokens. 200k chars ≈ 50k tokens — comfortably fits
-// 50-100 page docs in a single pass.
-const MAX_CHARS_SINGLE_PASS = 200000;
-const CHUNK_SIZE = 150000;
+// Claude handles 200k tokens. 80k tokens (~320k chars) is the quality sweet spot
+// for single-pass summarization per research. Chunk at 70k tokens (~280k chars).
+const MAX_CHARS_SINGLE_PASS = 320000;
+const CHUNK_SIZE = 280000;
 
 function chunkText(text) {
 	const chunks = [];

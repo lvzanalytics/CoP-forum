@@ -13,20 +13,23 @@ const prompts = require('./prompts');
 
 const discussionSummary = module.exports;
 
-function chunkPosts(postList, maxTokensPerChunk = 3000) {
+// 80k tokens ≈ 320k chars. Same unit and thresholds as document-summary.js.
+const MAX_CHARS_PER_CHUNK = 320000;
+
+function chunkPosts(postList) {
 	const chunks = [];
 	let currentChunk = [];
-	let currentTokens = 0;
+	let currentChars = 0;
 
 	for (const post of postList) {
-		const estimatedTokens = Math.ceil((post.content || '').length / 4) + 10;
-		if (currentTokens + estimatedTokens > maxTokensPerChunk && currentChunk.length > 0) {
+		const len = (post.content || '').length;
+		if (currentChars + len > MAX_CHARS_PER_CHUNK && currentChunk.length > 0) {
 			chunks.push(currentChunk);
 			currentChunk = [];
-			currentTokens = 0;
+			currentChars = 0;
 		}
 		currentChunk.push(post);
-		currentTokens += estimatedTokens;
+		currentChars += len;
 	}
 	if (currentChunk.length > 0) {
 		chunks.push(currentChunk);

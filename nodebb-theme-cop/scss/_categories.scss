@@ -887,10 +887,15 @@ body.parent-category-12 { @include cat-label-override($cat-12-bg); }
   }
 
   .cop-widget-header {
-    // Fixed height so headers align across columns
-    min-height: 42px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .cop-widget-body {
