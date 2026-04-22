@@ -131,9 +131,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.125rem;
-    background-color: $orange !important;
-    color: #fff !important;
+    background-color: var(--cat-bg, #6366F1);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px 22px;
   }
 
   .cop-channel-unread-dot {
@@ -242,6 +243,47 @@
   &.unread .cop-channel-name a {
     color: $accent-primary;
     font-weight: 700;
+  }
+
+  // ---- Per-category icon + color ----
+  // Annonces (cid 9) — Megaphone — deep rose
+  &.category-9 {
+    --cat-bg: #BE185D;
+    --channel-color: #BE185D;
+    .cop-channel-icon {
+      // Megaphone / bullhorn
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 11 18-5v12L3 13v-2z'/%3E%3Cpath d='M11.6 16.8a3 3 0 1 1-5.8-1.6'/%3E%3C/svg%3E");
+    }
+  }
+
+  // Discussions Générales (cid 10) — Chat bubbles — deep blue
+  &.category-10 {
+    --cat-bg: #1D4ED8;
+    --channel-color: #1D4ED8;
+    .cop-channel-icon {
+      // Message circles
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.9 20A9 9 0 1 0 4 16.1L2 22z'/%3E%3Cpath d='M15.8 10a5 5 0 0 1 3.4 2.2 5 5 0 0 1-1 6.4l1.3 3.9-3.9-1.3a5 5 0 0 1-4.1-.2'/%3E%3C/svg%3E");
+    }
+  }
+
+  // Méthodologie & Outils (cid 11) — Compass/tools — deep violet
+  &.category-11 {
+    --cat-bg: #6D28D9;
+    --channel-color: #6D28D9;
+    .cop-channel-icon {
+      // Compass
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolygon points='16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76'/%3E%3C/svg%3E");
+    }
+  }
+
+  // Événements (cid 12) — Calendar — deep amber
+  &.category-12 {
+    --cat-bg: #D97706;
+    --channel-color: #D97706;
+    .cop-channel-icon {
+      // Calendar with clock
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8'/%3E%3Cline x1='16' x2='16' y1='2' y2='6'/%3E%3Cline x1='8' x2='8' y1='2' y2='6'/%3E%3Cline x1='3' x2='21' y1='10' y2='10'/%3E%3Ccircle cx='18' cy='18' r='3'/%3E%3Cpath d='M18 16.5v1.5l1 1'/%3E%3C/svg%3E");
+    }
   }
 }
 
@@ -742,8 +784,8 @@
     .cop-channel-icon {
       width: 48px;
       height: 48px;
-      font-size: 1.25rem;
       border-radius: $radius-lg;
+      background-size: 24px 24px;
     }
 
     .cop-channel-info {
@@ -799,11 +841,35 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
+    align-items: stretch;
 
     // Digest spans full width
     [component="copai/digest-widget"] {
       grid-column: 1 / -1;
     }
+  }
+
+  // Equal-height side-by-side widgets
+  .cop-widget {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cop-widget-header {
+    // Fixed height so headers align across columns
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+  }
+
+  .cop-widget-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cop-widget-link {
+    margin-top: auto;
   }
 
   // Tighter widget padding

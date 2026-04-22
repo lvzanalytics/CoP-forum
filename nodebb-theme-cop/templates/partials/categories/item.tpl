@@ -1,4 +1,4 @@
-<li component="categories/category" data-cid="{./cid}" class="cop-channel-card category-{./cid} {./unread-class}" style="--channel-color: {./bgColor};">
+<li component="categories/category" data-cid="{./cid}" class="cop-channel-card category-{./cid} {./unread-class}">
 	<meta itemprop="name" content="{./name}">
 
 	<div class="cop-channel-accent"></div>
@@ -6,9 +6,7 @@
 	<div class="cop-channel-body">
 		<div class="cop-channel-top">
 			<div class="cop-channel-icon-wrap">
-				<span class="cop-channel-icon">
-					{{{ if ./icon }}}<i class="fa {./icon}"></i>{{{ else }}}<i class="fa fa-hashtag"></i>{{{ end }}}
-				</span>
+				<span class="cop-channel-icon"></span>
 				{{{ if ./unread }}}
 				<span class="cop-channel-unread-dot"></span>
 				{{{ end }}}
