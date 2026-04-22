@@ -29,7 +29,7 @@
 				{{{ if isLoggedIn }}}
 				{{{ if showDigestWidget }}}
 				<div class="cop-widget" component="copai/digest-widget">
-					<div class="cop-widget-header">
+					<div class="cop-widget-header cop-widget-header--green">
 						<i class="fa fa-bolt"></i>
 						<span>[[themes/cop:widget.digest_title]]</span>
 					</div>
@@ -58,7 +58,7 @@
 
 				<!-- Events Widget -->
 				<div class="cop-widget">
-					<div class="cop-widget-header">
+					<div class="cop-widget-header cop-widget-header--orange">
 						<i class="fa fa-calendar"></i>
 						<span>[[themes/cop:widget.events_title]]</span>
 					</div>
@@ -113,7 +113,7 @@
 
 				<!-- Recent Documents Widget -->
 				<div class="cop-widget">
-					<div class="cop-widget-header">
+					<div class="cop-widget-header cop-widget-header--green">
 						<i class="fa fa-file-lines"></i>
 						<span>[[themes/cop:widget.docs_title]]</span>
 					</div>

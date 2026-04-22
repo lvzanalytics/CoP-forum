@@ -132,6 +132,8 @@
     align-items: center;
     justify-content: center;
     font-size: 1.125rem;
+    background-color: $orange !important;
+    color: #fff !important;
   }
 
   .cop-channel-unread-dot {
@@ -277,6 +279,22 @@
   i {
     color: $accent-primary;
     font-size: 0.9rem;
+  }
+
+  &--green {
+    background: $accent-hover;
+    border-bottom: none;
+    color: #fff;
+
+    i { color: #fff; }
+  }
+
+  &--orange {
+    background: $orange;
+    border-bottom: none;
+    color: #fff;
+
+    i { color: #fff; }
   }
 }
 
@@ -672,4 +690,230 @@
 
 #category-no-topics {
   margin: 24px 0;
+}
+
+// ============================================
+// Mobile layout — app-launcher grid + compact widgets
+// ============================================
+@media (max-width: 767.98px) {
+  .cop-channels-page {
+    padding: 0;
+  }
+
+  // Full-bleed hero
+  .cop-channels-hero {
+    border-radius: 0;
+    margin-bottom: 16px;
+    min-height: 120px;
+    padding: 24px 20px;
+  }
+
+  // 2-column tile grid
+  .cop-channels-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .cop-channel-card {
+    flex-direction: column;
+    border-radius: $radius-lg;
+    text-align: center;
+
+    // Hide accent bar on mobile
+    .cop-channel-accent {
+      display: none;
+    }
+
+    .cop-channel-body {
+      padding: 16px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cop-channel-top {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cop-channel-icon {
+      width: 48px;
+      height: 48px;
+      font-size: 1.25rem;
+      border-radius: $radius-lg;
+    }
+
+    .cop-channel-info {
+      text-align: center;
+    }
+
+    .cop-channel-name {
+      font-size: $type-body-sm;
+      line-height: 1.25;
+    }
+
+    // Hide description on mobile tiles
+    .cop-channel-desc {
+      display: none;
+    }
+
+    // Hide subchannel badges
+    .cop-channel-children {
+      display: none;
+    }
+
+    // Compact footer — single line centered
+    .cop-channel-footer {
+      justify-content: center;
+      margin-top: 8px;
+      padding-top: 8px;
+      gap: 8px;
+    }
+
+    .cop-channel-activity {
+      display: none;
+    }
+
+    .cop-stat-sep {
+      display: none;
+    }
+
+    .cop-channel-stats {
+      gap: 10px;
+      font-size: $type-overline;
+    }
+  }
+
+  // Sidebar: tighter spacing
+  .cop-sidebar-widgets {
+    padding: 0 16px;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  // Widgets side-by-side: events + docs as 2-column row
+  .cop-sidebar-widgets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+
+    // Digest spans full width
+    [component="copai/digest-widget"] {
+      grid-column: 1 / -1;
+    }
+  }
+
+  // Tighter widget padding
+  .cop-widget-header {
+    padding: 10px 14px;
+    font-size: $type-caption;
+  }
+
+  .cop-widget-body {
+    padding: 10px 14px;
+  }
+
+  .cop-widget-link {
+    margin-left: -14px;
+    margin-right: -14px;
+    margin-bottom: -10px;
+    padding: 8px;
+    font-size: $type-overline;
+  }
+
+  .cop-widget-empty {
+    padding: 12px 4px;
+
+    i { font-size: 1.25rem; margin-bottom: 6px; }
+    p { font-size: $type-overline; }
+  }
+
+  // Compact event items
+  .cop-event-date-badge {
+    width: 38px;
+    height: 38px;
+
+    .cop-event-day { font-size: $type-body-sm; }
+    .cop-event-month { font-size: 9px; }
+  }
+
+  .cop-event-item {
+    gap: 8px;
+    padding: 6px 0;
+  }
+
+  .cop-event-title {
+    font-size: $type-caption;
+  }
+
+  .cop-event-time {
+    font-size: $type-overline;
+  }
+
+  // Compact doc items
+  .cop-doc-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .cop-doc-item {
+    gap: 8px;
+    padding: 6px 0;
+  }
+
+  .cop-doc-title {
+    font-size: $type-caption;
+  }
+
+  .cop-doc-author {
+    font-size: $type-overline;
+  }
+
+  // Digest content more compact
+  .cop-digest-content {
+    max-height: 200px;
+    font-size: $type-overline;
+  }
+
+  .cop-past-events-divider {
+    margin: 8px 0 2px;
+    span { font-size: 9px; }
+  }
+
+  // Row gutter tighter
+  .cop-channels-page > .row {
+    --bs-gutter-y: 0.75rem;
+    --bs-gutter-x: 0;
+  }
+
+  .col-lg-8, .col-lg-4 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Extra small — tighter still
+@media (max-width: 374.98px) {
+  .cop-channels-list {
+    gap: 8px;
+    padding: 0 12px;
+  }
+
+  .cop-channel-card .cop-channel-body {
+    padding: 12px 8px 10px;
+  }
+
+  .cop-channel-card .cop-channel-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .cop-sidebar-widgets {
+    padding: 0 12px;
+    grid-template-columns: 1fr;
+  }
 }

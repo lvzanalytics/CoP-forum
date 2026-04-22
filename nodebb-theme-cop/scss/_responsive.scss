@@ -55,10 +55,6 @@
     }
   }
 
-  // Categories grid — 1 column on tablet
-  .categories-list {
-    grid-template-columns: 1fr;
-  }
 
   // Page wrapper
   .cop-page-wrapper {
@@ -84,32 +80,6 @@
     overflow-x: hidden;
   }
 
-  // Prevent cards from overflowing screen width
-  .categories-list {
-    grid-template-columns: 1fr;
-    padding: 16px 0 !important;
-    gap: 10px;
-  }
-
-  .cop-category-card {
-    padding: 16px !important;
-    min-width: 0;
-    overflow: hidden;
-    word-break: break-word;
-  }
-
-  .cop-hero {
-    padding: 28px 16px;
-    margin: 0 -12px;
-
-    .cop-hero__title {
-      font-size: 1.5rem;
-    }
-
-    .cop-hero__tagline {
-      font-size: $type-body-sm;
-    }
-  }
 
   .category-header { padding: 16px 0 !important; }
 

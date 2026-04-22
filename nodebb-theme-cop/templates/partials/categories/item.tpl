@@ -6,7 +6,7 @@
 	<div class="cop-channel-body">
 		<div class="cop-channel-top">
 			<div class="cop-channel-icon-wrap">
-				<span class="cop-channel-icon" style="background-color: {./bgColor}; color: {./color};">
+				<span class="cop-channel-icon">
 					{{{ if ./icon }}}<i class="fa {./icon}"></i>{{{ else }}}<i class="fa fa-hashtag"></i>{{{ end }}}
 				</span>
 				{{{ if ./unread }}}
