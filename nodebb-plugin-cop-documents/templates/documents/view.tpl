@@ -248,7 +248,7 @@
 				<!-- Moderation Actions -->
 				{{{ if canModerate }}}
 				<div class="doc-moderation-panel mb-4">
-					<h5 class="mb-3">Actions</h5>
+					<h5 class="mb-3">[[cop-documents:moderation.actions]]</h5>
 					<div class="d-flex flex-wrap gap-2">
 						{{{ if (document.status == "pending") }}}
 						<button class="btn btn-success doc-approve-btn" data-doc-id="{document.docId}">
@@ -401,8 +401,8 @@
 							<div class="col-md-6 mb-3">
 								<label class="form-label" for="edit-language">[[cop-documents:upload.language]]</label>
 								<select class="form-select" id="edit-language" name="language">
-									<option value="fr" {{{ if (document.language == "fr") }}}selected{{{ end }}}>Fran&ccedil;ais</option>
-									<option value="en" {{{ if (document.language == "en") }}}selected{{{ end }}}>English</option>
+									<option value="fr" {{{ if (document.language == "fr") }}}selected{{{ end }}}>[[cop-documents:lang.fr]]</option>
+									<option value="en" {{{ if (document.language == "en") }}}selected{{{ end }}}>[[cop-documents:lang.en]]</option>
 								</select>
 							</div>
 						</div>

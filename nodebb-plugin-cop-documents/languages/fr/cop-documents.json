@@ -86,6 +86,7 @@
 	"view.breadcrumb_library": "Biblioth\u00e8que",
 	"view.new_version": "Nouvelle version",
 	"view.new_version_note": "Note de mise \u00e0 jour",
+	"moderation.actions": "Actions",
 	"moderation.title": "Documents en attente",
 	"moderation.approve": "Approuver",
 	"moderation.reject": "Rejeter",
@@ -101,6 +102,7 @@
 	"admin.allowed_extensions": "Extensions autoris\u00e9es",
 	"admin.auto_approve": "Approbation automatique",
 	"admin.save": "Enregistrer",
+	"admin.save_success": "Enregistré",
 	"admin.r2_shared_note": "Le stockage de fichiers utilise les identifiants configurés dans le plugin S3 Uploads (Admin > Extensions > S3 Uploads). Si aucun identifiant n'est configuré, les fichiers sont stockés localement.",
 	"doc_category.reports": "Rapports",
 	"doc_category.tools": "Outils",
@@ -119,6 +121,9 @@
 	"my.filter_approved": "Approuvés",
 	"my.filter_rejected": "Rejetés",
 	"my.no_documents": "Vous n'avez soumis aucun document.",
+
+	"lang.fr": "Français",
+	"lang.en": "Anglais",
 
 	"ai.summary_title": "Résumé IA",
 	"ai.generate": "Générer le résumé IA",

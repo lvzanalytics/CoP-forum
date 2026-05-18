@@ -11,7 +11,16 @@
 						{{{ if description }}}
 						<label class="form-label" for="fileInput">{description}</label>
 						{{{ end }}}
-						<input type="file" id="fileInput" name="files[]" {{{ if accept }}}accept="{accept}"{{{ end }}}>
+						<input type="file" id="fileInput" name="files[]" {{{ if accept }}}accept="{accept}"{{{ end }}} class="visually-hidden">
+					<button type="button" class="btn btn-outline-secondary" id="fileInputBtn" onclick="document.getElementById('fileInput').click()">
+						<i class="fa fa-folder-open-o me-1"></i> [[global:select-file]]
+					</button>
+					<span id="fileInputLabel" class="ms-2 text-muted">[[global:no-file-selected]]</span>
+					<script>
+						document.getElementById('fileInput').addEventListener('change', function() {
+							document.getElementById('fileInputLabel').textContent = this.files.length ? this.files[0].name : '[[global:no-file-selected]]';
+						});
+					</script>
 						{{{ if showHelp }}}
 						<p class="form-text">
 							{{{ if accept }}}

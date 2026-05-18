@@ -84,8 +84,8 @@
 					<div class="mb-3">
 						<label class="form-label" for="doc-language">[[cop-documents:upload.language]]</label>
 						<select class="form-select" id="doc-language" name="language">
-							<option value="fr" selected>Fran&ccedil;ais</option>
-							<option value="en">English</option>
+							<option value="fr" selected>[[cop-documents:lang.fr]]</option>
+							<option value="en">[[cop-documents:lang.en]]</option>
 						</select>
 					</div>
 

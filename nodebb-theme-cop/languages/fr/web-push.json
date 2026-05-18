@@ -1,0 +1,10 @@
+{
+	"profile.label": "Notifications instantanées",
+	"profile.introduction": "En plus des notifications dans l'application et par e-mail, vous pouvez choisir de recevoir également des notifications push. Cela vous permettra d'être informé même lorsque l'application n'est pas ouverte sur votre appareil.",
+	"profile.option": "Activer les notifications instantanées sur cet appareil",
+	"profile.devices": "%1 appareil(s) actuellement notifié(s).",
+	"profile.permissionBlocked": "Votre appareil bloque actuellement les notifications de ce site. Veuillez accorder l'autorisation de notification pour continuer.",
+	"profile.send-test": "Tester les notifications",
+	"toast.test_success": "Notification de test envoyée.",
+	"toast.test_unavailable": "Une notification de test ne peut pas être envoyée car les notifications instantanées ne sont pas activées sur cet appareil."
+}

@@ -38,7 +38,7 @@
     "header.recent": "Récent",
     "header.unread": "Non lus",
     "header.tags": "Mots-clés",
-    "header.popular": "Populaire",
+    "header.popular": "Éléments les plus vus",
     "header.top": "Haut",
     "header.users": "Utilisateurs",
     "header.groups": "Groupes",
@@ -132,8 +132,8 @@
     "ip-address": "Adresse IP",
     "enter-page-number": "Entrer un numéro de page",
     "upload-file": "Envoyer un fichier",
-    "upload": "Envoyer",
-    "uploads": "Fichiers envoyés",
+    "upload": "Soumettre",
+    "uploads": "Documents partagés",
     "allowed-file-types": "Les types de fichiers autorisés sont : %1",
     "unsaved-changes": "Vous avez des modifications non sauvegardées. Êtes-vous sûr de vouloir naviguer tout de même ?",
     "reconnecting-message": "Il semble que votre connexion à  %1 ait été perdue, veuillez patienter pendant que nous vous reconnectons.",
@@ -152,5 +152,7 @@
     "sort": "Trier",
     "actions": "Actions",
     "rss-feed": "Flux RSS",
-    "skip-to-content": "Aller directement au contenu"
+    "skip-to-content": "Aller directement au contenu",
+    "select-file": "Sélectionner un fichier",
+    "no-file-selected": "Aucun fichier sélectionné"
 }

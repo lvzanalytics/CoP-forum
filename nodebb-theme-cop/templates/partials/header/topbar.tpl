@@ -52,10 +52,6 @@
 					<i class="fa fa-fw fa-address-book-o text-secondary"></i>
 					<span>[[themes/cop:nav.directory]]</span>
 				</a>
-				<a class="dropdown-item rounded-1 d-flex align-items-center gap-2" href="{relative_path}/recent">
-					<i class="fa fa-fw fa-clock-o text-secondary"></i>
-					<span>[[themes/cop:nav.recent]]</span>
-				</a>
 			</div>
 		</li>
 		{{{ if navigation.length }}}

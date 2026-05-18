@@ -208,7 +208,7 @@
           <img src="{relative_path}/plugins/nodebb-theme-cop/cop/partner-cesag.png" alt="CESAG" class="partner-logo" />
         </div>
         <div class="partner-card">
-          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/partner-gei.jpeg" alt="GEI" class="partner-logo" />
+          <img src="{relative_path}/plugins/nodebb-theme-cop/cop/partner-gei.png" alt="GEI" class="partner-logo" />
         </div>
       </div>
     </div>

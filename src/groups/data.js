@@ -128,6 +128,15 @@ module.exports = function (Groups) {
 		}
 	}
 
+	const systemGroupTranslations = {
+		administrators: '[[groups:system.administrators]]',
+		'Global Moderators': '[[groups:system.global-moderators]]',
+	};
+
+	const systemGroupDescriptions = {
+		'Global Moderators': '[[groups:system.global-moderators-description]]',
+	};
+
 	function escapeGroupData(group, hasField) {
 		if (group) {
 			if (hasField('name')) {
@@ -136,9 +145,15 @@ module.exports = function (Groups) {
 				if (Groups.systemGroups.includes(group.name)) {
 					group.displayName = group.displayName.replace(/-/g, ' ');
 				}
+				if (systemGroupTranslations[group.name]) {
+					group.displayName = systemGroupTranslations[group.name];
+				}
 			}
 			if (hasField('description')) {
 				group.description = validator.escape(String(group.description || ''));
+				if (systemGroupDescriptions[group.name]) {
+					group.description = systemGroupDescriptions[group.name];
+				}
 			}
 			if (hasField('userTitle')) {
 				group.userTitle = validator.escape(String(group.userTitle || ''));

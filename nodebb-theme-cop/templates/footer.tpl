@@ -7,7 +7,6 @@
 					<a href="{relative_path}/">[[themes/cop:nav.home]]</a>
 					<a href="{relative_path}/documents">[[themes/cop:nav.documents]]</a>
 					<a href="{relative_path}/directory">[[themes/cop:nav.directory]]</a>
-					<a href="{relative_path}/recent">[[themes/cop:nav.recent]]</a>
 				</div>
 				<p class="cop-footer__copyright">[[themes/cop:footer.copyright]]</p>
 				<p class="cop-footer__built-by">[[themes/cop:footer.built-by]]</p>

@@ -86,6 +86,7 @@
 	"view.breadcrumb_library": "Library",
 	"view.new_version": "New version",
 	"view.new_version_note": "Update note",
+	"moderation.actions": "Actions",
 	"moderation.title": "Pending documents",
 	"moderation.approve": "Approve",
 	"moderation.reject": "Reject",
@@ -101,6 +102,7 @@
 	"admin.allowed_extensions": "Allowed extensions",
 	"admin.auto_approve": "Auto-approve",
 	"admin.save": "Save",
+	"admin.save_success": "Saved",
 	"admin.r2_shared_note": "File storage uses the credentials configured in the S3 Uploads plugin (Admin > Plugins > S3 Uploads). If no credentials are configured there, files are stored locally.",
 	"doc_category.reports": "Reports",
 	"doc_category.tools": "Tools",
@@ -119,6 +121,9 @@
 	"my.filter_approved": "Approved",
 	"my.filter_rejected": "Rejected",
 	"my.no_documents": "You have not submitted any documents.",
+
+	"lang.fr": "French",
+	"lang.en": "English",
 
 	"ai.summary_title": "AI Summary",
 	"ai.generate": "Generate AI summary",

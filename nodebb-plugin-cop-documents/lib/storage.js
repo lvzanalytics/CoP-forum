@@ -24,7 +24,11 @@ async function getS3Settings() {
 }
 
 function isS3Configured(s3) {
-	return !!(s3.accessKeyId && s3.secretAccessKey && s3.bucket && s3.endpoint);
+	return !!(s3.accessKeyId && s3.secretAccessKey && s3.bucket && s3.endpoint) &&
+		typeof s3.accessKeyId === 'string' && s3.accessKeyId.trim() !== '' &&
+		typeof s3.secretAccessKey === 'string' && s3.secretAccessKey.trim() !== '' &&
+		typeof s3.bucket === 'string' && s3.bucket.trim() !== '' &&
+		typeof s3.endpoint === 'string' && s3.endpoint.trim() !== '';
 }
 
 function getS3Client(s3) {

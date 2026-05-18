@@ -390,7 +390,7 @@ function initAdmin() {
 		})
 			.then(function (res) { return res.json(); })
 			.then(function () {
-				require(['alerts'], function (alerts) { alerts.success('Saved'); });
+				require(['alerts'], function (alerts) { alerts.success('[[cop-documents:admin.save_success]]'); });
 			});
 	});
 }
