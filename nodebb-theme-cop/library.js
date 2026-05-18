@@ -127,5 +127,6 @@ library.filterMiddlewareRenderHeader = async function (hookData) {
 	const allCategories = await categories.getAllCategories(hookData.req.uid || 0);
 	hookData.templateData.allCategories = allCategories.filter(c => c && !c.disabled && !c.parentCid);
 	hookData.templateData.bootswatchSkinOptions = await meta.css.getSkinSwitcherOptions(hookData.req.uid);
+
 	return hookData;
 };
