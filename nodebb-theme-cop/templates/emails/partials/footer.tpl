@@ -7,7 +7,7 @@
 						<br />[[email:notif.post.unsub.one-click]] <a href="{unsubUrl}" style="color: #2D6A4F;">[[email:unsubscribe]]</a>.
 						<br><br>
 						{{{ end }}}
-						<span style="color: #BBBBBB;">CoP &eacute;valuation &mdash; Minist&egrave;re du Plan et du D&eacute;veloppement</span>
+						<span style="color: #BBBBBB;">Communaut&eacute; de pratique en &eacute;valuation &mdash; Minist&egrave;re du Plan et du D&eacute;veloppement</span>
 					</td>
 				</tr>
 			</table>
