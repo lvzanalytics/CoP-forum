@@ -2,5 +2,6 @@
 	"notificationType-new-topic-in-category": "Quand un sujet est publié dans une catégorie surveillée",
 	"notificationType-new-reply": "Quand une réponse est publiée dans un sujet surveillé",
 	"notificationType-post-edit": "Quand un message est modifié dans un sujet surveillé",
-	"notificationType-group-request-membership": "Quand un utilisateur demande à rejoindre un groupe dont vous êtes propriétaire"
+	"notificationType-group-request-membership": "Quand un utilisateur demande à rejoindre un groupe dont vous êtes propriétaire",
+	"notificationType-mention": "Lorsque quelqu'un vous mentionne"
 }
