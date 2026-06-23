@@ -70,6 +70,63 @@
 		}
 	}
 
+	// --- Admin privileges table: system group names -----------------------
+	// global.tpl / category.tpl render the raw group identifier
+	// ({privileges.groups.name}) with no translation key. We relabel only the
+	// VISIBLE text; the real identifier stays in the row's data-group-name
+	// attribute (load-bearing for saving privileges). Re-applied on the
+	// in-page table refresh (scope change) via a MutationObserver.
+	var GROUP_NAME_LABELS = {
+		'registered-users': 'Utilisateurs enregistrés',
+		'verified-users': 'Utilisateurs vérifiés',
+		'unverified-users': 'Utilisateurs non vérifiés',
+		'Global Moderators': 'Modérateurs globaux',
+		'banned-users': 'Utilisateurs bannis',
+		guests: 'Invités',
+		spiders: "Robots d'indexation",
+		fediverse: 'Fédiverse',
+	};
+
+	function relabelGroupRows(root) {
+		var rows = (root || document).querySelectorAll('tr[data-group-name]');
+		for (var i = 0; i < rows.length; i += 1) {
+			var name = rows[i].getAttribute('data-group-name');
+			if (!Object.prototype.hasOwnProperty.call(GROUP_NAME_LABELS, name)) {
+				continue;
+			}
+			var french = GROUP_NAME_LABELS[name];
+			var td = rows[i].getElementsByTagName('td')[0];
+			if (!td) {
+				continue;
+			}
+			// The group name is the first non-empty text node in the cell
+			// (after the lock/warning <i> icon).
+			for (var n = 0; n < td.childNodes.length; n += 1) {
+				var node = td.childNodes[n];
+				if (node.nodeType === 3 && node.nodeValue.trim().length) {
+					if (node.nodeValue.trim() !== french) {
+						node.nodeValue = ' ' + french;
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	function watchPrivilegeTables() {
+		var containers = document.getElementsByClassName('privilege-table-container');
+		for (var i = 0; i < containers.length; i += 1) {
+			if (containers[i].__copObserved) {
+				continue;
+			}
+			containers[i].__copObserved = true;
+			var obs = new MutationObserver(function () {
+				relabelGroupRows(document);
+			});
+			obs.observe(containers[i], { childList: true, subtree: true });
+		}
+	}
+
 	function relabelOption(option, map) {
 		var value = option.getAttribute('value');
 		if (value === null) {
@@ -113,6 +170,10 @@
 
 		// Admin sidebar: third-party plugin names in the Plugins section.
 		relabelByText(document.getElementById('collapsePlugins'), PLUGIN_NAV_LABELS);
+
+		// Admin privileges: system group name rows (re-applied on table refresh).
+		relabelGroupRows(document);
+		watchPrivilegeTables();
 
 		// Admin email settings: email template editor + test-email dropdowns.
 		relabelSelect(document.getElementById('email-editor-selector'), EMAIL_PATH_LABELS);
