@@ -1,5 +1,7 @@
 {
 	"homepage.landing": "Page d'accueil",
+	"admin.nav-title": "Thème CoP",
+	"admin.settings-title": "Paramètres du thème CoP",
 	"nav.home": "Accueil",
 	"nav.espaces": "Espaces",
 	"nav.recent": "Récents",

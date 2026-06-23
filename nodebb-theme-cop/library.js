@@ -23,7 +23,7 @@ library.init = async function (params) {
 	const routeHelpers = require.main.require('./src/routes/helpers');
 
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/cop-theme', [], async (req, res) => {
-		res.render('admin/plugins/cop-theme', { title: 'CoP Theme Settings' });
+		res.render('admin/plugins/cop-theme', { title: '[[themes/cop:admin.settings-title]]' });
 	});
 
 	if (nconf.get('isPrimary') && process.env.NODE_ENV === 'production') {
@@ -60,7 +60,7 @@ library.addAdminNavigation = async function (header) {
 	header.plugins.push({
 		route: '/plugins/cop-theme',
 		icon: 'fa-paint-brush',
-		name: 'CoP Theme',
+		name: '[[themes/cop:admin.nav-title]]',
 	});
 	return header;
 };

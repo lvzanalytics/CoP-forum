@@ -1,5 +1,7 @@
 {
 	"homepage.landing": "Landing Page",
+	"admin.nav-title": "CoP Theme",
+	"admin.settings-title": "CoP Theme Settings",
 	"nav.home": "Home",
 	"nav.espaces": "Spaces",
 	"nav.recent": "Recent",

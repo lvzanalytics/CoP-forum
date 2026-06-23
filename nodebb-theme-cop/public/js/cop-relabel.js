@@ -44,6 +44,32 @@
 		welcome: 'Bienvenue',
 	};
 
+	// --- Admin sidebar plugin names (left nav, Plugins section) -------------
+	// Third-party plugins push hardcoded English literal names into the ACP
+	// nav (rendered at src/views/admin/partials/navigation.tpl) with no
+	// translation key. Matched by visible text inside #collapsePlugins.
+	// Names that are identical in French (Markdown, Mentions, Emoji) are left
+	// untouched on purpose.
+	var PLUGIN_NAV_LABELS = {
+		'Composer (Default)': 'Éditeur (par défaut)',
+		'DB Search': 'Recherche en base de données',
+		'Push Notifications (via Push API)': 'Notifications push (via Push API)',
+		'S3 Uploads': 'Téléversements S3',
+	};
+
+	function relabelByText(container, map) {
+		if (!container) {
+			return;
+		}
+		var links = container.getElementsByTagName('a');
+		for (var i = 0; i < links.length; i += 1) {
+			var text = links[i].textContent.trim();
+			if (Object.prototype.hasOwnProperty.call(map, text)) {
+				links[i].textContent = map[text];
+			}
+		}
+	}
+
 	function relabelOption(option, map) {
 		var value = option.getAttribute('value');
 		if (value === null) {
@@ -84,6 +110,9 @@
 	function applyRelabels() {
 		// Account settings: homepage route <select>.
 		relabelSelect(document.getElementById('homePageRoute'), HOMEPAGE_ROUTE_LABELS);
+
+		// Admin sidebar: third-party plugin names in the Plugins section.
+		relabelByText(document.getElementById('collapsePlugins'), PLUGIN_NAV_LABELS);
 
 		// Admin email settings: email template editor + test-email dropdowns.
 		relabelSelect(document.getElementById('email-editor-selector'), EMAIL_PATH_LABELS);
