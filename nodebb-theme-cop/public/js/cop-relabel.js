@@ -127,6 +127,36 @@
 		}
 	}
 
+	// --- Admin privileges scope selector: hide the ActivityPub "World" -----
+	// The scope dropdown (category-selector) lists the federated "World"
+	// category (cid -1). The client asked to exclude it from the options on
+	// the privileges page only (other category selectors are untouched).
+	// The selector renders client-side, so we observe it and re-hide.
+	function hideWorldScope(root) {
+		var items = (root || document).querySelectorAll('li.category[data-cid="-1"]');
+		for (var i = 0; i < items.length; i += 1) {
+			items[i].style.display = 'none';
+		}
+	}
+
+	function watchScopeSelector() {
+		if (window.location.pathname.indexOf('/admin/manage/privileges') === -1) {
+			return;
+		}
+		hideWorldScope(document);
+		var selectors = document.querySelectorAll('[component="category-selector"]');
+		for (var i = 0; i < selectors.length; i += 1) {
+			if (selectors[i].__copWorldObserved) {
+				continue;
+			}
+			selectors[i].__copWorldObserved = true;
+			var obs = new MutationObserver(function () {
+				hideWorldScope(document);
+			});
+			obs.observe(selectors[i], { childList: true, subtree: true });
+		}
+	}
+
 	function relabelOption(option, map) {
 		var value = option.getAttribute('value');
 		if (value === null) {
@@ -174,6 +204,9 @@
 		// Admin privileges: system group name rows (re-applied on table refresh).
 		relabelGroupRows(document);
 		watchPrivilegeTables();
+
+		// Admin privileges: hide the federated "World" scope from the selector.
+		watchScopeSelector();
 
 		// Admin email settings: email template editor + test-email dropdowns.
 		relabelSelect(document.getElementById('email-editor-selector'), EMAIL_PATH_LABELS);
