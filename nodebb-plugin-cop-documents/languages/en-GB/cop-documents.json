@@ -38,6 +38,7 @@
 	"upload.submit": "Submit",
 	"upload.success": "Document submitted successfully",
 	"upload.error_required": "Please fill in all required fields",
+	"upload.validation_required": "Please fill out this field.",
 	"upload.error_file": "Please select a file",
 	"upload.error_description": "Description must be at least 50 characters",
 	"upload.error_extension": "File type not allowed",

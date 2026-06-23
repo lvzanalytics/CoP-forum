@@ -1,0 +1,8 @@
+{
+	"disable-incoming-chats": "Désactiver les messages de discussion entrants <a class=\"text-reset\" data-bs-toggle=\"tooltip\" href=\"#\" title=\"Les administrateurs et les modérateurs peuvent toujours vous envoyer des messages\"><i class=\"fa-solid fa-circle-info\"></i></a>",
+	"topics-per-page": "Sujets par page",
+	"posts-per-page": "Messages par page",
+	"upvote-notif-freq.all": "Tous les votes positifs",
+	"unread.cutoff": "Seuil de non-lecture (Maximum %1 jours)",
+	"unread.cutoff-help": "Les sujets seront marqués comme lus s'ils n'ont pas été mis à jour depuis ce nombre de jours."
+}

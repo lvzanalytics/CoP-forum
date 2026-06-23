@@ -11,7 +11,11 @@
   ],
   "scripts": [
     "public/cop.js",
-    "public/landing.js"
+    "public/landing.js",
+    "public/js/cop-relabel.js"
+  ],
+  "acpScripts": [
+    "public/js/cop-relabel.js"
   ],
   "staticDirs": {
     "inter": "node_modules/@fontsource/inter/files",

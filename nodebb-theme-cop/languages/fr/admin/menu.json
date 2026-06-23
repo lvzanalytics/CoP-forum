@@ -1,0 +1,9 @@
+{
+	"section-federation": "Fédération",
+	"federation/general": "Général",
+	"federation/content": "Contenu",
+	"federation/rules": "Catégorisation",
+	"federation/relays": "Relais",
+	"federation/pruning": "Stockage",
+	"federation/safety": "Confiance et sécurité"
+}

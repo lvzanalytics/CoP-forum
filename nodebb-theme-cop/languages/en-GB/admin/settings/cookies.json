@@ -1,0 +1,4 @@
+{
+	"revoke-all-sessions": "Revoke All Sessions",
+	"revoke-all-sessions-help": "This will delete all sessions, you will be logged out and will have to login again!"
+}

@@ -1,0 +1,4 @@
+{
+	"smtp-transport.allow-self-signed": "Autoriser les certificats auto-signés",
+	"smtp-transport.allow-self-signed-help": "Activer ce paramètre vous permettra d'utiliser des certificats TLS auto-signés ou invalides."
+}

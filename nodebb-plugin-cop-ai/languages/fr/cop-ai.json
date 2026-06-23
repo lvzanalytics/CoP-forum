@@ -32,7 +32,7 @@
 	"admin.enable_catchup_digest": "Activer le résumé de rattrapage",
 	"admin.catchup_digest_access": "Accès au résumé de rattrapage",
 	"admin.absence_days": "Jours d'absence avant proposition",
-	"admin.digest_cache_hours": "Durée du cache du digest (heures)",
+	"admin.digest_cache_hours": "Durée du cache de rattrapage (heures)",
 	"admin.daily_limit": "Limite quotidienne de résumés par utilisateur",
 	"admin.daily_limit_help": "Nombre maximum de résumés IA qu'un utilisateur peut générer par jour",
 	"admin.usage_loading": "Chargement des statistiques...",
@@ -73,6 +73,6 @@
 	"admin.usage_error": "Erreur de chargement",
 	"admin.no_usage_data": "Aucune donnée disponible",
 	"admin.date": "Date",
-	"admin.tokens": "Tokens",
+	"admin.tokens": "Jetons",
 	"doc_summary.metadata_only": "Résumé basé sur les métadonnées uniquement"
 }

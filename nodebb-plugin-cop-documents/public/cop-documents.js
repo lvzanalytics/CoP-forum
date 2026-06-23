@@ -28,8 +28,33 @@ $(document).on('click', '.doc-reject-btn', handleReject);
 $(document).on('click', '.doc-delete-btn', handleDelete);
 $(document).on('click', '.doc-generate-summary-btn, .doc-regenerate-summary-btn', handleAiSummary);
 
+// Localise the browser-native HTML5 validation bubble ("Please fill out this field"),
+// whose default text follows the *browser* UI locale, not the site language.
+// We override it via setCustomValidity so French users always see French.
+function localiseRequiredValidation(form) {
+	require(['translator'], function (translator) {
+		translator.translate('[[cop-documents:upload.validation_required]]', function (msg) {
+			$(form).find('[required]').each(function () {
+				var field = this;
+				field.addEventListener('invalid', function () {
+					if (field.validity.valueMissing) {
+						field.setCustomValidity(msg);
+					}
+				});
+				// Clear the custom message as soon as the user edits the field,
+				// otherwise it would stick and block submission.
+				var clear = function () { field.setCustomValidity(''); };
+				field.addEventListener('input', clear);
+				field.addEventListener('change', clear);
+			});
+		});
+	});
+}
+
 function initUpload() {
 	var relativePath = config.relative_path;
+
+	localiseRequiredValidation(document.getElementById('doc-upload-form'));
 
 	$('#doc-upload-form').off('submit').on('submit', function (e) {
 		e.preventDefault();

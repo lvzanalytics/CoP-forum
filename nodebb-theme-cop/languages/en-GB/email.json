@@ -1,3 +1,5 @@
 {
+	"greeting-no-name": "Hello,",
+	"greeting-with-name": "Hello %1,",
 	"test.text1": "This is a test email to verify that the emailer is set up correctly for your community."
 }

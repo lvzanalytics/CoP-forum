@@ -38,7 +38,7 @@ library.onHomepageGet = function (hookData) {
 library.addHomepageRoute = async function (data) {
 	data.routes.push({
 		route: 'landing',
-		name: 'Landing Page',
+		name: '[[themes/cop:homepage.landing]]',
 	});
 	return data;
 };

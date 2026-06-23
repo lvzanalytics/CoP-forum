@@ -38,6 +38,7 @@
 	"upload.submit": "Soumettre",
 	"upload.success": "Document soumis avec succ\u00e8s",
 	"upload.error_required": "Veuillez remplir tous les champs obligatoires",
+	"upload.validation_required": "Veuillez renseigner ce champ.",
 	"upload.error_file": "Veuillez s\u00e9lectionner un fichier",
 	"upload.error_description": "La description doit contenir au moins 50 caract\u00e8res",
 	"upload.error_extension": "Type de fichier non autoris\u00e9",
