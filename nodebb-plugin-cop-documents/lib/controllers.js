@@ -36,6 +36,35 @@ const DEFAULT_SETTINGS = {
 
 const DOC_CATEGORIES = ['reports', 'tools', 'policy', 'cases', 'training'];
 
+// The 14 districts of Côte d'Ivoire. Value is the human-readable French label
+// (stored as-is on the document and used for filtering), consistent with how the
+// directory and events store region; the label uses the shared cop region.*
+// translation keys (theme cop.json -> namespace "cop").
+const REGION_DISTRICTS = [
+	{ value: 'District Autonome d\'Abidjan', label: '[[cop:region.abidjan]]' },
+	{ value: 'District Autonome de Yamoussoukro', label: '[[cop:region.yamoussoukro]]' },
+	{ value: 'Bas-Sassandra', label: '[[cop:region.bas_sassandra]]' },
+	{ value: 'Comoé', label: '[[cop:region.comoe]]' },
+	{ value: 'Denguélé', label: '[[cop:region.denguele]]' },
+	{ value: 'Gôh-Djiboua', label: '[[cop:region.goh_djiboua]]' },
+	{ value: 'Lacs', label: '[[cop:region.lacs]]' },
+	{ value: 'Lagunes', label: '[[cop:region.lagunes]]' },
+	{ value: 'Montagnes', label: '[[cop:region.montagnes]]' },
+	{ value: 'Sassandra-Marahoué', label: '[[cop:region.sassandra_marahoue]]' },
+	{ value: 'Savanes', label: '[[cop:region.savanes]]' },
+	{ value: 'Vallée du Bandama', label: '[[cop:region.vallee_bandama]]' },
+	{ value: 'Woroba', label: '[[cop:region.woroba]]' },
+	{ value: 'Zanzan', label: '[[cop:region.zanzan]]' },
+];
+
+function buildRegionOptions(selected) {
+	return REGION_DISTRICTS.map(district => ({
+		value: district.value,
+		label: district.label,
+		selected: district.value === selected,
+	}));
+}
+
 async function getSettings() {
 	const settings = await meta.settings.get('cop-documents');
 	return { ...DEFAULT_SETTINGS, ...settings };
@@ -108,6 +137,7 @@ controllers.list = async function (req, res) {
 		documents: docs,
 		filters: filters,
 		categoryOptions: categoryOptions,
+		regionOptions: buildRegionOptions(filters.region),
 		sortOptions: sortOptions,
 		pagination: pagination.create(page, pageCount, queryObj),
 		loggedIn: req.loggedIn,
@@ -124,6 +154,7 @@ controllers.upload = async function (req, res) {
 	res.render('documents/upload', {
 		title: '[[cop-documents:upload.title]]',
 		categoryOptions: categoryOptions,
+		regionOptions: buildRegionOptions(''),
 		accessOptions: buildAccessOptions(''),
 	});
 };
@@ -198,6 +229,7 @@ controllers.view = async function (req, res) {
 		canEdit: canEdit,
 		previewType: previewType,
 		categoryOptions: categoryOptions,
+		regionOptions: buildRegionOptions(doc.region),
 		accessOptions: buildAccessOptions(doc.access),
 		loggedIn: req.loggedIn,
 		aiSummary: aiSummary,

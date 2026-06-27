@@ -92,6 +92,7 @@
 	"moderation.approve": "Approve",
 	"moderation.reject": "Reject",
 	"moderation.reject_reason": "Rejection reason",
+	"moderation.reject_reason_label": "Rejection reason:",
 	"moderation.delete": "Delete",
 	"moderation.no_pending": "No pending documents",
 	"moderation.approve_success": "Document approved successfully",

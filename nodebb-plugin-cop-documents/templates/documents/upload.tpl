@@ -59,7 +59,12 @@
 					<!-- Region -->
 					<div class="mb-3">
 						<label class="form-label" for="doc-region">[[cop-documents:upload.region]]</label>
-						<input type="text" class="form-control" id="doc-region" name="region">
+						<select class="form-select" id="doc-region" name="region">
+							<option value="">--</option>
+							{{{each regionOptions}}}
+							<option value="{./value}">{./label}</option>
+							{{{end}}}
+						</select>
 					</div>
 
 					<!-- Sector -->

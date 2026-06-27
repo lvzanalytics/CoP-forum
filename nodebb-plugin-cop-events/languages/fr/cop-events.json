@@ -32,6 +32,7 @@
 	"events.timezone": "Fuseau horaire",
 	"events.no_events": "Aucune rencontre trouvée.",
 	"events.filter_region": "Région",
+	"events.region_select": "Sélectionnez une région",
 	"events.filter_sector": "Secteur",
 	"events.search_placeholder": "Rechercher une rencontre...",
 	"events.details": "Voir les détails",

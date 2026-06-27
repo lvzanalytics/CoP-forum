@@ -25,7 +25,12 @@
 					</div>
 					<div class="col-md-2">
 						<label class="form-label" for="filter-region">[[cop-documents:library.filter_region]]</label>
-						<input type="text" class="form-control" id="filter-region" name="region" value="{filters.region}">
+						<select class="form-select" id="filter-region" name="region">
+							<option value="">--</option>
+							{{{each regionOptions}}}
+							<option value="{./value}" {{{ if ./selected }}}selected{{{ end }}}>{./label}</option>
+							{{{end}}}
+						</select>
 					</div>
 					<div class="col-md-2">
 						<label class="form-label" for="filter-sector">[[cop-documents:library.filter_sector]]</label>

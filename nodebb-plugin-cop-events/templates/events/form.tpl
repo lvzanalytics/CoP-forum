@@ -33,7 +33,12 @@
 
 							<div class="col-md-4">
 								<label class="form-label fw-semibold" for="event-region">[[cop-events:events.filter_region]]</label>
-								<input type="text" id="event-region" name="region" class="form-control rounded-3" value="{event.region}" placeholder="Ex: Abidjan, Yamoussoukro..." />
+								<select id="event-region" name="region" class="form-select rounded-3">
+									<option value="">[[cop-events:events.region_select]]</option>
+									{{{ each regionOptions }}}
+									<option value="{./value}" {{{ if ./selected }}}selected{{{ end }}}>{./label}</option>
+									{{{ end }}}
+								</select>
 							</div>
 
 							<div class="col-md-4">

@@ -32,6 +32,7 @@
 	"events.timezone": "Timezone",
 	"events.no_events": "No meetings found.",
 	"events.filter_region": "Region",
+	"events.region_select": "Select a region",
 	"events.filter_sector": "Sector",
 	"events.search_placeholder": "Search for a meeting...",
 	"events.details": "View details",

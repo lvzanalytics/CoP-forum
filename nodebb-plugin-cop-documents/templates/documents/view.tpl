@@ -325,6 +325,15 @@
 								<span class="badge bg-danger">[[cop-documents:view.status_rejected]]</span>
 								{{{ end }}}
 							</dd>
+							{{{ if (document.status == "rejected") }}}
+							{{{ if document.rejectReason }}}
+							<dd>
+								<div class="alert alert-danger py-2 px-3 mb-0 mt-1" role="alert">
+									<strong>[[cop-documents:moderation.reject_reason_label]]</strong> {document.rejectReason}
+								</div>
+							</dd>
+							{{{ end }}}
+							{{{ end }}}
 						</dl>
 						<div class="mt-3">
 							<a href="{document.fileUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm w-100 doc-download-btn" data-doc-id="{document.docId}">
@@ -382,7 +391,12 @@
 						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label class="form-label" for="edit-region">[[cop-documents:upload.region]]</label>
-								<input type="text" class="form-control" id="edit-region" name="region" value="{document.region}">
+								<select class="form-select" id="edit-region" name="region">
+									<option value="">--</option>
+									{{{each regionOptions}}}
+									<option value="{./value}" {{{ if ./selected }}}selected{{{ end }}}>{./label}</option>
+									{{{end}}}
+								</select>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label class="form-label" for="edit-sector">[[cop-documents:upload.sector]]</label>

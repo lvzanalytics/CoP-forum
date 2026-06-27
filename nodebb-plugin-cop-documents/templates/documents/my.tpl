@@ -76,6 +76,13 @@
 							<span><i class="fa fa-calendar-o"></i> {./date}</span>
 						</div>
 						<p class="doc-card-desc">{./description}</p>
+						{{{ if (./status == "rejected") }}}
+						{{{ if ./rejectReason }}}
+						<div class="alert alert-danger py-2 px-3 mb-2" role="alert">
+							<strong>[[cop-documents:moderation.reject_reason_label]]</strong> {./rejectReason}
+						</div>
+						{{{ end }}}
+						{{{ end }}}
 						{{{ if ./aiSummary }}}
 						<div class="doc-card-ai-snippet">
 							<span class="doc-card-ai-badge"><i class="fa fa-robot"></i> IA</span>

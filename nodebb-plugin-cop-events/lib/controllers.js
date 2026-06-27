@@ -18,6 +18,35 @@ const EVENTS_PER_PAGE = 12;
 const MONTHS_FR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 const DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
+// The 14 districts of Côte d'Ivoire. The value is the human-readable French
+// label (stored as-is on the event and used to build the events:region:* keys),
+// consistent with how the directory stores region; the label uses the shared
+// cop region.* translation keys (theme cop.json -> namespace "cop").
+const REGION_DISTRICTS = [
+	{ value: 'District Autonome d\'Abidjan', label: '[[cop:region.abidjan]]' },
+	{ value: 'District Autonome de Yamoussoukro', label: '[[cop:region.yamoussoukro]]' },
+	{ value: 'Bas-Sassandra', label: '[[cop:region.bas_sassandra]]' },
+	{ value: 'Comoé', label: '[[cop:region.comoe]]' },
+	{ value: 'Denguélé', label: '[[cop:region.denguele]]' },
+	{ value: 'Gôh-Djiboua', label: '[[cop:region.goh_djiboua]]' },
+	{ value: 'Lacs', label: '[[cop:region.lacs]]' },
+	{ value: 'Lagunes', label: '[[cop:region.lagunes]]' },
+	{ value: 'Montagnes', label: '[[cop:region.montagnes]]' },
+	{ value: 'Sassandra-Marahoué', label: '[[cop:region.sassandra_marahoue]]' },
+	{ value: 'Savanes', label: '[[cop:region.savanes]]' },
+	{ value: 'Vallée du Bandama', label: '[[cop:region.vallee_bandama]]' },
+	{ value: 'Woroba', label: '[[cop:region.woroba]]' },
+	{ value: 'Zanzan', label: '[[cop:region.zanzan]]' },
+];
+
+function buildRegionOptions(selected) {
+	return REGION_DISTRICTS.map(district => ({
+		value: district.value,
+		label: district.label,
+		selected: district.value === selected,
+	}));
+}
+
 const DEFAULT_SETTINGS = {
 	defaultCategory: '12',
 	requireApproval: '0',
@@ -142,6 +171,7 @@ controllers.create = async function (req, res) {
 		title: '[[cop-events:events.create]]',
 		event: {},
 		isNew: true,
+		regionOptions: buildRegionOptions(''),
 	});
 };
 
@@ -160,6 +190,7 @@ controllers.edit = async function (req, res) {
 		title: '[[cop-events:events.edit]]',
 		event: event,
 		isNew: false,
+		regionOptions: buildRegionOptions(event.region),
 	});
 };
 
