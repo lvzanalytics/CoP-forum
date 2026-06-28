@@ -158,10 +158,39 @@ function initView() {
 }
 
 function initCalendar() {
-	// Init tooltips
-	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-	tooltipTriggerList.forEach(function (el) {
-		new bootstrap.Tooltip(el);
+	if (typeof bootstrap === 'undefined' || !bootstrap.Popover) return;
+
+	// "+N more" opens a popover listing that day's full agenda (each event clickable)
+	var triggers = [].slice.call(document.querySelectorAll('.calendar-cell [data-bs-toggle="popover"]'));
+	var popovers = triggers.map(function (el) {
+		var contentEl = el.parentNode.querySelector('.day-popover-content');
+		return new bootstrap.Popover(el, {
+			html: true,
+			sanitize: false,
+			trigger: 'click',
+			placement: 'auto',
+			container: 'body',
+			customClass: 'calendar-day-popover',
+			content: contentEl ? contentEl.innerHTML : '',
+		});
+	});
+	if (!popovers.length) return;
+
+	// Close any open day popover when clicking outside it
+	function onDocClick(e) {
+		triggers.forEach(function (el, i) {
+			var pop = popovers[i];
+			if (!pop || el.contains(e.target)) return;
+			if (pop.tip && pop.tip.contains(e.target)) return;
+			pop.hide();
+		});
+	}
+	document.addEventListener('click', onDocClick);
+
+	// Tidy up popovers + listener on navigation
+	$(window).one('action:ajaxify.start', function () {
+		document.removeEventListener('click', onDocClick);
+		popovers.forEach(function (p) { try { p.dispose(); } catch (err) { /* noop */ } });
 	});
 }
 

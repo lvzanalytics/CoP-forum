@@ -48,11 +48,30 @@
 				{{{ each weeks }}}
 				<div class="row g-0 border-bottom calendar-row">
 					{{{ each ../days }}}
-					<div class="col calendar-cell {{{ if !../isCurrentMonth }}}muted-day{{{ end }}} {{{ if ../hasEvent }}}has-event{{{ end }}}">
-						<span class="day-number">{../dayNum}</span>
-						{{{ each ../events }}}
-						<a href="{config.relative_path}/events/{../slug}" class="event-indicator bg-primary d-block" data-bs-toggle="tooltip" title="{../title}"></a>
-						{{{ end }}}
+					<div class="col calendar-cell {{{ if !../isCurrentMonth }}}muted-day{{{ end }}} {{{ if ../hasEvent }}}has-event{{{ end }}} {{{ if ../isToday }}}is-today{{{ end }}}">
+						<div class="cell-head">
+							<span class="day-number">{../dayNum}</span>
+						</div>
+						<div class="day-events">
+							{{{ each ../events }}}
+							<a href="{config.relative_path}/events/{../slug}" class="event-chip {../sectorClass}" title="{../title}">
+								{{{ if ../time }}}<span class="chip-time">{../time}</span>{{{ end }}}
+								<span class="chip-title">{../title}</span>
+							</a>
+							{{{ end }}}
+							{{{ if ../moreCount }}}
+							<button type="button" class="event-more" data-bs-toggle="popover">+{../moreCount} [[cop-events:events.more_suffix]]</button>
+							<div class="day-popover-content d-none">
+								<div class="popover-day-title">{../dayNum} {monthName} {year}</div>
+								{{{ each ../allEvents }}}
+								<a href="{config.relative_path}/events/{../slug}" class="popover-event {../sectorClass}">
+									{{{ if ../time }}}<span class="chip-time">{../time}</span>{{{ end }}}
+									<span class="chip-title">{../title}</span>
+								</a>
+								{{{ end }}}
+							</div>
+							{{{ end }}}
+						</div>
 					</div>
 					{{{ end }}}
 				</div>

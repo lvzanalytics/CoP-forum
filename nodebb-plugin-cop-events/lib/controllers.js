@@ -18,6 +18,20 @@ const EVENTS_PER_PAGE = 12;
 const MONTHS_FR = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 const DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
+// Map each event sector to a colour class used by the calendar chips/legend.
+const SECTOR_CLASSES = {
+	'Méthodologie': 'sector-methodo',
+	'Formation': 'sector-formation',
+	'Politique': 'sector-politique',
+	'Étude de cas': 'sector-etude',
+};
+function sectorClass(sector) {
+	return SECTOR_CLASSES[sector] || 'sector-default';
+}
+
+// How many event chips to show in a day cell before collapsing into "+N more".
+const MAX_CALENDAR_CHIPS = 3;
+
 // The 14 districts of Côte d'Ivoire. The value is the human-readable French
 // label (stored as-is on the event and used to build the events:region:* keys),
 // consistent with how the directory stores region; the label uses the shared
@@ -443,6 +457,11 @@ function buildCalendarGrid(year, month, monthEvents) {
 	let startDow = firstDay.getUTCDay() - 1;
 	if (startDow < 0) startDow = 6;
 
+	// Today (for highlighting the current day in the grid)
+	const now = new Date();
+	const isThisMonth = now.getUTCFullYear() === year && now.getUTCMonth() === month;
+	const todayNum = now.getUTCDate();
+
 	// Build event lookup by day number
 	const eventsByDay = {};
 	monthEvents.forEach((ev) => {
@@ -453,6 +472,8 @@ function buildCalendarGrid(year, month, monthEvents) {
 			title: ev.title,
 			slug: ev.slug,
 			sector: ev.sector,
+			time: ev.startTime || '',
+			sectorClass: sectorClass(ev.sector),
 		});
 	});
 
@@ -477,11 +498,15 @@ function buildCalendarGrid(year, month, monthEvents) {
 					events: [],
 				});
 			} else if (currentDay <= daysInMonth) {
+				const dayEvents = eventsByDay[currentDay] || [];
 				days.push({
 					dayNum: currentDay,
 					isCurrentMonth: true,
-					events: eventsByDay[currentDay] || [],
-					hasEvent: !!(eventsByDay[currentDay] && eventsByDay[currentDay].length),
+					events: dayEvents.slice(0, MAX_CALENDAR_CHIPS),
+					allEvents: dayEvents,
+					moreCount: dayEvents.length > MAX_CALENDAR_CHIPS ? dayEvents.length - MAX_CALENDAR_CHIPS : 0,
+					hasEvent: dayEvents.length > 0,
+					isToday: isThisMonth && currentDay === todayNum,
 				});
 				currentDay++;
 			} else {
