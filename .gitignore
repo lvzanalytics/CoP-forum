@@ -80,3 +80,6 @@ AFD_logo.png
 CMJN_CLEAR-FA_Horizontal_Couleur*.png
 Nouveau Logo GEI.jpeg
 logo_CESAG_remis*.png
+# Local docs and secrets
+/docs/
+.env
